@@ -80,7 +80,7 @@ jobs:
           script: |
             pwd
             ls -al
-            cd actions-runner
+            cd DaeBoo/spring/actions-runner
             pwd
             if [[ "$(docker ps -q --filter ancestor=mysql:8.1)" ]]; then
               docker rm -f $(docker ps -qa --filter ancestor=mysql:8.1)
