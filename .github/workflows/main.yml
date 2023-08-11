@@ -33,6 +33,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+            
+      ## create application.properties      
       - name: Create application.yml for CD Deploy
         run: |
           mkdir -p src/main/resources
