@@ -21,17 +21,16 @@ jobs:
       - name: create application for CI Test
         run: |
           cd src/main/resources
-          echo "${{ secrets.DEVELOPMENT_CI_CONFIG }}" >> application.properties
+          echo "${{ secrets.CI_TEST_CONFIG }}" >> application.properties
           
       # CI Test에서 사용할 MySQL 설정
       - name: Setup MySQL
         uses: samin/mysql-action@v1
         with:
           character set server: 'utf8'
-          mysql database: 'jpa_test'
+          mysql database: 'project_moca'
           mysql user: ${{ secrets.DB_USER }}
           mysql password: ${{ secrets.DB_PASSWORD }}
-
       # gradlew 실행 권한 부여
       - name: Grant Permission to gradlew
         run: chmod +x gradlew
