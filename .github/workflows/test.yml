@@ -21,12 +21,12 @@ jobs:
         java-version: '17'
         distribution: 'corretto'
     
-    - name: Create application.yaml for CI Test
+    - name: Create application.yml for CI Test
       run: |
         mkdir -p src/main/resources
         cd src/main/resources
         pwd
-        echo "${{ secrets.CI_TEST_CONFIG }}" > applicatiohn.properties
+        echo "${{ secrets.CI_TEST_CONFIG }}" > application.properties
         cat application.properties
     
     - name: Setup MySQL
