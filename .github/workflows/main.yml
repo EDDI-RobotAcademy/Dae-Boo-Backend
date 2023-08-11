@@ -1,9 +1,8 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  repository_dispatch:
+    types: [TEST_BACK_TRIGGER]
 
 env:
   DOCKER_IMAGE: ghcr.io/${{ secrets.Actor }}/${{ secrets.Docker_Image }}
