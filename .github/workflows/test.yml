@@ -45,7 +45,12 @@ jobs:
       # Mocking 테스트 구동
       - name: Mocking Test with gradlew
         run: |
-          ./gradlew --info test
+          pwd
+          ls
+          ./gradlew --stacktrace --info test
+          #./gradlew --stacktrace test
+          #./gradlew test
+          #./gradlew --info test
           
       # TEST 완료 트리거 신호 전송
       - name: send TEST_BACK_TRIGGER
