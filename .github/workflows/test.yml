@@ -20,8 +20,11 @@ jobs:
       # CI Test를 위한 application.properties 생성
       - name: create application for CI Test
         run: |
+          pwd
+          mkdir -p src/main/resources
           cd src/main/resources
           echo "${{ secrets.CD_DEPLOY_CONFIG }}" >> application.properties
+          ls
           
       # CI Test에서 사용할 MySQL 설정
       - name: Setup MySQL
@@ -31,6 +34,7 @@ jobs:
           mysql database: 'project_moca'
           mysql user: ${{ secrets.DB_USER }}
           mysql password: ${{ secrets.DB_PASSWORD }}
+          
       # gradlew 실행 권한 부여
       - name: Grant Permission to gradlew
         run: chmod +x gradlew
