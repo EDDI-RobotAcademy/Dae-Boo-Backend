@@ -30,7 +30,6 @@ jobs:
       - name: Setup MySQL
         uses: samin/mysql-action@v1
         with:
-          character set server: 'utf8'
           mysql database: 'project_moca'
           mysql user: ${{ secrets.DB_USER }}
           mysql password: ${{ secrets.DB_PASSWORD }}
@@ -59,3 +58,4 @@ jobs:
             -H 'Accept: application/vnd.github.v3+json' \
             -u ${{ secrets.GHCR_TOKEN }} \
             -d '{"event_type": "TEST_BACK_TRIGGER", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+
