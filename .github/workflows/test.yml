@@ -15,13 +15,16 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'zulu'
+          distribution: 'corretto'
 
       # CI Test를 위한 application.properties 생성
       - name: create application for CI Test
         run: |
+          pwd
+          mkdir -p src/main/resources
           cd src/main/resources
-          echo "${{ secrets.CD_DEPLOY_CONFIG }}" >> application.properties
+          echo "${{ secrets.CI_TEST_CONFIG }}" >> application.properties
+          ls
           
       # CI Test에서 사용할 MySQL 설정
       - name: Setup MySQL
@@ -42,7 +45,12 @@ jobs:
       # Mocking 테스트 구동
       - name: Mocking Test with gradlew
         run: |
-          ./gradlew --info test
+          pwd
+          ls
+          ./gradlew --stacktrace --info test
+          #./gradlew --stacktrace test
+          #./gradlew test
+          #./gradlew --info test
           
       # TEST 완료 트리거 신호 전송
       - name: send TEST_BACK_TRIGGER
