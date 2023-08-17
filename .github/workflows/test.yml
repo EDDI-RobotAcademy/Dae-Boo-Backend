@@ -59,3 +59,4 @@ jobs:
             -H 'Accept: application/vnd.github.v3+json' \
             -u ${{ secrets.GHCR_TOKEN }} \
             -d '{"event_type": "TEST_BACK_TRIGGER", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+
