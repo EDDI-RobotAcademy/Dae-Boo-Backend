@@ -15,16 +15,16 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'corretto'
+          distribution: 'zulu'
 
       # CI Test를 위한 application.properties 생성
-      - name: create application for CI Test
+      - name: Create application for CI Test
         run: |
-          pwd
           mkdir -p src/main/resources
           cd src/main/resources
-          echo "${{ secrets.CI_TEST_CONFIG }}" >> application.properties
-          ls
+          pwd
+          echo "${{ secrets.CI_TEST_CONFIG }}" > application.properties
+          cat application.properties
           
       # CI Test에서 사용할 MySQL 설정
       - name: Setup MySQL
