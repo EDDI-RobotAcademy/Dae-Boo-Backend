@@ -40,6 +40,14 @@ jobs:
           pwd
           echo "${{ secrets.CD_DEPLOY_CONFIG }}" > src/main/resources/application.properties
           cat src/main/resources/application.properties
+
+      ## naver oauth
+      - name: Create naver.properties for CD Deploy
+        run: |
+          mkdir -p src/main/resources
+          pwd
+          echo "${{ secrets.NAVER_PROPERTIES }}" > src/main/resources/naver.properties
+          cat src/main/resources/naver.properties
           
       ## chmod gradlew      
       - name: Grant execute permission for gradlew
