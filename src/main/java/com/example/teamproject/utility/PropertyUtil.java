@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 
 @Configuration
 @RequiredArgsConstructor
-@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = {"classpath:application.properties", "classpath:naver.properties"})
 public class PropertyUtil {
 
     final private Environment environment;
