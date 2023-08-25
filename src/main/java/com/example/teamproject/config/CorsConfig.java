@@ -22,7 +22,9 @@ public class CorsConfig implements WebMvcConfigurer {
         final String ALLOWED_ORIGINS = propertyUtil.getProperty("allowed_origins");
 
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000/","http://15.165.11.253:3001","http://15.165.11.253:80",ALLOWED_ORIGINS)
+                .allowedOrigins("http://localhost:3000/",
+                        "http://15.165.11.253:3000",
+                        "http://15.165.11.253:3001","http://15.165.11.253:80",ALLOWED_ORIGINS)
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .exposedHeaders(HttpHeaders.AUTHORIZATION)
