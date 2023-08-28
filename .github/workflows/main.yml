@@ -48,6 +48,14 @@ jobs:
           pwd
           echo "${{ secrets.NAVER_PROPERTIES }}" > src/main/resources/naver.properties
           cat src/main/resources/naver.properties
+
+      ## kakao oauth
+      - name: Create kakao.properties for CD Deploy
+        run: |
+          mkdir -p src/main/resources
+          pwd
+          echo "${{ secrets.KAKAO_PROPERTIES }}" > src/main/resources/kakao.properties
+          cat src/main/resources/kakao.properties
           
       ## chmod gradlew      
       - name: Grant execute permission for gradlew
