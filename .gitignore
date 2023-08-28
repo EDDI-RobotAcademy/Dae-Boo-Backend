@@ -40,5 +40,6 @@ src/main/resources/application.properties
 src/main/resources/application.yml
 
 naver.properties
-
+kakao.properties
+*.properties
 
