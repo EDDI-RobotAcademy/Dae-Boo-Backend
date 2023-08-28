@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getAuthorizeCode() {
-        final String CLIENT_ID = propertyUtil.getProperty("client_id");
-        final String REDIRECT_URI = propertyUtil.getProperty("redirect_uri");
+        final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
+        final String REDIRECT_URI = propertyUtil.getProperty("naver_redirect_uri");
 
         final String URL
                 = "https://nid.naver.com/oauth2.0/authorize?response_type=code" +
@@ -50,13 +50,14 @@ public class UserServiceImpl implements UserService {
                 "&redirect_uri=" +
                 REDIRECT_URI +
                 "&state=1234";
+        log.info(URL);
         return URL;
     }
 
     @Override
     public NaverOAuthToken generateAccessToken(String code){
-        final String CLIENT_ID = propertyUtil.getProperty("client_id");
-        final String CLIENT_SECRET = propertyUtil.getProperty("client_secret");
+        final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
+        final String CLIENT_SECRET = propertyUtil.getProperty("naver_client_secret");
 
         // HTTP Header 생성
         RestTemplate restTemplate = new RestTemplate();
@@ -137,4 +138,6 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+
 }
