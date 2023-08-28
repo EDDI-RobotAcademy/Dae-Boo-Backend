@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NaverOauthTokenRequest {
-    @JsonProperty("client_id")
+    @JsonProperty("naver_client_id")
     private String clientId;
 
-    @JsonProperty("client_secret")
+    @JsonProperty("naver_client_secret")
     private String clientSecret;
 
     private String code;
