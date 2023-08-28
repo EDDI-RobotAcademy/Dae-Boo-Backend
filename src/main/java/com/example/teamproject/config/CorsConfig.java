@@ -27,7 +27,7 @@ public class CorsConfig implements WebMvcConfigurer {
                         "http://15.165.11.253:3000",
                         "http://15.165.11.253:3001",
                         "http://15.165.11.253:80",
-                        "http://15.165.11.253"
+                        "http://15.165.11.253",
                         ALLOWED_ORIGINS)
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
