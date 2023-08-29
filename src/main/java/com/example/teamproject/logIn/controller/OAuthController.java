@@ -30,11 +30,6 @@ public class OAuthController {
         return userService.generateAccessToken(code);
     }
 
-    @GetMapping("/naver/clientId")
-    public String requestNaverClientId () {
-        log.info("requestNaverClientId()");
-        return userService.getNaverClientId();
-    }
 
     // KAKAO OAuth
     @GetMapping("/kakao/login")
