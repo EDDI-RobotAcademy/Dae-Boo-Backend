@@ -58,12 +58,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getNaverClientId() {
-        final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
-        return CLIENT_ID;
-    }
-
-    @Override
     public NaverOAuthToken generateAccessToken(String code){
         final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
         final String CLIENT_SECRET = propertyUtil.getProperty("naver_client_secret");
