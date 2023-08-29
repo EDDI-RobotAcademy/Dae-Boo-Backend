@@ -8,6 +8,8 @@ import org.springframework.http.HttpHeaders;
 public interface UserService {
     String getAuthorizeCode();
 
+    String getNaverClientId();
+
     NaverOAuthToken generateAccessToken(String code);
 
     User getNaverUserInfo(String accessToken, HttpHeaders headers);
