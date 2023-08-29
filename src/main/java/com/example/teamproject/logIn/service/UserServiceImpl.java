@@ -4,7 +4,6 @@ import com.example.teamproject.logIn.dto.KakaoOAuthToken;
 import com.example.teamproject.logIn.dto.NaverOAuthToken;
 import com.example.teamproject.logIn.entity.User;
 import com.example.teamproject.logIn.repository.UserRepository;
-import com.example.teamproject.logIn.service.UserService;
 import com.example.teamproject.utility.PropertyUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +55,12 @@ public class UserServiceImpl implements UserService {
                 "&state=1234";
         log.info(URL);
         return URL;
+    }
+
+    @Override
+    public String getNaverClientId() {
+        final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
+        return CLIENT_ID;
     }
 
     @Override

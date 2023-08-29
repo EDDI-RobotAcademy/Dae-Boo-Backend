@@ -20,7 +20,7 @@ public class OAuthController {
     // NAVER OAuth
     @GetMapping("/naver/login")
     public String requestNaverAuthorizeCode () {
-        log.info("requestGithubAuthorizeCode()");
+        log.info("requestNaverAuthorizeCode()");
         return userService.getAuthorizeCode();
     }
     @GetMapping("/naver/oauth-code")
@@ -28,6 +28,12 @@ public class OAuthController {
         log.info("naverCallback()");
         log.info(code);
         return userService.generateAccessToken(code);
+    }
+
+    @GetMapping("/naver/clientId")
+    public String requestNaverClientId () {
+        log.info("requestNaverClientId()");
+        return userService.getNaverClientId();
     }
 
     // KAKAO OAuth
