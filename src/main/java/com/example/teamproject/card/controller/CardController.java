@@ -17,10 +17,12 @@ import java.util.List;
 public class CardController {
 
     final private CardService cardService;
-
+    @CrossOrigin(origins = "http://ec2-15-165-11-253.ap-northeast-2.compute.amazonaws.com:3000")
     @PostMapping("/list")
-    public List<CardDetail> cardDetailList (){
-    return cardService.getcard();
+    public List<CardDetail> cardDetailList() {
+        // Your logic to retrieve and return the card details
+        List<CardDetail> cardDetails = cardService.getcard();
+        return cardDetails;
     }
 }
 
