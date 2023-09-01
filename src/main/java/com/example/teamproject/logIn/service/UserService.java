@@ -15,4 +15,6 @@ public interface UserService {
     String getKakaoAuthorizeCode();
 
     KakaoOAuthToken kakaoCallback(String code);
+
+    User findUserByUserId(Long userId);
 }
