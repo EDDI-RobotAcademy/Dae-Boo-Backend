@@ -17,4 +17,7 @@ public interface UserService {
     KakaoOAuthToken kakaoCallback(String code);
 
     User findUserByUserId(Long userId);
+
+    // 회원 정보 조회
+    User getUserInfo(Long userId);
 }
