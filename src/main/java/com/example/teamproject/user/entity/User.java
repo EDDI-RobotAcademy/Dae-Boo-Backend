@@ -1,4 +1,4 @@
-package com.example.teamproject.logIn.entity;
+package com.example.teamproject.user.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

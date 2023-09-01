@@ -1,8 +1,8 @@
-package com.example.teamproject.logIn.controller;
+package com.example.teamproject.user.controller;
 
-import com.example.teamproject.logIn.dto.KakaoOAuthToken;
-import com.example.teamproject.logIn.dto.NaverOAuthToken;
-import com.example.teamproject.logIn.service.UserService;
+import com.example.teamproject.user.dto.KakaoOAuthToken;
+import com.example.teamproject.user.dto.NaverOAuthToken;
+import com.example.teamproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,4 +43,6 @@ public class OAuthController {
         log.info("카카오 코드를 받았습니다. 토큰 요청을 하겠습니다 !");
         return userService.kakaoCallback(code);
     }
+
+
 }

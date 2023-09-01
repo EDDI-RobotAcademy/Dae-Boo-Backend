@@ -1,6 +1,6 @@
 package com.example.teamproject.board_management.entity;
 
-import com.example.teamproject.logIn.entity.User;
+import com.example.teamproject.user.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;

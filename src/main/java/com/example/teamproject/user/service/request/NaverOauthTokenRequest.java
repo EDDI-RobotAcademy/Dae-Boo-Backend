@@ -1,4 +1,4 @@
-package com.example.teamproject.logIn.service.request;
+package com.example.teamproject.user.service.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
