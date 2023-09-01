@@ -249,4 +249,22 @@ public class UserServiceImpl implements UserService {
         System.out.println(response.getBody().getAccess_token());
         return response.getBody();
     }
+
+    //-------------------------MY PAGE--------------------------
+
+    //useid로 User를 찾음
+    @Override
+    public User findUserByUserId(Long userId) {
+        User LoginUser = null;
+        Optional<User> maybeUser = userRepository.findByUserId(userId);
+
+        if (maybeUser.isPresent()) {
+            LoginUser = maybeUser.get();
+            System.out.println("LoginUser : " + LoginUser);
+        } else {
+            System.out.println("LoginUser를 찾지 못했습니다.");
+        }
+
+        return LoginUser;
+    }
 }
