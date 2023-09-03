@@ -1,6 +1,7 @@
 package com.example.teamproject.board_management.service;
 
 import com.example.teamproject.board_management.entity.Board;
+import com.example.teamproject.board_management.entity.BoardStatus;
 import com.example.teamproject.board_management.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<Board> list() {
-        return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "boardId"));
+        return boardRepository.findActiveBoards();
     }
 
     @Override
@@ -45,15 +46,17 @@ public class BoardServiceImpl implements BoardService{
         }
 
         Board board = maybeBoard.get();
+        BoardStatus boardStatus = board.getBoardStatus();
 
-        // 예외 처리
-        try {
-            boardRepository.delete(board);
+        if (boardStatus != null) {
+            boardStatus.setState(0); // 0은 비활성을 뜻함
+            boardRepository.save(board);
             return true;
-        } catch (Exception e) {
-            log.error("게시판 삭제 중 오류가 발생했습니다.", e);
+        } else {
+            log.error("게시판 삭제 중 오류가 발생했습니다.");
             return false;
         }
+
     }
 
 }
