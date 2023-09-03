@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface BoardService {
     List<Board> list();
+
+    boolean delete(List<Long> boardId);
 }

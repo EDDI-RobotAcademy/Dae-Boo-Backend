@@ -1,8 +1,8 @@
-package com.example.teamproject.logIn.controller;
+package com.example.teamproject.user.controller;
 
-import com.example.teamproject.logIn.dto.KakaoOAuthToken;
-import com.example.teamproject.logIn.dto.NaverOAuthToken;
-import com.example.teamproject.logIn.service.UserService;
+import com.example.teamproject.user.dto.KakaoOAuthToken;
+import com.example.teamproject.user.dto.NaverOAuthToken;
+import com.example.teamproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
