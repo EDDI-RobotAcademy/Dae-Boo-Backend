@@ -4,10 +4,7 @@ import com.example.teamproject.user.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -34,10 +31,9 @@ public class Board {
     @CreationTimestamp
     private LocalDateTime boardRegisterDate;
 
-    // boardStatus 와의 일대일 관계 설정
-    @JsonIgnore
-    @OneToOne(mappedBy = "board", cascade = CascadeType.ALL)
-    private BoardStatus boardStatus;
+    @Setter
+    @Column(name = "activate", columnDefinition = "boolean default true")
+    private Boolean activate = true;
 
     public Board(CardCategory category, String boardName, String content, User userId) {
         this.category = category;
