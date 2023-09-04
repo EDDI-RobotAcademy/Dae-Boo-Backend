@@ -1,4 +1,4 @@
-package com.example.teamproject.logIn.service.response;
+package com.example.teamproject.user.service.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

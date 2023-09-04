@@ -1,4 +1,4 @@
-package com.example.teamproject.logIn.entity;
+package com.example.teamproject.user.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,17 +24,6 @@ public class User {
     private String mobile;
     private String name;
     private String email;
-
-//    public User(String nickname, String profile_image, String age, String gender, String mobile, String name, String id, String email) {
-//        this.nickname = nickname;
-//        this.profile_image = profile_image;
-//        this.age = age;
-//        this.gender = gender;
-//        this.mobile = mobile;
-//        this.name = name;
-//        this.id = id;
-//        this.email = email;
-//    }
 
     public User(String nickname, String profile_image, String age, String gender, String mobile, String name, String id) {
         this.nickname = nickname;

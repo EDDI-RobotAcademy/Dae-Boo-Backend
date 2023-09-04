@@ -1,4 +1,4 @@
-package com.example.teamproject.logIn.dto;
+package com.example.teamproject.user.dto;
 
 import lombok.Data;
 

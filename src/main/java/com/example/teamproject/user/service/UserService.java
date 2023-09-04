@@ -1,8 +1,8 @@
-package com.example.teamproject.logIn.service;
+package com.example.teamproject.user.service;
 
-import com.example.teamproject.logIn.dto.KakaoOAuthToken;
-import com.example.teamproject.logIn.dto.NaverOAuthToken;
-import com.example.teamproject.logIn.entity.User;
+import com.example.teamproject.user.dto.KakaoOAuthToken;
+import com.example.teamproject.user.dto.NaverOAuthToken;
+import com.example.teamproject.user.entity.User;
 import org.springframework.http.HttpHeaders;
 
 public interface UserService {
@@ -15,4 +15,9 @@ public interface UserService {
     String getKakaoAuthorizeCode();
 
     KakaoOAuthToken kakaoCallback(String code);
+
+    User findUserByUserId(Long userId);
+
+    // 회원 정보 조회
+    User getUserInfo(Long userId);
 }
