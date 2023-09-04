@@ -1,5 +1,6 @@
 package com.example.teamproject.card.controller;
 
+import com.example.teamproject.card.controller.form.CardRequestForm;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.service.CardService;
 
@@ -22,6 +23,12 @@ public class CardController {
 
         List<Card> cardList = cardService.getActivateCard();
         return cardList;
+    }
+    @PostMapping("/manage/register")
+    public Card cardRegister (@RequestBody CardRequestForm form){
+        Card card = cardService.cardRegister(form);
+        return card;
+
     }
 }
 
