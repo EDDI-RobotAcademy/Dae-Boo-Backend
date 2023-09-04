@@ -39,6 +39,10 @@ public class Card {
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
 
+    // 카드 카테고리 추가 (09.04)
+//    @Column(name = "card_category")
+//    private CardCategory category;
+
     public Card(String name, String company, String fee, String cardCondition, String benefit, Boolean characterImage) {
         this.name = name;
         this.company = company;
