@@ -30,6 +30,9 @@ public class Card {
     @Column(name = "benefit")
     private String benefit;
 
+    @Column(name = "card_image")
+    private String card_image;
+
     @Column(name = "character_image")
     private Boolean characterImage; // 열 이름 변경
 
