@@ -28,7 +28,13 @@ public class CardController {
     public Card cardRegister (@RequestBody CardRequestForm form){
         Card card = cardService.cardRegister(form);
         return card;
-
     }
+    @GetMapping("/age/list")
+    public List<Card> cardAgeList(){
+
+        List<Card> ageCardList = cardService.getAgeCard();
+        return ageCardList;
+    }
+
 }
 

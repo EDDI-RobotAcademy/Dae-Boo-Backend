@@ -13,4 +13,6 @@ public interface CardService {
     List<Card> getActivateCard();
 
     Card cardRegister(CardRequestForm form);
+
+    List<Card> getAgeCard();
 }
