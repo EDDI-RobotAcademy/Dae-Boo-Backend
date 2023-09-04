@@ -16,4 +16,5 @@ public interface BoardService {
 
     void register(BoardRequestForm boardRequestForm);
 
+    Board read(Long boardId);
 }
