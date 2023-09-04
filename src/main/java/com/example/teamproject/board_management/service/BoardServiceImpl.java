@@ -72,4 +72,14 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(boardRequestForm.toBoard());
     }
 
+    @Override
+    public Board read(Long boardId) {
+        Optional<Board> maybeBoard = boardRepository.findByBoardId(boardId);
+
+        if(maybeBoard.isEmpty()) {
+            log.info("존재하지 않는 게시물 입니다.");
+            return null;
+        }
+        return maybeBoard.get();
+    }
 }
