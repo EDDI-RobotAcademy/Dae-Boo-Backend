@@ -2,7 +2,7 @@ package com.example.teamproject.board_management.controller.form;
 
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.board_management.entity.CardCategory;
-import com.example.teamproject.logIn.entity.User;
+import com.example.teamproject.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
