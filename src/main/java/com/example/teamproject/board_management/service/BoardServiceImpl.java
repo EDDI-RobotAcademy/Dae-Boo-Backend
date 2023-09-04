@@ -1,8 +1,11 @@
 package com.example.teamproject.board_management.service;
 
+import com.example.teamproject.board_management.controller.form.BoardRequestForm;
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.board_management.entity.BoardStatus;
 import com.example.teamproject.board_management.repository.BoardRepository;
+import com.example.teamproject.user.entity.User;
+import com.example.teamproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<Board> list() {
@@ -57,6 +61,20 @@ public class BoardServiceImpl implements BoardService{
             return false;
         }
 
+    }
+
+
+    //User로 게시물을 다 찾음
+    @Override
+    public List<Board> findBoardByLoginUser(User LoginUser) {
+        List<Board> maybeBoardList = boardRepository.findAllByUserId(LoginUser);
+        log.info("maybeBoardList : " + maybeBoardList.toString());
+        return maybeBoardList;
+    }
+
+    @Override
+    public void register(BoardRequestForm boardRequestForm) {
+        boardRepository.save(boardRequestForm.toBoard());
     }
 
 }

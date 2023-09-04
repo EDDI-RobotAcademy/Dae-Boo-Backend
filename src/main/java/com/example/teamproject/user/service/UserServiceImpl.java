@@ -249,4 +249,39 @@ public class UserServiceImpl implements UserService {
         System.out.println(response.getBody().getAccess_token());
         return response.getBody();
     }
+
+    //-------------------------MY PAGE--------------------------
+
+    //useid로 User를 찾음
+    @Override
+    public User findUserByUserId(Long userId) {
+        User LoginUser = null;
+        Optional<User> maybeUser = userRepository.findByUserId(userId);
+
+        if (maybeUser.isPresent()) {
+            LoginUser = maybeUser.get();
+            System.out.println("LoginUser : " + LoginUser);
+        } else {
+            System.out.println("LoginUser를 찾지 못했습니다.");
+        }
+
+        return LoginUser;
+    }
+    // 회원 정보 조회
+    @Override
+    public User getUserInfo(Long userId) {
+        // 사용자의 정보가 존재하는지 확인 Optional<User>
+        Optional<User> userInfo = userRepository.findByUserId(userId);
+
+        // 사용자의 정보가 존재하지 않는다면 null 리턴 isEmpty? isP ~
+        if (userInfo.isEmpty()) {
+            log.info("존재하지 않는 회원입니다.");
+            return null;
+        }
+
+        // 사용자의 정보가 존재한다면 User 객체로 만들기 User user = new User() / 이름.gwt()
+        // User 객체의 정보를 리턴
+
+        return userInfo.get();
+    }
 }

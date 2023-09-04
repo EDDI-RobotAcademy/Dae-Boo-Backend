@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @NoArgsConstructor
+//@RequiredArgsConstructor
 public class Board {
 
     @Id
@@ -36,4 +38,11 @@ public class Board {
     @JsonIgnore
     @OneToOne(mappedBy = "board", cascade = CascadeType.ALL)
     private BoardStatus boardStatus;
+
+    public Board(CardCategory category, String boardName, String content, User userId) {
+        this.category = category;
+        this.boardName = boardName;
+        this.content = content;
+        this.userId = userId;
+    }
 }
