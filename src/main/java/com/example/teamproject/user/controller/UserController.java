@@ -1,7 +1,7 @@
-package com.example.teamproject.logIn.controller;
+package com.example.teamproject.user.controller;
 
-import com.example.teamproject.logIn.entity.User;
-import com.example.teamproject.logIn.service.UserService;
+import com.example.teamproject.user.entity.User;
+import com.example.teamproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

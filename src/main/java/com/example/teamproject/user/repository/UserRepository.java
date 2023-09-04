@@ -1,6 +1,6 @@
-package com.example.teamproject.logIn.repository;
+package com.example.teamproject.user.repository;
 
-import com.example.teamproject.logIn.entity.User;
+import com.example.teamproject.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
