@@ -10,9 +10,7 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    // Board b 의 b는 별칭입니다.
-    @Query("SELECT b FROM Board b WHERE b.boardStatus.state != 0")
-    List<Board> findActiveBoards();
-
     List<Board> findAllByUserId(User userId);
+
+    List<Board> findByActivateTrue();
 }
