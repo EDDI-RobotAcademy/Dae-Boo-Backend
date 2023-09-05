@@ -12,5 +12,6 @@ public interface NoticeService {
     Notice register(Notice notice);
     Notice read(Long noticeId);
     Notice modify(Long noticeId, RequestNoticeForm requestNOticeForm);
+    void delete(Long noticeId);
 
 }

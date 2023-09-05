@@ -51,5 +51,11 @@ public class NoticeController {
 
         return noticeService.modify(noticeId, requestNoticeForm);
     }
+    @DeleteMapping("/{noticeId}")
+    public void deleteNotice (@PathVariable("noticeId") Long noticeId) {
+        log.info("deleteNotice()");
+
+        noticeService.delete(noticeId);
+    }
 
 }
