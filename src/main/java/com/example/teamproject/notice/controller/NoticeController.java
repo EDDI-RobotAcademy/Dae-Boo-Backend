@@ -44,5 +44,12 @@ public class NoticeController {
 
         return noticeService.read(noticeId);
     }
+    @PutMapping("/{noticeId}")
+    public Notice modifyNotice (@PathVariable("noticeId") Long noticeId,
+                                @RequestBody RequestNoticeForm requestNoticeForm) {
+        log.info("modifyNotice(): " + requestNoticeForm + ", id: " + noticeId);
+
+        return noticeService.modify(noticeId, requestNoticeForm);
+    }
 
 }

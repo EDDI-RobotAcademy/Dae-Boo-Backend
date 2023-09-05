@@ -40,6 +40,20 @@ public class NoticeServiceImpl implements NoticeService {
 
         return maybeNotice.get();
     }
+    @Override
+    public Notice modify(Long noticeId, RequestNoticeForm requestNoticeForm) {
+        Optional<Notice> maybeNotice = noticeRepository.findById(noticeId);
 
+        if (maybeNotice.isEmpty()) {
+            log.info("정보가 없습니다!");
+            return null;
+        }
+
+        Notice notice = maybeNotice.get();
+        notice.setTitle(requestNoticeForm.getTitle());
+        notice.setContent(requestNoticeForm.getContent());
+
+        return noticeRepository.save(notice);
+    }
 
 }
