@@ -90,20 +90,21 @@ public class BoardServiceImpl implements BoardService{
         //존재하는 게시물이 아니면?
         if (maybeBoard.isEmpty()) {
             log.info("maybeBoard is empty");
-            return true;
+            return false;
         }
         Board board = maybeBoard.get();
         log.info("board : " + board);
 
-        //uerid가 일치하지 않으면?
+        //userid가 일치하지 않으면?
         if(board.getUserId().getUserId() != userId) {
             log.info("wrong userId");
+            return false;
         }
 
         // 존재하는 게시물이고 userId가 일치하면 비활서화
         board.setActivate(false);
 
         boardRepository.save(board);
-        return false;
+        return true;
     }
 }

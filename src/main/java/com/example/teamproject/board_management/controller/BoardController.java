@@ -67,12 +67,12 @@ public class BoardController {
     }
 
     @DeleteMapping("/myPageBoardDelete")
-    public void myPageBoardDelete (
+    public boolean myPageBoardDelete (
             @RequestParam("boardId") Long boardId,
             @RequestParam("userId") Long userId) {
-        log.info("myPageBoardDelete()");
-        log.info("boardId : " + boardId);
-        log.info("userId : " + userId);
-        boardService.myPageBoardDelete(boardId, userId);
+//        log.info("myPageBoardDelete()");
+//        log.info("boardId : " + boardId);
+//        log.info("userId : " + userId);
+        return boardService.myPageBoardDelete(boardId, userId);
     }
 }
