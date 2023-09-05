@@ -25,4 +25,11 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.findAll(Sort.by(Sort.Direction.DESC, "noticeId"));
     }
 
+
+    @Override
+    public Notice register(Notice notice) {
+        return noticeRepository.save(notice);
+    }
+
+
 }

@@ -10,5 +10,6 @@ import java.util.List;
 public interface NoticeService {
     List<Notice> list();
 
+    Notice register(Notice notice);
 
 }

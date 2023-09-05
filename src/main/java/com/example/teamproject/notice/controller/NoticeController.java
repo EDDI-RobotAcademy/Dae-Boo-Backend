@@ -32,5 +32,11 @@ public class NoticeController {
 
         return returnedNoticeList;
     }
+    @PostMapping("/register")
+    public Notice registerNotice (@RequestBody RequestNoticeForm requestNoticeForm) {
+        log.info("registerNotice()");
+
+        return noticeService.register(requestNoticeForm.toNotice());
+    }
 
 }
