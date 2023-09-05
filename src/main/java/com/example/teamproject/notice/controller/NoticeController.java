@@ -38,5 +38,11 @@ public class NoticeController {
 
         return noticeService.register(requestNoticeForm.toNotice());
     }
+    @GetMapping("/{noticeId}")
+    public Notice readNotice (@PathVariable("noticeId") Long noticeId) {
+        log.info("readNotice()");
+
+        return noticeService.read(noticeId);
+    }
 
 }

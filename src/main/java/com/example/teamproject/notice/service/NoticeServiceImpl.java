@@ -25,10 +25,20 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.findAll(Sort.by(Sort.Direction.DESC, "noticeId"));
     }
 
-
     @Override
     public Notice register(Notice notice) {
         return noticeRepository.save(notice);
+    }
+    @Override
+    public Notice read(Long noticeId) {
+        Optional<Notice> maybeNotice = noticeRepository.findById(noticeId);
+
+        if (maybeNotice.isEmpty()) {
+            log.info("정보가 없습니다!");
+            return null;
+        }
+
+        return maybeNotice.get();
     }
 
 
