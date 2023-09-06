@@ -1,13 +1,18 @@
 package com.example.teamproject.card.service;
 
-import com.example.teamproject.card.entity.CardDetail;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import com.example.teamproject.card.controller.form.CardRequestForm;
+import com.example.teamproject.card.entity.Card;
 
 import java.util.List;
 
 
 public interface CardService {
 
-    List<CardDetail> getcard();
+
+    List<Card> getActivateCard();
+
+    Card cardRegister(CardRequestForm form);
+
+    List<Card> getAgeCard();
 }

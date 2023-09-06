@@ -33,9 +33,23 @@ public class BoardController {
         return boardService.delete(boardId);
     }
 
+
+
+    @PostMapping("/register")
+    public void register (@RequestBody BoardRequestForm boardRequestForm) {
+        log.info("registerBoard()");
+        boardService.register(boardRequestForm);
+    }
+
+    @GetMapping("{boardId}")
+    public Board personalReadBoard(@PathVariable("boardId") Long boardId) {
+        log.info("personalReadBoard()");
+        return boardService.read(boardId);
+    }
+
+    //---------------myPage---------------
     @GetMapping("/myBoard")
     public List<Board> myBoardList (@RequestParam("userId") Long userId) {
-//    public String myBoardList (@RequestParam("userId") Long userId) {
         log.info("myBoardList()");
         log.info("userId : " + userId);
 
@@ -52,10 +66,13 @@ public class BoardController {
         return userWrittenBoards;
     }
 
-    @PostMapping("/register")
-    public void register (@RequestBody BoardRequestForm boardRequestForm) {
-        log.info("registerBoard()");
-        boardService.register(boardRequestForm);
+    @DeleteMapping("/myPageBoardDelete")
+    public boolean myPageBoardDelete (
+            @RequestParam("boardId") Long boardId,
+            @RequestParam("userId") Long userId) {
+//        log.info("myPageBoardDelete()");
+//        log.info("boardId : " + boardId);
+//        log.info("userId : " + userId);
+        return boardService.myPageBoardDelete(boardId, userId);
     }
-
 }

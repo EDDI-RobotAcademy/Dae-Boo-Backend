@@ -32,6 +32,7 @@ dependencies {
 
 	// restTemplate
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.4'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
 }
 
 tasks.named("jar"){

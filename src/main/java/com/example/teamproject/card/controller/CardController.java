@@ -1,6 +1,7 @@
 package com.example.teamproject.card.controller;
 
-import com.example.teamproject.card.entity.CardDetail;
+import com.example.teamproject.card.controller.form.CardRequestForm;
+import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.service.CardService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,23 @@ import java.util.List;
 public class CardController {
 
     final private CardService cardService;
-    @CrossOrigin(origins = "http://ec2-15-165-11-253.ap-northeast-2.compute.amazonaws.com:3000")
-    @PostMapping("/list")
-    public List<CardDetail> cardDetailList() {
-        // Your logic to retrieve and return the card details
-        List<CardDetail> cardDetails = cardService.getcard();
-        return cardDetails;
+    @PostMapping("/manage/list")
+    public List<Card> cardDetailList() {
+
+        List<Card> cardList = cardService.getActivateCard();
+        return cardList;
     }
+    @PostMapping("/manage/register")
+    public Card cardRegister (@RequestBody CardRequestForm form){
+        Card card = cardService.cardRegister(form);
+        return card;
+    }
+    @GetMapping("/age/list")
+    public List<Card> cardAgeList(){
+
+        List<Card> ageCardList = cardService.getAgeCard();
+        return ageCardList;
+    }
+
 }
 
