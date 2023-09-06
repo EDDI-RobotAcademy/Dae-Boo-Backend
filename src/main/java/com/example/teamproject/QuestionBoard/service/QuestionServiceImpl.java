@@ -1,6 +1,7 @@
 package com.example.teamproject.QuestionBoard.service;
 
 import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
+import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
 import com.example.teamproject.QuestionBoard.entity.Question;
@@ -44,5 +45,18 @@ public class QuestionServiceImpl implements QuestionService {
         Question question = new Question(writer, request.getTitle(), request.getContents());
         Question savedQuestion = questionRepository.save(question);
         return QuestionDetailResponse.from(savedQuestion);
+    }
+
+    @Transactional
+    public QuestionDetailResponse modify(long questionId, QuestionModifyRequest request) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("해당 1:1 문의에 대한 정보를 찾을 수 없습니다."));
+
+        // 이미 답변이 작성되었으면 수정할 수 없다.
+        if (question.isAnswerComplete()) {
+            throw new RuntimeException("이미 답변이 작성된 1:1 문의라 수정할 수 없습니다.");
+        }
+        question.modify(request.getTitle(), request.getContents());
+        return QuestionDetailResponse.from(question);
     }
 }

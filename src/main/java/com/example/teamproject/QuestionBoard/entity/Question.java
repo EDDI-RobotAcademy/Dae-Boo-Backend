@@ -47,6 +47,11 @@ public class Question {
         this.title = title;
         this.contents = contents;
     }
+
+    public void modify(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }
 
 

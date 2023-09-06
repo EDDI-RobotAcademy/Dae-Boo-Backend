@@ -1,10 +1,12 @@
 package com.example.teamproject.QuestionBoard.controller;
 
 import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
+import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
 import com.example.teamproject.QuestionBoard.service.QuestionService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,4 +35,14 @@ public class UserQuestionController {
     public QuestionDetailResponse writeQuestion (@RequestBody QuestionWriteRequest request) {
         return questionService.write(request);
     }
+
+    // 1:1 문의 수정 API
+    @PutMapping("/Modify/{id}")
+    public QuestionDetailResponse modifyQuestion (
+            @PathVariable(name = "id") long questionId,
+            @RequestBody QuestionModifyRequest request
+    ) {
+        return questionService.modify(questionId, request);
+    }
+
 }

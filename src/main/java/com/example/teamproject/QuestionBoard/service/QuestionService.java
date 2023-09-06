@@ -1,6 +1,7 @@
 package com.example.teamproject.QuestionBoard.service;
 
 import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
+import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
 
@@ -12,4 +13,6 @@ public interface QuestionService {
     QuestionDetailResponse retrieve(long questionId);
 
     QuestionDetailResponse write(QuestionWriteRequest request);
+
+    QuestionDetailResponse modify(long questionId, QuestionModifyRequest request);
 }
