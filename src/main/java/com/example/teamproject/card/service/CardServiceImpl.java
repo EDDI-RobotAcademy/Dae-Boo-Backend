@@ -46,7 +46,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> getAgeCard() {
         RestTemplate restTemplate = new RestTemplate();
-        String fastApiUrl = "http://15.165.11.253/age-recommend-card";
+        String fastApiUrl = "http://15.165.11.253:3002/age-recommend-card";
         String response = restTemplate.getForObject(fastApiUrl, String.class);
         ObjectMapper objectMapper = new ObjectMapper();
         List<Card> ageCardList = new ArrayList<>();
