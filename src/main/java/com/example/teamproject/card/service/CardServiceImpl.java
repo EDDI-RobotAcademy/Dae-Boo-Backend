@@ -23,8 +23,8 @@ import java.util.Optional;
 public class CardServiceImpl implements CardService {
     final private CardRepository cardRepository;
 
-
-
+    @Value("${spring.web.cors.allowed-origins}")
+    private String[4] allowedOrigins;
 
     @Override
     public List<Card> getActivateCard() {
@@ -38,7 +38,6 @@ public class CardServiceImpl implements CardService {
         Optional<Card> maybeCard = cardRepository.findByName(newCard.getName());
         if (maybeCard.isEmpty()){
             return cardRepository.save(newCard);
-
         }
         return null;
     }
@@ -46,7 +45,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> getAgeCard() {
         RestTemplate restTemplate = new RestTemplate();
-        String fastApiUrl = "http://15.165.11.253:3002/age-recommend-card";
+        String fastApiUrl = allowedOrigins+"/age-recommend-card";
         String response = restTemplate.getForObject(fastApiUrl, String.class);
         ObjectMapper objectMapper = new ObjectMapper();
         List<Card> ageCardList = new ArrayList<>();
