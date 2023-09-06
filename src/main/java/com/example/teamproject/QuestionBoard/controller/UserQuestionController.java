@@ -1,5 +1,6 @@
 package com.example.teamproject.QuestionBoard.controller;
 
+import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
 import com.example.teamproject.QuestionBoard.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,11 @@ public class UserQuestionController {
     @GetMapping("/user/{userId}")
     public List<QuestionResponse> retrieveMyQuestionList(@PathVariable long userId) {
         return questionService.retrieveAllByWriter(userId);
+    }
+
+    // 1:1 문의 상세조회 API
+    @GetMapping("/inquiry/{id}")
+    public QuestionDetailResponse retrieveQuestionDetail(@PathVariable(name = "id") long questionId) {
+        return questionService.retrieve(questionId);
     }
 }
