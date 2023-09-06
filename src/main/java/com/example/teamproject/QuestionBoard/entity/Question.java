@@ -40,6 +40,13 @@ public class Question {
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private boolean isDeleted = false; // 삭제된 데이터라면 true, 삭제되지 않은 데이터라면 false
+
+
+    public Question(User user, String title, String contents) {
+        this.user = user;
+        this.title = title;
+        this.contents = contents;
+    }
 }
 
 

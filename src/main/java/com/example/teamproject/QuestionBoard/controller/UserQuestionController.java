@@ -2,12 +2,10 @@ package com.example.teamproject.QuestionBoard.controller;
 
 import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
+import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
 import com.example.teamproject.QuestionBoard.service.QuestionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,11 @@ public class UserQuestionController {
     @GetMapping("/inquiry/{id}")
     public QuestionDetailResponse retrieveQuestionDetail(@PathVariable(name = "id") long questionId) {
         return questionService.retrieve(questionId);
+    }
+
+    // 1:1 문의 작성 API
+    @PostMapping("/register")
+    public QuestionDetailResponse writeQuestion (@RequestBody QuestionWriteRequest request) {
+        return questionService.write(request);
     }
 }
