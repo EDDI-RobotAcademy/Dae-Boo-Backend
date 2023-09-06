@@ -24,7 +24,7 @@ public class CardServiceImpl implements CardService {
     final private CardRepository cardRepository;
 
     @Value("${spring.web.cors.allowed-origins}")
-    private String[4] allowedOrigins;
+    private String[] allowedOrigins;
 
     @Override
     public List<Card> getActivateCard() {
@@ -45,7 +45,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> getAgeCard() {
         RestTemplate restTemplate = new RestTemplate();
-        String fastApiUrl = allowedOrigins+"/age-recommend-card";
+        String fastApiUrl = allowedOrigins[4]+"/age-recommend-card";
         String response = restTemplate.getForObject(fastApiUrl, String.class);
         ObjectMapper objectMapper = new ObjectMapper();
         List<Card> ageCardList = new ArrayList<>();
