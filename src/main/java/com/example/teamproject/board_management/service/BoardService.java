@@ -19,4 +19,6 @@ public interface BoardService {
     Board read(Long boardId);
 
     boolean myPageBoardDelete(Long boardId, Long userId);
+
+    void myPageBoardModify(Long boardId, BoardRequestForm boardRequestForm);
 }

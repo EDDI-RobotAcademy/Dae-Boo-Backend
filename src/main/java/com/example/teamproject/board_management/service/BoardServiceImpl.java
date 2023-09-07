@@ -107,4 +107,15 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(board);
         return true;
     }
+
+    @Override
+    public void myPageBoardModify(Long boardId, BoardRequestForm boardRequestForm){
+        Optional<Board> maybeBoard = boardRepository.findByBoardId(boardId);
+
+        Board board = maybeBoard.get();
+        board.setBoardName(boardRequestForm.getBoardName());
+        board.setContent(boardRequestForm.getContent());
+
+        boardRepository.save(board);
+    }
 }
