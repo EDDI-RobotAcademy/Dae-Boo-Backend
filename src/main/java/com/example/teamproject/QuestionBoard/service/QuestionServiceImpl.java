@@ -59,4 +59,11 @@ public class QuestionServiceImpl implements QuestionService {
         question.modify(request.getTitle(), request.getContents());
         return QuestionDetailResponse.from(question);
     }
+
+    @Transactional
+    public void delete(long questionId) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("해당 1:1 문의에 대한 정보를 찾을 수 없습니다."));
+        question.delete();
+    }
 }
