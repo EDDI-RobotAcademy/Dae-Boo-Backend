@@ -30,16 +30,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-<<<<<<< Updated upstream
-    // restTemplate
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.4'
-=======
 	// restTemplate
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.4'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
-
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
->>>>>>> Stashed changes
 }
 
 tasks.named("jar") {
