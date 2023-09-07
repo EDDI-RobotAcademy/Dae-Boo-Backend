@@ -26,8 +26,8 @@ public class UserController {
         List<User> userList = userService.userList();
         return userList;
     }
-//    @PostMapping("/manage/userStop")
-//    public Boolean userStop (@RequestBody Long id){
-//        return userService.stopUser(id);
-//    }
+    @PostMapping("/manage/userStop")
+    public Boolean userStop (@RequestBody Long id){
+        return userService.stopUser(id);
+    }
 }
