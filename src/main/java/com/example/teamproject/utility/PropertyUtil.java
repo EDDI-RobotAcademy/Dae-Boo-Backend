@@ -10,7 +10,8 @@ import org.springframework.core.env.Environment;
 @PropertySource(value = {
         "classpath:application.properties",
         "classpath:naver.properties",
-        "classpath:kakao.properties"
+        "classpath:kakao.properties",
+        "classpath:redis.properties"
 })
 public class PropertyUtil {
 
