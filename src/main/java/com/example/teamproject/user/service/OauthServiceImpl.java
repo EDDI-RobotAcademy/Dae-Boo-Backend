@@ -78,7 +78,7 @@ public class OauthServiceImpl implements OauthService {
 
         User user = getNaverUserInfo(accessToken, headers);
 
-        Optional<User> maybeUser = userRepository.findById(user.getId());
+        Optional<User> maybeUser = userRepository.findByEmail(user.getEmail());
         if(maybeUser.isPresent()) {
             System.out.println("maybeUser is present");
             return response.getBody();
@@ -90,11 +90,8 @@ public class OauthServiceImpl implements OauthService {
                 System.out.println("user is null");
             }
         }
-
-
         return response.getBody();
     }
-
 
     //사용자 정보가져오기
     @Override
@@ -122,7 +119,7 @@ public class OauthServiceImpl implements OauthService {
             String name = jsonNode.get("response").get("name").asText();
             String id = jsonNode.get("response").get("id").asText();
 
-            User user = new User(nickname, profile_image, age, gender, mobile, name, id);
+            User user = new User(nickname, profile_image, age, gender, mobile);
             return user;
         } catch (IOException e) {
             // 예외 처리
@@ -183,7 +180,6 @@ public class OauthServiceImpl implements OauthService {
 
         if(maybeUser.isEmpty()) {
             String name = nickname;
-//            savedMember = signUpRepository.save(new Member(name, nickname, email));
             savedUser = userRepository.save(new User(nickname, email, profile_image, gender, age_range));
         } else {
             savedUser = maybeUser.get();
