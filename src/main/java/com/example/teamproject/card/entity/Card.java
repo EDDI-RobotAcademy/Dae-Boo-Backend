@@ -3,10 +3,12 @@ package com.example.teamproject.card.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Getter
 @Entity
+@Setter
 @Table(name = "Card")
 @NoArgsConstructor
 public class Card {
@@ -31,25 +33,18 @@ public class Card {
     private String benefit;
 
     @Column(name = "card_image")
-    private String card_image;
-
-    @Column(name = "character_image")
-    private Boolean characterImage; // 열 이름 변경
+    private String cardImage; // 열 이름 변경
 
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
 
-    // 카드 카테고리 추가 (09.04)
-//    @Column(name = "card_category")
-//    private CardCategory category;
-
-    public Card(String name, String company, String fee, String cardCondition, String benefit, Boolean characterImage) {
+    public Card(String name, String company, String fee, String cardCondition, String benefit, String cardImage) {
         this.name = name;
         this.company = company;
         this.fee = fee;
         this.cardCondition = cardCondition;
         this.benefit = benefit;
-        this.characterImage = characterImage;
+        this.cardImage = cardImage;
     }
 
 

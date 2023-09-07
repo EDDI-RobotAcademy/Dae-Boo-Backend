@@ -70,4 +70,17 @@ public class CardServiceImpl implements CardService {
         }
         return ageCardList;
     }
+
+    @Override
+    public Boolean stopCard(Long id) {
+        Optional<Card> maybeCard = cardRepository.findById(id);
+        if (maybeCard.isPresent()){
+            Card targetCard = maybeCard.get();
+            targetCard.setActivate(false);
+            cardRepository.save(targetCard);
+
+            return true;
+        }
+        return false;
+    }
 }

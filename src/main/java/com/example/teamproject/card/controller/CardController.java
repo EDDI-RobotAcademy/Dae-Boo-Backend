@@ -35,6 +35,9 @@ public class CardController {
         List<Card> ageCardList = cardService.getAgeCard();
         return ageCardList;
     }
-
+    @PostMapping("/manage/stopCard")
+    public Boolean cardStop(@RequestBody Long cardId) {
+        return cardService.stopCard(cardId);
+    }
 }
 
