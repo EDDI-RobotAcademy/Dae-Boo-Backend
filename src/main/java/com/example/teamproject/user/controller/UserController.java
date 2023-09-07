@@ -15,11 +15,13 @@ import java.util.List;
 public class UserController {
     final private UserService userService;
 
+    // 내 정보 조회 API
     @GetMapping("/userInfo")
-    public User requestUserInfo (Long userId) {
+    public User requestUserInfo (@RequestParam Long userId) {
         log.info("requestUserInfo()");
         return userService.getUserInfo(userId);
     }
+
     @PostMapping("manage/list")
     public List<User> userList() {
 
