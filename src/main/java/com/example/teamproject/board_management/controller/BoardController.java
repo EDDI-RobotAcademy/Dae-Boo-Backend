@@ -75,4 +75,14 @@ public class BoardController {
 //        log.info("userId : " + userId);
         return boardService.myPageBoardDelete(boardId, userId);
     }
+
+    @PutMapping("/{boardId}")
+    public void myPageBoardModify (
+            @PathVariable("boardId") Long boardId,
+            @RequestBody BoardRequestForm boardRequestForm){
+        log.info("myPageBoardModify()");
+        log.info("boardId : " + boardId);
+        log.info("boardRequestForm : " + boardRequestForm.getContent());
+        boardService.myPageBoardModify(boardId, boardRequestForm);
+    }
 }
