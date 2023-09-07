@@ -15,4 +15,6 @@ public interface QuestionService {
     QuestionDetailResponse write(QuestionWriteRequest request);
 
     QuestionDetailResponse modify(long questionId, QuestionModifyRequest request);
+
+    void delete(long questionId);
 }
