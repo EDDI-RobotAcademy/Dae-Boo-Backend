@@ -19,30 +19,135 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class OauthServiceImpl implements OauthService {
+
     final private PropertyUtil propertyUtil;
-    final private RestTemplate restTemplate;
     final private UserRepository userRepository;
 
-//    @Value("${client_id}")
-//    private String CLIENT_ID1;
-//
-//    @Value("${client_secret}")
-//    private String CLIENT_SECRET1;
-//
-//    @Value("${redirect_uri}")
-//    private String REDIRECT_URI1;
+    @Override
+    public String getAuthorizeCode() {
+        final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
+        final String REDIRECT_URI = propertyUtil.getProperty("naver_redirect_uri");
+
+        final String URL
+                = "https://nid.naver.com/oauth2.0/authorize?response_type=code" +
+                "&client_id=" +
+                CLIENT_ID +
+                "&redirect_uri=" +
+                REDIRECT_URI +
+                "&state=1234";
+        log.info(URL);
+        return URL;
+    }
+
+    @Override
+    public NaverOAuthToken generateAccessToken(String code){
+        final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
+        final String CLIENT_SECRET = propertyUtil.getProperty("naver_client_secret");
+
+        // HTTP Header 생성
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-type", "application/x-www-form-urlencoded");
+
+        // HTTP Body 생성
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "authorization_code");
+        body.add("client_id", CLIENT_ID);
+        //body.add("redirect_uri", REDIRECT_URI);
+        body.add("code", code);
+        body.add("client_secret", CLIENT_SECRET);
+        body.add("state", "1234");
+
+        // HTTP 요청 보내기
+        HttpEntity<MultiValueMap<String, String>> tokenRequest = new HttpEntity<>(body, headers);
+        ResponseEntity<NaverOAuthToken> response
+                = restTemplate.exchange("https://nid.naver.com/oauth2.0/token", HttpMethod.POST, tokenRequest, NaverOAuthToken.class);
+
+        System.out.println("response : " + response);
+        //System.out.println(response);
+        String accessToken = response.getBody().getAccess_token();
+        System.out.println("accessToken : " + accessToken);
+
+        User user = getNaverUserInfo(accessToken, headers);
+
+        Optional<User> maybeUser = userRepository.findById(user.getId());
+        if(maybeUser.isPresent()) {
+            System.out.println("maybeUser is present");
+            return response.getBody();
+
+        } else {
+            if(user != null) {
+                userRepository.save(user);
+            } else {
+                System.out.println("user is null");
+            }
+        }
 
 
-    //-------------------------NAVER--------------------------
+        return response.getBody();
+    }
 
+
+    //사용자 정보가져오기
+    @Override
+    public User getNaverUserInfo(String accessToken, HttpHeaders headers) {
+
+        System.out.println("사용자 정보가져오기");
+        headers.add("Authorization", "Bearer " + accessToken);
+
+        HttpEntity<MultiValueMap<String, String>> UserInfoRequest = new HttpEntity(headers);
+        RestTemplate userInfoRestTemplate = new RestTemplate();
+        ResponseEntity<String> userInfoResponse = userInfoRestTemplate.exchange("https://openapi.naver.com/v1/nid/me", HttpMethod.POST, UserInfoRequest, String.class);
+        System.out.println("user info response = " + userInfoResponse);
+
+        // HTTP 응답 받아오기
+        String userInfoResponseBody = userInfoResponse.getBody();
+        System.out.println("userInfoResponseBody = " + userInfoResponseBody);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode jsonNode = objectMapper.readTree(userInfoResponseBody);
+            String nickname = jsonNode.get("response").get("nickname").asText();
+            String profile_image = jsonNode.get("response").get("profile_image").asText();
+            String age = jsonNode.get("response").get("age").asText().substring(0,2);
+            String gender = jsonNode.get("response").get("gender").asText();
+            String mobile = jsonNode.get("response").get("mobile").asText();
+            String name = jsonNode.get("response").get("name").asText();
+            String id = jsonNode.get("response").get("id").asText();
+
+            User user = new User(nickname, profile_image, age, gender, mobile, name, id);
+            return user;
+        } catch (IOException e) {
+            // 예외 처리
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //-------------------------KAKAO--------------------------
+    @Override
+    public String getKakaoAuthorizeCode() {
+        final String CLIENT_ID = propertyUtil.getProperty("client_id");
+        final String REDIRECT_URI = propertyUtil.getProperty("redirect_uri");
+        final String URL = "https://kauth.kakao.com/oauth/authorize";
+        return URL + "?client_id=" + CLIENT_ID + "&redirect_uri=" + REDIRECT_URI + "&response_type=code";
+    }
+
+    @Override
+    public KakaoOAuthToken kakaoCallback(String code){
+        KakaoOAuthToken kakaoOAuthToken = getAccessToken(code);
+        ResponseEntity<String> response = requestUserInfo(kakaoOAuthToken);
+        User user = saveUserInfo(response);
+
+        return kakaoOAuthToken;
+    }
 
     private User saveUserInfo(ResponseEntity<String> response) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -132,58 +237,5 @@ public class UserServiceImpl implements UserService {
         System.out.println(response);
         System.out.println(response.getBody().getAccess_token());
         return response.getBody();
-    }
-
-    //-------------------------MY PAGE--------------------------
-
-    //useid로 User를 찾음
-    @Override
-    public User findUserByUserId(Long userId) {
-        User LoginUser = null;
-        Optional<User> maybeUser = userRepository.findByUserId(userId);
-
-        if (maybeUser.isPresent()) {
-            LoginUser = maybeUser.get();
-            System.out.println("LoginUser : " + LoginUser);
-        } else {
-            System.out.println("LoginUser를 찾지 못했습니다.");
-        }
-
-        return LoginUser;
-    }
-    // 회원 정보 조회
-    @Override
-    public User getUserInfo(Long userId) {
-        // 사용자의 정보가 존재하는지 확인 Optional<User>
-        Optional<User> userInfo = userRepository.findByUserId(userId);
-
-        // 사용자의 정보가 존재하지 않는다면 null 리턴 isEmpty? isP ~
-        if (userInfo.isEmpty()) {
-            log.info("존재하지 않는 회원입니다.");
-            return null;
-        }
-
-        // 사용자의 정보가 존재한다면 User 객체로 만들기 User user = new User() / 이름.gwt()
-        // User 객체의 정보를 리턴
-
-        return userInfo.get();
-    }
-    @Override
-    public List<User> userList() {
-        List<User> userList = userRepository.findByActivateTrue();
-        return userList;
-    }
-
-    @Override
-    public Boolean stopUser(Long id) {
-        Optional<User> maybeUser = userRepository.findById(id);
-        if (maybeUser.isPresent()){
-            User targetUser = maybeUser.get();
-            targetUser.setActivate(false);
-            userRepository.save(targetUser);
-
-            return true;
-        }
-        return false;
     }
 }
