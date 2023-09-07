@@ -19,9 +19,9 @@ public class CardRequestForm {
 
     final private String benefit;
 
-    final private Boolean characterImage; // 열 이름 변경
+    final private String cardImage; // 열 이름 변경
 
     public Card toCard() {
-        return new Card(name,company,fee,cardCondition,benefit,characterImage);
+        return new Card(name,company,fee,cardCondition,benefit,cardImage);
     }
 }
