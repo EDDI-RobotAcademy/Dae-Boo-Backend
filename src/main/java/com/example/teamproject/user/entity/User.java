@@ -1,9 +1,6 @@
 package com.example.teamproject.user.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +21,8 @@ public class User {
     private String mobile;
     private String name;
     private String email;
+    @Column(name = "activate", columnDefinition = "boolean default true")
+    private Boolean activate = true;
 
     public User(String nickname, String profile_image, String age, String gender, String mobile, String name, String id) {
         this.nickname = nickname;
