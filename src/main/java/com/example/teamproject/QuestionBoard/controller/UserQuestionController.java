@@ -45,4 +45,9 @@ public class UserQuestionController {
         return questionService.modify(questionId, request);
     }
 
+    // 1:1 문의 삭제 API
+    @DeleteMapping("/delete/{id}")
+    public void deleteQuestion(@PathVariable(name = "id") long questionId) {
+        questionService.delete(questionId);
+    }
 }

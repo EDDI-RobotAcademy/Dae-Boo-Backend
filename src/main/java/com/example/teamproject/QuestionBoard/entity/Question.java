@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @NoArgsConstructor
+// 엔티티 조회할 때 항상 "isDeleted"라는 필드가 "false"인 엔티티만을 반환하도록 설정
+@Where(clause = "isDeleted = false")
 public class Question {
 
     @Id
@@ -51,6 +54,11 @@ public class Question {
     public void modify(String title, String contents) {
         this.title = title;
         this.contents = contents;
+    }
+
+    public void delete() {
+        // Soft Delete (데이터는 살려두되, 사용자가 삭제됐다고 느끼게 하는것)
+        this.isDeleted = true;
     }
 }
 
