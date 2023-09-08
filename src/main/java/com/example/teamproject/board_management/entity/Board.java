@@ -19,7 +19,9 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
     private BoardCategory category;
+    @Setter
     private String boardName;
+    @Setter
     private String content;
 
     @JoinColumn(name = "userId")
