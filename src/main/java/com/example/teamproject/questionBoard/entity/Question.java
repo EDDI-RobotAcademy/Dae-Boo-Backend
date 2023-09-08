@@ -1,4 +1,4 @@
-package com.example.teamproject.QuestionBoard.entity;
+package com.example.teamproject.questionBoard.entity;
 
 import com.example.teamproject.user.entity.User;
 

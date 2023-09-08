@@ -1,6 +1,5 @@
 package com.example.teamproject.user.dto;
 
-import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
 import com.example.teamproject.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;

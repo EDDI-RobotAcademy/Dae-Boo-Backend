@@ -1,9 +1,9 @@
-package com.example.teamproject.QuestionBoard.service;
+package com.example.teamproject.questionBoard.service;
 
-import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
-import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
-import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
-import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.questionBoard.dto.QuestionDetailResponse;
+import com.example.teamproject.questionBoard.dto.QuestionModifyRequest;
+import com.example.teamproject.questionBoard.dto.QuestionResponse;
+import com.example.teamproject.questionBoard.dto.QuestionWriteRequest;
 
 import java.util.List;
 
