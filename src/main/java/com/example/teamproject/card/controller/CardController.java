@@ -39,5 +39,12 @@ public class CardController {
     public Boolean cardStop(@RequestBody Long cardId) {
         return cardService.stopCard(cardId);
     }
+
+    @GetMapping("/list")
+    public List<Card> cardList(){
+        List<Card> cardList = cardService.getActivateCard();
+        return cardList;
+    }
+
 }
 
