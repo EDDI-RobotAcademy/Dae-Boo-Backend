@@ -1,6 +1,6 @@
-package com.example.teamproject.QuestionBoard.repository;
+package com.example.teamproject.questionBoard.repository;
 
-import com.example.teamproject.QuestionBoard.entity.Question;
+import com.example.teamproject.questionBoard.entity.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

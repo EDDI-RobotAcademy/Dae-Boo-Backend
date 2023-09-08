@@ -1,6 +1,6 @@
-package com.example.teamproject.QuestionBoard.dto;
+package com.example.teamproject.questionBoard.dto;
 
-import com.example.teamproject.QuestionBoard.entity.Question;
+import com.example.teamproject.questionBoard.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,10 @@ public class QuestionResponse {
     private String title;
     private LocalDateTime createdAt;
 
+    private boolean isAnswerComplete;
+
     public static QuestionResponse from(Question question) {
-        return new QuestionResponse(question.getQuestionId(), question.getTitle(), question.getCreatedAt());
+        return new QuestionResponse(
+                question.getQuestionId(), question.getTitle(), question.getCreatedAt(), question.isAnswerComplete());
     }
 }

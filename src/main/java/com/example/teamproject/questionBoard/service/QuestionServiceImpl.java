@@ -1,11 +1,11 @@
-package com.example.teamproject.QuestionBoard.service;
+package com.example.teamproject.questionBoard.service;
 
-import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
-import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
-import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
-import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
-import com.example.teamproject.QuestionBoard.entity.Question;
-import com.example.teamproject.QuestionBoard.repository.QuestionRepository;
+import com.example.teamproject.questionBoard.dto.QuestionDetailResponse;
+import com.example.teamproject.questionBoard.dto.QuestionModifyRequest;
+import com.example.teamproject.questionBoard.dto.QuestionResponse;
+import com.example.teamproject.questionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.questionBoard.entity.Question;
+import com.example.teamproject.questionBoard.repository.QuestionRepository;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

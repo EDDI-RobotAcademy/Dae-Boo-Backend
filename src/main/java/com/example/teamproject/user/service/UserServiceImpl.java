@@ -1,11 +1,11 @@
 package com.example.teamproject.user.service;
 
 import com.example.teamproject.user.dto.KakaoOAuthToken;
-import com.example.teamproject.user.dto.NaverOAuthToken;
+import com.example.teamproject.user.dto.UserInfoModifyRequest;
+import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import com.example.teamproject.utility.PropertyUtil;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -166,15 +167,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean stopUser(Long id) {
+    public User stopUser(Long id) {
         Optional<User> maybeUser = userRepository.findById(id);
         if (maybeUser.isPresent()){
             User targetUser = maybeUser.get();
-            targetUser.setActivate(false);
-            userRepository.save(targetUser);
-
-            return true;
+            if (targetUser.getActivate()==true){
+                targetUser.setActivate(false);
+                return userRepository.save(targetUser);
+            }
+            if (targetUser.getActivate()==false) {
+                targetUser.setActivate(true);
+                return userRepository.save(targetUser);
+            }
         }
-        return false;
+        return null;
+    }
+
+    @Transactional
+    public UserInfoResponse modify(Long userId, UserInfoModifyRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
+        user.modify(request.getNickname(), request.getMobile());
+        return UserInfoResponse.from(user);
+    }
+
+    @Transactional
+    public void delete(Long userId) {
+        userRepository.findById(userId)
+                .ifPresent(User::softDelete);
     }
 }

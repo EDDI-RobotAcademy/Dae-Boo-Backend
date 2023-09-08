@@ -1,13 +1,12 @@
-package com.example.teamproject.QuestionBoard.controller;
+package com.example.teamproject.questionBoard.controller;
 
-import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
-import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
-import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
-import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
-import com.example.teamproject.QuestionBoard.entity.Question;
-import com.example.teamproject.QuestionBoard.service.QuestionService;
+import com.example.teamproject.questionBoard.dto.QuestionDetailResponse;
+import com.example.teamproject.questionBoard.dto.QuestionModifyRequest;
+import com.example.teamproject.questionBoard.dto.QuestionResponse;
+import com.example.teamproject.questionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.questionBoard.entity.Question;
+import com.example.teamproject.questionBoard.service.QuestionService;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

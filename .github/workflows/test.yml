@@ -47,7 +47,7 @@ jobs:
         run: |
           mkdir -p src/main/resources
           pwd
-          echo "${{ secrets.REDIS.PROPERTIES }}" > src/main/resources/redis.properties
+          echo "${{ secrets.REDIS_PROPERTIES }}" > src/main/resources/redis.properties
           cat src/main/resources/redis.properties
           
       # CI Test에서 사용할 MySQL 설정
