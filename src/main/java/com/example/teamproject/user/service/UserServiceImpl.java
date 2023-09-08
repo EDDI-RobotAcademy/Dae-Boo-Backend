@@ -167,16 +167,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean stopUser(Long id) {
+    public User stopUser(Long id) {
         Optional<User> maybeUser = userRepository.findById(id);
         if (maybeUser.isPresent()){
             User targetUser = maybeUser.get();
-            targetUser.setActivate(false);
-            userRepository.save(targetUser);
-
-            return true;
+            if (targetUser.getActivate()==true){
+                targetUser.setActivate(false);
+                return userRepository.save(targetUser);
+            }
+            if (targetUser.getActivate()==false) {
+                targetUser.setActivate(true);
+                return userRepository.save(targetUser);
+            }
         }
-        return false;
+        return null;
     }
 
     @Transactional

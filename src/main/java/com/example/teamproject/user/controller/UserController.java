@@ -31,11 +31,10 @@ public class UserController {
         return userList;
     }
 
-    @PostMapping("/manage/userStop")
-    public Boolean userStop (@RequestBody Long id){
-        return userService.stopUser(id);
+    @GetMapping("/manage/userStop")
+    public User userStop (@RequestParam Long userId){
+        return userService.stopUser(userId);
     }
-
     // 내 정보 수정 API
     @PutMapping("/user-info")
     public UserInfoResponse userInfoModify(
