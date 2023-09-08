@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Setter
@@ -20,6 +22,7 @@ public class User {
     private String gender;
     private String mobile;
     private String email;
+    private List<String> interests;
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
     private UserRole role = UserRole.NORMAL;

@@ -61,7 +61,7 @@ public class OauthServiceImpl implements OauthService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", CLIENT_ID);
-        //body.add("redirect_uri", REDIRECT_URI);
+//        body.add("redirect_uri", REDIRECT_URI);
         body.add("code", code);
         body.add("client_secret", CLIENT_SECRET);
         body.add("state", "1234");
@@ -112,14 +112,13 @@ public class OauthServiceImpl implements OauthService {
         try {
             JsonNode jsonNode = objectMapper.readTree(userInfoResponseBody);
             String nickname = jsonNode.get("response").get("nickname").asText();
+//            String email = jsonNode.get("response").get("email").asText();
             String profile_image = jsonNode.get("response").get("profile_image").asText();
             String age = jsonNode.get("response").get("age").asText().substring(0,2);
             String gender = jsonNode.get("response").get("gender").asText();
-            String mobile = jsonNode.get("response").get("mobile").asText();
-            String name = jsonNode.get("response").get("name").asText();
             String id = jsonNode.get("response").get("id").asText();
 
-            User user = new User(nickname, profile_image, age, gender, mobile);
+            User user = new User(nickname, id, profile_image, gender, age);
             return user;
         } catch (IOException e) {
             // 예외 처리
