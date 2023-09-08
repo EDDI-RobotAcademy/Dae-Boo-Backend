@@ -4,13 +4,16 @@ import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.QuestionBoard.entity.Question;
 import com.example.teamproject.QuestionBoard.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/question")
@@ -49,5 +52,12 @@ public class UserQuestionController {
     @DeleteMapping("/delete/{id}")
     public void deleteQuestion(@PathVariable(name = "id") long questionId) {
         questionService.delete(questionId);
+    }
+
+    // 관리자 - 1:1 게시판 불러오기
+    @GetMapping("/list")
+    public List<Question> managementQuestionList() {
+        log.info("managementQuestionList()");
+        return questionService.list();
     }
 }

@@ -13,4 +13,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     @Query("SELECT q FROM Question q WHERE q.user.userId = :userId")
     List<Question> findAllByWriter(@Param("userId") long userId);
+
+    List<Question> findByIsDeletedFalse();
 }

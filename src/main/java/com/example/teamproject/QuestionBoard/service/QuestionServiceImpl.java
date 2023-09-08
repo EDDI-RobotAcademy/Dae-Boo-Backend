@@ -66,4 +66,9 @@ public class QuestionServiceImpl implements QuestionService {
                 .orElseThrow(() -> new RuntimeException("해당 1:1 문의에 대한 정보를 찾을 수 없습니다."));
         question.delete();
     }
+
+    @Override
+    public List<Question> list() {
+        return questionRepository.findByIsDeletedFalse();
+    }
 }

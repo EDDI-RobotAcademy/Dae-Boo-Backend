@@ -4,6 +4,7 @@ import com.example.teamproject.QuestionBoard.dto.QuestionDetailResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionModifyRequest;
 import com.example.teamproject.QuestionBoard.dto.QuestionResponse;
 import com.example.teamproject.QuestionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.QuestionBoard.entity.Question;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface QuestionService {
     QuestionDetailResponse modify(long questionId, QuestionModifyRequest request);
 
     void delete(long questionId);
+
+    List<Question> list();
 }
