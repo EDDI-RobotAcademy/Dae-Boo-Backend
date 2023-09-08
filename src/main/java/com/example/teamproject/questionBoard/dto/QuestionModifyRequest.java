@@ -1,4 +1,4 @@
-package com.example.teamproject.QuestionBoard.dto;
+package com.example.teamproject.questionBoard.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionWriteRequest {
+public class QuestionModifyRequest {
 
-    private long userId;
     private String title;
     private String contents;
 }
