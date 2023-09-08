@@ -16,7 +16,7 @@ public interface UserService {
 
     List<User> userList();
 
-    Boolean stopUser(Long id);
+    User stopUser(Long id);
 
     UserInfoResponse modify(Long userId, UserInfoModifyRequest request);
 
