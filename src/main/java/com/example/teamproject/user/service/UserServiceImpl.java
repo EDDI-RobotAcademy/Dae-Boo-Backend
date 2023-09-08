@@ -186,4 +186,10 @@ public class UserServiceImpl implements UserService {
         user.modify(request.getNickname(), request.getMobile());
         return UserInfoResponse.from(user);
     }
+
+    @Transactional
+    public void delete(Long userId) {
+        userRepository.findById(userId)
+                .ifPresent(User::softDelete);
+    }
 }

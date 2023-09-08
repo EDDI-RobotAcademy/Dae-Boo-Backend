@@ -19,4 +19,6 @@ public interface UserService {
     Boolean stopUser(Long id);
 
     UserInfoResponse modify(Long userId, UserInfoModifyRequest request);
+
+    void delete(Long userId);
 }

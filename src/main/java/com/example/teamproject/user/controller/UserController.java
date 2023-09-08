@@ -44,4 +44,10 @@ public class UserController {
     ) {
         return userService.modify(userId, request);
     }
+
+    // 내 정보 탈퇴 API
+    @DeleteMapping("/user-info")
+    public void userInfoDelete (@RequestParam Long userId) {
+        userService.delete(userId);
+    }
 }

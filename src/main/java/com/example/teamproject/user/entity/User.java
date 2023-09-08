@@ -36,4 +36,8 @@ public class User {
         this.nickname = nickname;
         this.mobile = mobile;
     }
+
+    public void softDelete() {
+        this.activate = false;
+    }
 }
