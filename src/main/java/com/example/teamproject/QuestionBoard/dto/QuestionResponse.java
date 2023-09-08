@@ -16,7 +16,10 @@ public class QuestionResponse {
     private String title;
     private LocalDateTime createdAt;
 
+    private boolean isAnswerComplete;
+
     public static QuestionResponse from(Question question) {
-        return new QuestionResponse(question.getQuestionId(), question.getTitle(), question.getCreatedAt());
+        return new QuestionResponse(
+                question.getQuestionId(), question.getTitle(), question.getCreatedAt(), question.isAnswerComplete());
     }
 }
