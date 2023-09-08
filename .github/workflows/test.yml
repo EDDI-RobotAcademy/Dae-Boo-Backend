@@ -42,13 +42,13 @@ jobs:
           echo "${{ secrets.KAKAO_PROPERTIES }}" > src/main/resources/kakao.properties
           cat src/main/resources/kakao.properties
 
-      ## redis key
-      - name: Create redis.properties for CD Deploy
-        run: |
-          mkdir -p src/main/resources
-          pwd
-          echo "${{ secrets.REDIS.PROPERTIES }}" > src/main/resources/redis.properties
-          cat src/main/resources/redis.properties
+      # ## redis key
+      # - name: Create redis.properties for CD Deploy
+      #   run: |
+      #     mkdir -p src/main/resources
+      #     pwd
+      #     echo "${{ secrets.REDIS.PROPERTIES }}" > src/main/resources/redis.properties
+      #     cat src/main/resources/redis.properties
           
       # CI Test에서 사용할 MySQL 설정
       - name: Setup MySQL
