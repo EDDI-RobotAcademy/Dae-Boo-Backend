@@ -1,9 +1,8 @@
 package com.example.teamproject.user.service;
 
-import com.example.teamproject.user.dto.KakaoOAuthToken;
-import com.example.teamproject.user.dto.NaverOAuthToken;
+import com.example.teamproject.user.dto.UserInfoModifyRequest;
+import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
-import org.springframework.http.HttpHeaders;
 
 import java.util.List;
 
@@ -18,4 +17,6 @@ public interface UserService {
     List<User> userList();
 
     Boolean stopUser(Long id);
+
+    UserInfoResponse modify(Long userId, UserInfoModifyRequest request);
 }

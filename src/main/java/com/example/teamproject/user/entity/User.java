@@ -34,5 +34,9 @@ public class User {
         this.gender = gender;
         this.age = ageRange;
     }
-    
+
+    public void modify(String nickname, String mobile) {
+        this.nickname = nickname;
+        this.mobile = mobile;
+    }
 }
