@@ -1,9 +1,6 @@
 package com.example.teamproject.questionBoard.service;
 
-import com.example.teamproject.questionBoard.dto.QuestionDetailResponse;
-import com.example.teamproject.questionBoard.dto.QuestionModifyRequest;
-import com.example.teamproject.questionBoard.dto.QuestionResponse;
-import com.example.teamproject.questionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.questionBoard.dto.*;
 import com.example.teamproject.questionBoard.entity.Question;
 
 import java.util.List;
@@ -20,4 +17,6 @@ public interface QuestionService {
     void delete(long questionId);
 
     List<Question> list();
+
+    QuestionDetailBoardResponse read(Long questionId);
 }

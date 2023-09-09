@@ -1,9 +1,6 @@
 package com.example.teamproject.questionBoard.controller;
 
-import com.example.teamproject.questionBoard.dto.QuestionDetailResponse;
-import com.example.teamproject.questionBoard.dto.QuestionModifyRequest;
-import com.example.teamproject.questionBoard.dto.QuestionResponse;
-import com.example.teamproject.questionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.questionBoard.dto.*;
 import com.example.teamproject.questionBoard.entity.Question;
 import com.example.teamproject.questionBoard.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -58,5 +55,12 @@ public class UserQuestionController {
     public List<Question> managementQuestionList() {
         log.info("managementQuestionList()");
         return questionService.list();
+    }
+
+    // 관리자 - 1:1 게시판 해당 글 불러오기
+    @GetMapping("/{questionId}")
+    public QuestionDetailBoardResponse managementDetailQuestion(@PathVariable("questionId") Long questionId) {
+        log.info("managementDetailQuestion()");
+        return questionService.read(questionId);
     }
 }

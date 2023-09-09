@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
@@ -15,4 +16,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByWriter(@Param("userId") long userId);
 
     List<Question> findByIsDeletedFalse();
+
+    Optional<Question> findByQuestionId(Long questionId);
 }
