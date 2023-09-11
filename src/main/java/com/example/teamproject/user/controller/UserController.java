@@ -35,6 +35,7 @@ public class UserController {
     public User userStop (@RequestParam Long userId){
         return userService.stopUser(userId);
     }
+
     // 내 정보 수정 API
     @PutMapping("/user-info")
     public UserInfoResponse userInfoModify(
