@@ -41,7 +41,7 @@ public class BoardController {
         boardService.register(boardRequestForm);
     }
 
-    @GetMapping("{boardId}")
+    @GetMapping("/{boardId}")
     public Board personalReadBoard(@PathVariable("boardId") Long boardId) {
         log.info("personalReadBoard()");
         return boardService.read(boardId);

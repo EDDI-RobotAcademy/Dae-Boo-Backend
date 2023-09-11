@@ -35,9 +35,10 @@ public class User {
         this.age = ageRange;
     }
 
-    public void modify(String nickname, String mobile) {
+    public void modify(String nickname, String mobile, String email) {
         this.nickname = nickname;
         this.mobile = mobile;
+        this.email = email;
     }
 
     public void softDelete() {

@@ -15,6 +15,7 @@ public class UserInfoResponse {
     private int age;
     private String gender;
     private String mobile;
+    private String email;
 
     public static UserInfoResponse from(User user) {
         return new UserInfoResponse(
@@ -22,7 +23,8 @@ public class UserInfoResponse {
                 user.getProfile_image(),
                 Integer.parseInt(user.getAge()),
                 user.getGender(),
-                user.getMobile()
+                user.getMobile(),
+                user.getEmail()
         );
     }
 }
