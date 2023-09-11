@@ -12,11 +12,13 @@ public class UserInfoModifyRequest {
 
     private String nickname;
     private String mobile;
+    private String email;
 
     public static UserInfoModifyRequest from(User user) {
         return new UserInfoModifyRequest(
                 user.getNickname(),
-                user.getMobile()
+                user.getMobile(),
+                user.getEmail()
         );
     }
 }
