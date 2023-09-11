@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoModifyRequest {
-
     private String nickname;
     private String mobile;
     private String email;
