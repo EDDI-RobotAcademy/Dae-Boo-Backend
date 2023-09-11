@@ -59,8 +59,8 @@ public class BoardController {
 
         //User로 게시물을 다 찾음
         List<Board> userWrittenBoards =  boardService.findBoardByLoginUser(LoginUser);
-        log.info("userWrittenBoards index_0 : " + userWrittenBoards.get(0));
-        log.info("userWrittenBoards index_1 : " + userWrittenBoards.get(1));
+//        log.info("userWrittenBoards index_0 : " + userWrittenBoards.get(0));
+//        log.info("userWrittenBoards index_1 : " + userWrittenBoards.get(1));
 
         //프론트로 보냄
         return userWrittenBoards;

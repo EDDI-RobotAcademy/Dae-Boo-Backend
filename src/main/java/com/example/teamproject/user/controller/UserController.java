@@ -36,11 +36,12 @@ public class UserController {
         return userService.stopUser(userId);
     }
     // 내 정보 수정 API
-    @PutMapping("/user-info")
+    @PutMapping("/user-info/{userId}")
     public UserInfoResponse userInfoModify(
-            @RequestParam Long userId,
+            @PathVariable("userId") long userId,
             @RequestBody UserInfoModifyRequest request
     ) {
+        log.info("UserInfoResponse() // request : " + request);
         return userService.modify(userId, request);
     }
 
