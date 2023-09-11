@@ -50,4 +50,9 @@ public class UserController {
     public void userInfoDelete (@RequestParam Long userId) {
         userService.delete(userId);
     }
+    @GetMapping("/manage/userInfo")
+    public User getAccountInfo (@RequestParam Long userId) {
+        log.info("requestUserInfo()");
+        return userService.getUserInfo(userId);
+    }
 }
