@@ -1,5 +1,6 @@
 package com.example.teamproject.user.controller;
 
+import com.example.teamproject.user.controller.form.LoginUserEmailForm;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.NaverOAuthToken;
 import com.example.teamproject.user.service.OauthService;
@@ -26,7 +27,7 @@ public class OAuthController {
         return oauthService.getAuthorizeCode();
     }
     @GetMapping("/naver/oauth-code")
-    public NaverOAuthToken getNaverUserInfo(@RequestParam String code) {
+    public LoginUserEmailForm getNaverUserInfo(@RequestParam String code) {
         log.info("naverCallback()");
         log.info(code);
         return oauthService.generateAccessToken(code);
