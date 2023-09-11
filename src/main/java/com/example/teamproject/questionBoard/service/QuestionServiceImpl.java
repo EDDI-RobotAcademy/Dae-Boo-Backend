@@ -1,9 +1,6 @@
 package com.example.teamproject.questionBoard.service;
 
-import com.example.teamproject.questionBoard.dto.QuestionDetailResponse;
-import com.example.teamproject.questionBoard.dto.QuestionModifyRequest;
-import com.example.teamproject.questionBoard.dto.QuestionResponse;
-import com.example.teamproject.questionBoard.dto.QuestionWriteRequest;
+import com.example.teamproject.questionBoard.dto.*;
 import com.example.teamproject.questionBoard.entity.Question;
 import com.example.teamproject.questionBoard.repository.QuestionRepository;
 import com.example.teamproject.user.entity.User;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -65,5 +63,23 @@ public class QuestionServiceImpl implements QuestionService {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new RuntimeException("해당 1:1 문의에 대한 정보를 찾을 수 없습니다."));
         question.delete();
+    }
+
+    @Override
+    public List<Question> list() {
+        return questionRepository.findByIsDeletedFalse();
+    }
+
+    @Override
+    public QuestionDetailBoardResponse read(Long questionId) {
+        Optional<Question> maybeQuestion = questionRepository.findByQuestionId(questionId);
+
+        if(maybeQuestion.isEmpty()) {
+            log.info("존재하지 않는 문의 입니다.");
+            return null;
+        }
+
+        Question question = maybeQuestion.get();
+        return new QuestionDetailBoardResponse(question);
     }
 }
