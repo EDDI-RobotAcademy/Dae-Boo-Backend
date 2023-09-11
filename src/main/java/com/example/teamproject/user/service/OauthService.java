@@ -1,5 +1,6 @@
 package com.example.teamproject.user.service;
 
+import com.example.teamproject.user.controller.form.LoginUserEmailForm;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.NaverOAuthToken;
 import com.example.teamproject.user.entity.User;
@@ -9,7 +10,7 @@ public interface OauthService {
 
     String getAuthorizeCode();
 
-    NaverOAuthToken generateAccessToken(String code);
+    LoginUserEmailForm generateAccessToken(String code);
 
     User getNaverUserInfo(String accessToken, HttpHeaders headers);
 

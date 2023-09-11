@@ -1,5 +1,6 @@
 package com.example.teamproject.user.service;
 
+import com.example.teamproject.user.controller.form.LoginUserEmailForm;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.NaverOAuthToken;
 import com.example.teamproject.user.entity.User;
@@ -47,7 +48,7 @@ public class OauthServiceImpl implements OauthService {
     }
 
     @Override
-    public NaverOAuthToken generateAccessToken(String code){
+    public LoginUserEmailForm generateAccessToken(String code){
         final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
         final String CLIENT_SECRET = propertyUtil.getProperty("naver_client_secret");
 
@@ -76,21 +77,34 @@ public class OauthServiceImpl implements OauthService {
         String accessToken = response.getBody().getAccess_token();
         System.out.println("accessToken : " + accessToken);
 
+        // accessToken으로 가져온 user정보로 user 생성
         User user = getNaverUserInfo(accessToken, headers);
-
+        
+        // email로 존재하는 user인지 확인
         Optional<User> maybeUser = userRepository.findByEmail(user.getEmail());
         if(maybeUser.isPresent()) {
             System.out.println("maybeUser is present");
-            return response.getBody();
+//            return response.getBody();
 
         } else {
+            // 없는 user면 db에 저장
             if(user != null) {
                 userRepository.save(user);
             } else {
                 System.out.println("user is null");
             }
         }
-        return response.getBody();
+
+        //할당된 userId찾아서 반환
+        Optional<User> maybeUserAfterSave = userRepository.findByEmail(user.getEmail());
+        if(maybeUserAfterSave.isPresent()) {
+            User user1 = maybeUserAfterSave.get();
+            Long userId = user1.getUserId();
+            LoginUserEmailForm loginUserEmailForm = new LoginUserEmailForm(response.getBody(), userId);
+            return loginUserEmailForm;
+        }
+            return null;
+//        return response.getBody();
     }
 
     //사용자 정보가져오기
