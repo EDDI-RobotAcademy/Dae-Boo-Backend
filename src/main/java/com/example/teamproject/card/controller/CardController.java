@@ -48,9 +48,9 @@ public class CardController {
 
     // 카드 찜하기 or 찜삭제하기
     @PostMapping("/wishCard")
-    public void clickWishCard(@RequestParam Long cardId,
-                              @RequestParam Long userId){
-        cardService.wishCard(cardId, userId);
+    public void clickWishCard(@RequestParam Long userId,
+                              @RequestParam Long cardId){
+        cardService.wishCard(userId, cardId);
     }
 
     //    // 내가 찜한카드 불러오기
