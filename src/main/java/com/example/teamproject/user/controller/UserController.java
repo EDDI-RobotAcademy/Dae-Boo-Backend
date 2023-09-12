@@ -1,5 +1,6 @@
 package com.example.teamproject.user.controller;
 
+import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
@@ -55,5 +56,20 @@ public class UserController {
     public User getAccountInfo (@RequestParam Long userId) {
         log.info("requestUserInfo()");
         return userService.getUserInfo(userId);
+    }
+
+    // 카드 찜하기 or 찜삭제하기
+    @PostMapping("/wishCard")
+    public void clickWishCard(@RequestParam Long userId,
+                              @RequestParam Long cardId){
+        log.info("clickWishCard()");
+        userService.wishCard(userId, cardId);
+    }
+
+    // 내가 찜한카드 불러오기
+    @GetMapping("/wishCardList")
+    public List<Card> myWishCardList(@RequestParam Long userId) {
+        log.info("myWishCardList()");
+        return userService.myWishCardList(userId);
     }
 }
