@@ -1,5 +1,6 @@
 package com.example.teamproject.user.service;
 
+import com.example.teamproject.user.dto.AccountResponse;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
@@ -195,5 +196,29 @@ public class UserServiceImpl implements UserService {
     public void delete(Long userId) {
         userRepository.findById(userId)
                 .ifPresent(User::softDelete);
+    }
+
+    // redis 토큰으로 사용자 정보 가져오기 테스트 중
+    @Override
+    public AccountResponse findAccountInfoById(Long accountId) {
+        final Optional<User> maybeAccount = userRepository.findById(accountId);
+
+        if (maybeAccount.isEmpty()) {
+            log.info("이런 계정은 존재하지 않습니다(해킹이 의심됩니다!)");
+            return null;
+        }
+
+        final User account = maybeAccount.get();
+        final AccountResponse responseForm = new AccountResponse(
+                account.getUserId(),
+                account.getNickname(),
+                account.getAge(),
+                account.getGender(),
+                account.getMobile(),
+                account.getEmail(),
+                account.getRole()
+        );
+
+        return responseForm;
     }
 }
