@@ -24,6 +24,9 @@ public class Board {
     @Setter
     private String content;
 
+    private String title;
+    private String writer;
+
     @JoinColumn(name = "userId")
     @ManyToOne
     private User userId;
