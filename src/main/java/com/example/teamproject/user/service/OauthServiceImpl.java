@@ -4,6 +4,7 @@ import com.example.teamproject.user.controller.form.LoginUserEmailForm;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.NaverOAuthToken;
 import com.example.teamproject.user.entity.User;
+import com.example.teamproject.user.redis.RedisService;
 import com.example.teamproject.user.repository.UserRepository;
 import com.example.teamproject.utility.PropertyUtil;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -30,7 +32,10 @@ public class OauthServiceImpl implements OauthService {
 
     final private PropertyUtil propertyUtil;
     final private UserRepository userRepository;
+    final private RedisService redisService;
 
+
+    //-------------------------NAVER--------------------------
     @Override
     public String getAuthorizeCode() {
         final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
@@ -151,12 +156,18 @@ public class OauthServiceImpl implements OauthService {
     }
 
     @Override
-    public KakaoOAuthToken kakaoCallback(String code){
+    public String kakaoCallback(String code){
         KakaoOAuthToken kakaoOAuthToken = getAccessToken(code);
         ResponseEntity<String> response = requestUserInfo(kakaoOAuthToken);
         User user = saveUserInfo(response);
 
-        return kakaoOAuthToken;
+        // redis 에 사용자 임의 토큰 만들어서 저장해줌
+        // 지속적인 저장이 될 필요가 없음, 로그인 시에만 있으면 되니까 !
+        String userToken = UUID.randomUUID().toString();
+        log.info("accountId: " + user.getUserId() + ", userToken: " + userToken);
+
+        redisService.setKeyAndValue(userToken, user.getUserId());
+        return userToken;
     }
 
     private User saveUserInfo(ResponseEntity<String> response) {

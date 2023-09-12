@@ -42,7 +42,7 @@ public class OAuthController {
     }
 
     @GetMapping("/kakao/callback")
-    public KakaoOAuthToken kakaoCallback(@RequestParam("code") String code) {
+    public String kakaoCallback(@RequestParam("code") String code) {
         log.info("카카오 코드를 받았습니다. 토큰 요청을 하겠습니다 !");
         return oauthService.kakaoCallback(code);
     }
