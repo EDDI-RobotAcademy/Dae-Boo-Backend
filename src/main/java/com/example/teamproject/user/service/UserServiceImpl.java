@@ -1,11 +1,15 @@
 package com.example.teamproject.user.service;
 
 import com.example.teamproject.user.dto.AccountResponse;
+import com.example.teamproject.card.entity.Card;
+import com.example.teamproject.card.repository.CardRepository;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
+import com.example.teamproject.user.entity.Wish;
 import com.example.teamproject.user.repository.UserRepository;
+import com.example.teamproject.user.repository.WishRepository;
 import com.example.teamproject.utility.PropertyUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,16 +37,8 @@ public class UserServiceImpl implements UserService {
     final private PropertyUtil propertyUtil;
     final private RestTemplate restTemplate;
     final private UserRepository userRepository;
-
-//    @Value("${client_id}")
-//    private String CLIENT_ID1;
-//
-//    @Value("${client_secret}")
-//    private String CLIENT_SECRET1;
-//
-//    @Value("${redirect_uri}")
-//    private String REDIRECT_URI1;
-
+    final private WishRepository wishRepository;
+    final private CardRepository cardRepository;
 
     //-------------------------NAVER--------------------------
 
@@ -198,13 +195,14 @@ public class UserServiceImpl implements UserService {
                 .ifPresent(User::softDelete);
     }
 
+
     // redis 토큰으로 사용자 정보 가져오기 테스트 중
     @Override
     public AccountResponse findAccountInfoById(Long accountId) {
         final Optional<User> maybeAccount = userRepository.findById(accountId);
 
         if (maybeAccount.isEmpty()) {
-            log.info("이런 계정은 존재하지 않습니다(해킹이 의심됩니다!)");
+            log.info("이런 계정은 존재하지 않습니다.");
             return null;
         }
 
@@ -221,4 +219,54 @@ public class UserServiceImpl implements UserService {
 
         return responseForm;
     }
+
+    // -------------------Wish Card-----------------------
+    @Override
+    public void wishCard(Long userId, Long cardId){
+        //찜하기 기능
+        //userId, cardId로 db에서 검색
+        Optional<Wish> maybeWish = wishRepository.findByUserIdAndCardId(userId, cardId);
+        // 있으면 삭제 없으면 등록
+        if(maybeWish.isPresent()){
+            Wish wish = maybeWish.get();
+            wishRepository.delete(wish);
+            log.info("delete wish");
+        } else {
+            Wish wish = new Wish(userId, cardId);
+            wishRepository.save(wish);
+            log.info("save wish");
+        }
+    }
+
+    @Override
+    public List<Card> myWishCardList(Long userId){
+        //user가 찜한 카드 목록
+        List<Wish> maybeWishList = wishRepository.findAllByUserId(userId);
+        List<Long> wishCardIdList = new ArrayList<>();
+
+        //maybeWishList 크기만큼 반복해서 wishCardIdList에 cardId만 담음
+        for (Wish element: maybeWishList) {
+            wishCardIdList.add(element.getCardId());
+        }
+
+        //cardId로 card를 찾아서 반환하면될듯...
+        List<Card> wishCardList = new ArrayList<>();
+        for (Long element: wishCardIdList) {
+            Optional<Card> maybeCard = cardRepository.findByCardId(element);
+            if(maybeCard.isPresent()){
+                Card card = maybeCard.get();
+                wishCardList.add(card);
+            }
+        }
+
+//        wishCardIdList 단순출력
+        for (Card element: wishCardList) {
+            System.out.println(element);
+        }
+
+
+        return wishCardList;
+
+    }
+
 }
