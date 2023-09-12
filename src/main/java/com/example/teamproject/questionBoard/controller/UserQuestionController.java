@@ -63,4 +63,14 @@ public class UserQuestionController {
         log.info("managementDetailQuestion()");
         return questionService.read(questionId);
     }
+
+    // 관리자 - 1:1 게시판 해당 게시물에 댓글 달기
+    @PostMapping("/managerAnswer")
+    public boolean managementDetailQuestionAnswer(@RequestBody QuestionCommentRequest request) {
+        log.info("managementDetailQuestionAnswer()");
+
+        log.info("getQuestionId: "+ request.getQuestionId());
+        log.info("getAnswer: "+ request.getAnswer());
+        return false;
+    }
 }
