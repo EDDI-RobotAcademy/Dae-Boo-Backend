@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface CardService {
 
-
     List<Card> getActivateCard();
 
     Card cardRegister(CardRequestForm form);
