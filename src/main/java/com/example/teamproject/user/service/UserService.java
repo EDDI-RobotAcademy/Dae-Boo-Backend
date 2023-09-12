@@ -1,6 +1,7 @@
 package com.example.teamproject.user.service;
 
 import com.example.teamproject.card.entity.Card;
+import com.example.teamproject.card.controller.form.WishResponse;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
@@ -23,8 +24,4 @@ public interface UserService {
 
     void delete(Long userId);
 
-    // -------------------Wish Card-----------------------
-    void wishCard(Long userId, Long cardId);
-
-    List<Card> myWishCardList(Long userId);
 }

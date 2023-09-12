@@ -2,7 +2,9 @@ package com.example.teamproject.card.service;
 
 
 import com.example.teamproject.card.controller.form.CardRequestForm;
+import com.example.teamproject.card.controller.form.WishResponse;
 import com.example.teamproject.card.entity.Card;
+import com.example.teamproject.user.entity.User;
 
 import java.util.List;
 
@@ -16,4 +18,11 @@ public interface CardService {
 
     List<Card> getAgeCard();
     Boolean stopCard(Long id);
+
+    // -------------------Wish Card-----------------------
+    User getUserById(Long userId);
+
+    Card getCardById(Long cardId);
+
+    WishResponse wishCard(Long userId, Long cardId);
 }
