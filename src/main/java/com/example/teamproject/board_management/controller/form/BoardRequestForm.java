@@ -14,9 +14,11 @@ public class BoardRequestForm {
     private BoardCategory category;
     private String boardName;
     private String content;
-    private User userId;
+//    private User userId;
+    private String writer;
 
     public Board toBoard() {
-        return new Board(category, boardName, content, userId);
+//        return new Board(category, boardName, content, userId);
+        return new Board(category, boardName, content, writer);
     }
 }

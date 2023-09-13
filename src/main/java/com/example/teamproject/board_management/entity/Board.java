@@ -24,9 +24,6 @@ public class Board {
     @Setter
     private String content;
 
-    private String title;
-    private String writer;
-
     @JoinColumn(name = "userId")
     @ManyToOne
     private User userId;
@@ -39,10 +36,22 @@ public class Board {
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
 
-    public Board(BoardCategory category, String boardName, String content, User userId) {
+//    public Board(BoardCategory category, String boardName, String content, User userId) {
+
+    public Board(BoardCategory category, String boardName, String content, String writer) {
         this.category = category;
         this.boardName = boardName;
         this.content = content;
-        this.userId = userId;
+//        this.userId = userId;
+        this.writer = writer;
+
+
     }
+    @Setter
+    private String writer;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    @CreationTimestamp
+    private LocalDateTime modifyData;
+
 }
