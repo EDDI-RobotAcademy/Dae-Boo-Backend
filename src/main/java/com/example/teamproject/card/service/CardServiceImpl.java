@@ -81,7 +81,6 @@ public class CardServiceImpl implements CardService {
     @Override
     public Boolean stopCard(Long id) {
         Optional<Card> maybeCard = cardRepository.findById(id);
-        if (maybeCard.isPresent()){
         if (maybeCard.isPresent()) {
             Card targetCard = maybeCard.get();
             targetCard.setActivate(false);
