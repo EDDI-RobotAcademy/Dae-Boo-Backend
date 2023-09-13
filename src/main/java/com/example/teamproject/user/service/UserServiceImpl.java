@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
     public UserInfoResponse modify(Long userId, UserInfoModifyRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
-        user.modify(request.getNickname(), request.getMobile(), request.getEmail());
+        user.modify(request.getNickname(), request.getMobile(), request.getEmail(), request.getInterest1(), request.getInterest2());
         return UserInfoResponse.from(user);
     }
 
@@ -218,53 +218,4 @@ public class UserServiceImpl implements UserService {
 
         return responseForm;
     }
-
-    // -------------------Wish Card-----------------------
-//    @Override
-//    public void wishCard(Long userId, Long cardId){
-//        //찜하기 기능
-//        //userId, cardId로 db에서 검색
-//        Optional<Wish> maybeWish = wishRepository.findByUserAndCard(userId, cardId);
-//        // 있으면 삭제 없으면 등록
-//        if(maybeWish.isPresent()){
-//            Wish wish = maybeWish.get();
-//            wishRepository.delete(wish);
-//            log.info("delete wish");
-//        } else {
-//            Wish wish = new Wish(userId, cardId);
-//            wishRepository.save(wish);
-//            log.info("save wish");
-//        }
-//    }
-//
-//    @Override
-//    public List<Card> myWishCardList(Long userId){
-//        //user가 찜한 카드 목록
-//        List<Wish> maybeWishList = wishRepository.findAllByUserId(userId);
-//        List<Long> wishCardIdList = new ArrayList<>();
-//
-//        //maybeWishList 크기만큼 반복해서 wishCardIdList에 cardId만 담음
-//        for (Wish element: maybeWishList) {
-//            wishCardIdList.add(element.getCardId());
-//        }
-//
-//        //cardId로 card를 찾아서 반환하면될듯...
-//        List<Card> wishCardList = new ArrayList<>();
-//        for (Long element: wishCardIdList) {
-//            Optional<Card> maybeCard = cardRepository.findByCardId(element);
-//            if(maybeCard.isPresent()){
-//                Card card = maybeCard.get();
-//                wishCardList.add(card);
-//            }
-//        }
-//
-////        wishCardIdList 단순출력
-//        for (Card element: wishCardList) {
-//            System.out.println(element);
-//        }
-//
-//
-//        return wishCardList;
-//
-//    }
 }
