@@ -11,8 +11,11 @@ import com.example.teamproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -35,7 +38,9 @@ public class UserController {
 
     // 내 정보 조회 API
     @GetMapping("/userInfo")
-    public User requestUserInfo(@RequestParam Long userId) {
+//    public User requestUserInfo(@RequestParam Long userId) {
+//    public User requestUserInfo (Long userId) {
+    public User requestUserInfo (@RequestParam("userId") Long userId) {
         log.info("requestUserInfo()");
         return userService.getUserInfo(userId);
     }
