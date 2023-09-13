@@ -33,8 +33,6 @@ public class BoardController {
         return boardService.delete(boardId);
     }
 
-
-
     @PostMapping("/register")
     public void register (@RequestBody BoardRequestForm boardRequestForm) {
         log.info("registerBoard()");
@@ -45,6 +43,13 @@ public class BoardController {
     public Board personalReadBoard(@PathVariable("boardId") Long boardId) {
         log.info("personalReadBoard()");
         return boardService.read(boardId);
+    }
+    @PutMapping("/modify/{boardId}")
+    public Board modifyBoard (@PathVariable("boardId") Long boardId,
+                              @RequestBody BoardRequestForm boardRequestForm) {
+        log.info(boardRequestForm+ "test" + boardId);
+
+        return boardService.modify(boardId, boardRequestForm);
     }
 
     //---------------myPage---------------

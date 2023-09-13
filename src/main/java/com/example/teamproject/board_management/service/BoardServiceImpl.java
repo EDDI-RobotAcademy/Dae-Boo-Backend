@@ -3,6 +3,8 @@ package com.example.teamproject.board_management.service;
 import com.example.teamproject.board_management.controller.form.BoardRequestForm;
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.board_management.repository.BoardRepository;
+import com.example.teamproject.notice.controller.form.RequestNoticeForm;
+import com.example.teamproject.notice.entity.Notice;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -81,6 +83,22 @@ public class BoardServiceImpl implements BoardService{
             return null;
         }
         return maybeBoard.get();
+    }
+
+    @Override
+    public Board modify(Long boardId, BoardRequestForm boardRequestForm) {
+        Optional<Board> maybeBoard = boardRepository.findById(boardId);
+
+        if (maybeBoard.isEmpty()) {
+            log.info("정보가 없습니다!");
+            return null;
+        }
+
+        Board board = maybeBoard.get();
+        board.setBoardName(boardRequestForm.getBoardName());
+        board.setContent(boardRequestForm.getContent());
+
+        return boardRepository.save(board);
     }
 
     @Override
