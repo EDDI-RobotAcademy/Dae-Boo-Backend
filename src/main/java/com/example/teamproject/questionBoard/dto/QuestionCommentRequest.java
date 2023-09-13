@@ -1,4 +1,4 @@
-package com.example.teamproject.questionBoard.controller;
+package com.example.teamproject.questionBoard.dto;
 
 import lombok.*;
 

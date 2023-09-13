@@ -2,8 +2,13 @@ package com.example.teamproject.card.service;
 
 
 import com.example.teamproject.card.controller.form.CardRequestForm;
+import com.example.teamproject.card.controller.form.WishResponse;
 import com.example.teamproject.card.entity.Card;
+import com.example.teamproject.card.entity.Wish;
 import com.example.teamproject.card.repository.CardRepository;
+import com.example.teamproject.card.repository.WishRepository;
+import com.example.teamproject.user.entity.User;
+import com.example.teamproject.user.repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +28,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CardServiceImpl implements CardService {
     final private CardRepository cardRepository;
+    final private UserRepository userRepository;
+    final private WishRepository wishRepository;
 
     // 현재 오류나고 있습니다. 추후 수정 바랍니다.
     // @Value("${spring.web.cors.allowed-origins}")
@@ -96,5 +103,43 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> retrieveInterestList() {
         return cardRepository.findTop10ByActivateTrueOrderByViewCountDesc();
+
+    // -------------------Wish Card-----------------------
+    @Override
+    public User getUserById(Long userId){
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("등록된 User가 아닙니다. : " + userId));
+    }
+    @Override
+    public Card getCardById(Long cardId){
+        return cardRepository.findByCardId(cardId)
+                .orElseThrow(() -> new RuntimeException("등록된 Card가 아닙니다. : " + cardId));
+    }
+
+    @Override
+    public WishResponse wishCard(Long userId, Long cardId){
+        User user = getUserById(userId);
+        Card card = getCardById(cardId);
+        Optional<Wish> maybeWish = wishRepository.findByUserAndCard(userId, cardId);
+
+        if(maybeWish.isPresent()) {
+            log.info("this wish is present");
+            Boolean isWish = false; //찜 안 된 상태면 찜삭제
+
+            Wish wish = maybeWish.get();
+            wishRepository.delete(wish);
+            return new WishResponse(isWish, userId, cardId);
+        } else {
+            log.info("this wish is empty");
+            Boolean isWish = true; //찜 된 상태
+
+            Wish wish = new Wish();
+            wish.setUser(user);
+            wish.setCard(card);
+
+            wishRepository.save(wish); //찜 된 상태면 찜추가
+            return new WishResponse(isWish, userId, cardId);
+        }
+
     }
 }

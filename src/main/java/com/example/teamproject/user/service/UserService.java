@@ -1,5 +1,8 @@
 package com.example.teamproject.user.service;
 
+import com.example.teamproject.user.dto.AccountResponse;
+import com.example.teamproject.card.entity.Card;
+import com.example.teamproject.card.controller.form.WishResponse;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
@@ -21,4 +24,11 @@ public interface UserService {
     UserInfoResponse modify(Long userId, UserInfoModifyRequest request);
 
     void delete(Long userId);
+
+    AccountResponse findAccountInfoById(Long accountId);
+  
+    // -------------------Wish Card-----------------------
+    void wishCard(Long userId, Long cardId);
+
+    List<Card> myWishCardList(Long userId);
 }

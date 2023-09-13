@@ -55,5 +55,18 @@ public class CardController {
     public Card retrieveCardDetail(@RequestParam long cardId) {
         return cardService.retrieve(cardId);
     }
+
+    // 카드 찜하기 or 찜삭제하기
+    @PostMapping("/wishCard")
+    public void clickWishCard(@RequestParam Long userId,
+                              @RequestParam Long cardId){
+        cardService.wishCard(userId, cardId);
+    }
+
+    //    // 내가 찜한카드 불러오기
+//    @GetMapping("/wishCardList")
+//    public List<Card> myWishCardList(@RequestParam Long userId) {
+//        log.info("myWishCardList()");
+//        return userService.myWishCardList(userId);
 }
 
