@@ -1,9 +1,12 @@
 package com.example.teamproject.user.controller;
 
+import com.example.teamproject.user.dto.AccountResponse;
+import com.example.teamproject.user.dto.AfterLoginRequest;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
+import com.example.teamproject.user.redis.RedisService;
 import com.example.teamproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +20,18 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     final private UserService userService;
+    final private RedisService redisService;
+
+    // redis token으로 사용자 정보 조회 테스트
+    @PostMapping("/testToken")
+    public AccountResponse afterLoginTest (@RequestBody AfterLoginRequest requestForm) {
+        log.info("afterLoginTest(): " + requestForm);
+
+        Long accountId = redisService.getValueByKey(requestForm.getUserToken());
+        log.info("accountId: " + accountId);
+
+        return userService.findAccountInfoById(accountId);
+    }
 
     // 내 정보 조회 API
     @GetMapping("/userInfo")

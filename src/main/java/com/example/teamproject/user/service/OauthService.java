@@ -16,5 +16,5 @@ public interface OauthService {
 
     String getKakaoAuthorizeCode();
 
-    KakaoOAuthToken kakaoCallback(String code);
+    String kakaoCallback(String code);
 }
