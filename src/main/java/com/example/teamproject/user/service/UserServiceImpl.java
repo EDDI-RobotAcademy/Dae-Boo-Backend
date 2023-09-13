@@ -2,14 +2,15 @@ package com.example.teamproject.user.service;
 
 import com.example.teamproject.user.dto.AccountResponse;
 import com.example.teamproject.card.entity.Card;
+import com.example.teamproject.card.entity.Wish;
 import com.example.teamproject.card.repository.CardRepository;
+import com.example.teamproject.card.controller.form.WishResponse;
 import com.example.teamproject.user.dto.KakaoOAuthToken;
 import com.example.teamproject.user.dto.UserInfoModifyRequest;
 import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
-import com.example.teamproject.user.entity.Wish;
 import com.example.teamproject.user.repository.UserRepository;
-import com.example.teamproject.user.repository.WishRepository;
+import com.example.teamproject.card.repository.WishRepository;
 import com.example.teamproject.utility.PropertyUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -195,7 +195,6 @@ public class UserServiceImpl implements UserService {
                 .ifPresent(User::softDelete);
     }
 
-
     // redis 토큰으로 사용자 정보 가져오기 테스트 중
     @Override
     public AccountResponse findAccountInfoById(Long accountId) {
@@ -268,5 +267,4 @@ public class UserServiceImpl implements UserService {
         return wishCardList;
 
     }
-
 }
