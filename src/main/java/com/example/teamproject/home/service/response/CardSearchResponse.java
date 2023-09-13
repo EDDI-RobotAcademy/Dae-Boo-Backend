@@ -1,4 +1,4 @@
-package com.example.teamproject.main.service.response;
+package com.example.teamproject.home.service.response;
 
 import com.example.teamproject.card.entity.Card;
 import lombok.AllArgsConstructor;

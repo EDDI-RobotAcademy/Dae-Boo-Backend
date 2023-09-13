@@ -18,4 +18,5 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Query("SELECT c FROM Card c WHERE c.activate = true AND c.name LIKE %:keyword% OR c.company LIKE %:keyword%")
     List<Card> findAllByKeyword(@Param("keyword") String keyword);
 
+    List<Card> findTop10ByActivateTrueOrderByViewCountDesc();
 }

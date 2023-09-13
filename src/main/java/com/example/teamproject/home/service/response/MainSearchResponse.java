@@ -1,6 +1,5 @@
-package com.example.teamproject.main.service.response;
+package com.example.teamproject.home.service.response;
 
-import com.example.teamproject.board.entity.JpaBoard;
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.card.entity.Card;
 import lombok.AllArgsConstructor;

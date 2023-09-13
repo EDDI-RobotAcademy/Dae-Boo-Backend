@@ -1,6 +1,5 @@
 package com.example.teamproject.board_management.repository;
 
-import com.example.teamproject.board.entity.JpaBoard;
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +17,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     Optional<Board> findByBoardId(Long boardId);
 
-    @Query("SELECT b FROM Board b WHERE b.title LIKE %:keyword% OR b.content LIKE %:keyword%")
+    @Query("SELECT b FROM Board b WHERE b.boardName LIKE %:keyword% OR b.content LIKE %:keyword%")
     List<Board> findAllByKeyword(@Param("keyword") String keyword);
 }

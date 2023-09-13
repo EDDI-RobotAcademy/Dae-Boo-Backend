@@ -32,19 +32,29 @@ public class BoardController {
         log.info("boardId: {}", boardId);
         return boardService.delete(boardId);
     }
-
-
-
     @PostMapping("/register")
     public void register (@RequestBody BoardRequestForm boardRequestForm) {
         log.info("registerBoard()");
         boardService.register(boardRequestForm);
+    }
+    @PostMapping("/register/data")
+    public Board registerBoard (@RequestBody BoardRequestForm boardRequestForm) {
+        log.info("registerBoard()");
+
+        return boardService.register(boardRequestForm.toBoard());
     }
 
     @GetMapping("/{boardId}")
     public Board personalReadBoard(@PathVariable("boardId") Long boardId) {
         log.info("personalReadBoard()");
         return boardService.read(boardId);
+    }
+    @PutMapping("/modify/{boardId}")
+    public Board modifyBoard (@PathVariable("boardId") Long boardId,
+                              @RequestBody BoardRequestForm boardRequestForm) {
+        log.info(boardRequestForm+ "test" + boardId);
+
+        return boardService.modify(boardId, boardRequestForm);
     }
 
     //---------------myPage---------------
