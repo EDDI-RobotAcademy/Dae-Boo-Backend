@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class CardServiceImpl implements CardService {
     public Card cardRegister(CardRequestForm form) {
         Card newCard = form.toCard();
         Optional<Card> maybeCard = cardRepository.findByName(newCard.getName());
-        if (maybeCard.isEmpty()){
+        if (maybeCard.isEmpty()) {
             return cardRepository.save(newCard);
         }
         return null;
@@ -79,7 +80,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public Boolean stopCard(Long id) {
         Optional<Card> maybeCard = cardRepository.findById(id);
-        if (maybeCard.isPresent()){
+        if (maybeCard.isPresent()) {
             Card targetCard = maybeCard.get();
             targetCard.setActivate(false);
             cardRepository.save(targetCard);
@@ -89,25 +90,40 @@ public class CardServiceImpl implements CardService {
         return false;
     }
 
+    @Override
+    @Transactional
+    public Card retrieve(long cardId) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new RuntimeException("잘못된 카드정보입니다."));
+        card.increaseViewCount();
+        return card;
+    }
+
+    @Override
+    public List<Card> retrieveInterestList() {
+        return cardRepository.findTop10ByActivateTrueOrderByViewCountDesc();
+    }
+
     // -------------------Wish Card-----------------------
     @Override
-    public User getUserById(Long userId){
+    public User getUserById(Long userId) {
         return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("등록된 User가 아닙니다. : " + userId));
     }
+
     @Override
-    public Card getCardById(Long cardId){
+    public Card getCardById(Long cardId) {
         return cardRepository.findByCardId(cardId)
                 .orElseThrow(() -> new RuntimeException("등록된 Card가 아닙니다. : " + cardId));
     }
 
     @Override
-    public WishResponse wishCard(Long userId, Long cardId){
+    public WishResponse wishCard(Long userId, Long cardId) {
         User user = getUserById(userId);
         Card card = getCardById(cardId);
         Optional<Wish> maybeWish = wishRepository.findByUserAndCard(userId, cardId);
 
-        if(maybeWish.isPresent()) {
+        if (maybeWish.isPresent()) {
             log.info("this wish is present");
             Boolean isWish = false; //찜 안 된 상태면 찜삭제
 
@@ -125,6 +141,7 @@ public class CardServiceImpl implements CardService {
             wishRepository.save(wish); //찜 된 상태면 찜추가
             return new WishResponse(isWish, userId, cardId);
         }
+
     }
 
     @Override
@@ -139,3 +156,4 @@ public class CardServiceImpl implements CardService {
         return wishCardList;
     }
 }
+
