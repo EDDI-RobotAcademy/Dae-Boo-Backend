@@ -8,8 +8,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -82,5 +82,19 @@ public class CardServiceImpl implements CardService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    @Transactional
+    public Card retrieve(long cardId) {
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new RuntimeException("잘못된 카드정보입니다."));
+        card.increaseViewCount();
+        return card;
+    }
+
+    @Override
+    public List<Card> retrieveInterestList() {
+        return cardRepository.findTop10ByActivateTrueOrderByViewCountDesc();
     }
 }

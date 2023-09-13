@@ -38,6 +38,8 @@ public class Card {
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
 
+    private long viewCount = 0;
+
     public Card(String name, String company, String fee, String cardCondition, String benefit, String cardImage) {
         this.name = name;
         this.company = company;
@@ -45,6 +47,10 @@ public class Card {
         this.cardCondition = cardCondition;
         this.benefit = benefit;
         this.cardImage = cardImage;
+    }
+
+    public void increaseViewCount() {
+        this.viewCount += 1;
     }
 
 

@@ -14,5 +14,10 @@ public interface CardService {
     Card cardRegister(CardRequestForm form);
 
     List<Card> getAgeCard();
+
     Boolean stopCard(Long id);
+
+    Card retrieve(long cardId);
+
+    List<Card> retrieveInterestList();
 }

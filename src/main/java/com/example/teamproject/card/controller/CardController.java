@@ -46,5 +46,14 @@ public class CardController {
         return cardList;
     }
 
+    @GetMapping("/interest/list")
+    public List<Card> retrieveInterestCardList() {
+        return cardService.retrieveInterestList();
+    }
+
+    @GetMapping("/interest-card")
+    public Card retrieveCardDetail(@RequestParam long cardId) {
+        return cardService.retrieve(cardId);
+    }
 }
 
