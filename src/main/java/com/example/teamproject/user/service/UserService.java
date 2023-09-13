@@ -28,7 +28,7 @@ public interface UserService {
     AccountResponse findAccountInfoById(Long accountId);
   
     // -------------------Wish Card-----------------------
-    void wishCard(Long userId, Long cardId);
-
-    List<Card> myWishCardList(Long userId);
+//    void wishCard(Long userId, Long cardId);
+//
+//    List<Card> myWishCardList(Long userId);
 }

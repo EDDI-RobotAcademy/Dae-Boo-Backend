@@ -25,4 +25,5 @@ public class Wish {
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
+
 }
