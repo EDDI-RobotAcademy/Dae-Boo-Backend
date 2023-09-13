@@ -1,10 +1,10 @@
-package com.example.teamproject.main.service;
+package com.example.teamproject.home.service;
 
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.board_management.repository.BoardRepository;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.repository.CardRepository;
-import com.example.teamproject.main.service.response.MainSearchResponse;
+import com.example.teamproject.home.service.response.MainSearchResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;

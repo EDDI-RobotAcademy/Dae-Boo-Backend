@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmRootEntityType;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,7 @@
-package com.example.teamproject.main.service.response;
+package com.example.teamproject.home.service.response;
 
-import com.example.teamproject.board.entity.JpaBoard;
 import com.example.teamproject.board_management.entity.Board;
+import com.example.teamproject.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 public class BoardSearchResponse {
 
     private long boardId;
-    private String title;
-    private String writer;
+    private String boardName;
+    private long userId;
     private String contents;
 
     public static BoardSearchResponse from(Board board) {
         return new BoardSearchResponse(
                 board.getBoardId(),
-                board.getTitle(),
-                board.getWriter(),
+                board.getBoardName(),
+                board.getUserId().getUserId(),
                 board.getContent()
         );
     }
