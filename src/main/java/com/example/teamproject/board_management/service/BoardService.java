@@ -17,6 +17,7 @@ public interface BoardService {
     List<Board> findBoardByLoginUser(User LoginUser);
 
     void register(BoardRequestForm boardRequestForm);
+    Board register(Board board);
 
     Board read(Long boardId);
     Board modify(Long boardId, BoardRequestForm boardRequestForm);

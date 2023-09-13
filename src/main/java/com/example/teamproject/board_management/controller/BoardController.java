@@ -32,11 +32,16 @@ public class BoardController {
         log.info("boardId: {}", boardId);
         return boardService.delete(boardId);
     }
-
     @PostMapping("/register")
     public void register (@RequestBody BoardRequestForm boardRequestForm) {
         log.info("registerBoard()");
         boardService.register(boardRequestForm);
+    }
+    @PostMapping("/register/data")
+    public Board registerBoard (@RequestBody BoardRequestForm boardRequestForm) {
+        log.info("registerBoard()");
+
+        return boardService.register(boardRequestForm.toBoard());
     }
 
     @GetMapping("/{boardId}")

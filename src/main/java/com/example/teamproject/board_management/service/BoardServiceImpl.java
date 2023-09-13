@@ -136,4 +136,8 @@ public class BoardServiceImpl implements BoardService{
 
         boardRepository.save(board);
     }
+    @Override
+    public Board register(Board board) {
+        return boardRepository.save(board);
+    }
 }
