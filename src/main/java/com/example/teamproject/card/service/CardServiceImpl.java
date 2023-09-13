@@ -126,4 +126,16 @@ public class CardServiceImpl implements CardService {
             return new WishResponse(isWish, userId, cardId);
         }
     }
+
+    @Override
+    public List<Card> myWishCardList(Long userId){
+        log.info("myWishCardList()");
+        List<Wish> wishes = wishRepository.findAllByUserId(userId);
+        List<Card> wishCardList = new ArrayList<>();
+        for (Wish element: wishes) {
+            System.out.println(element.getCard().getCardId());
+            wishCardList.add(element.getCard());
+        }
+        return wishCardList;
+    }
 }
