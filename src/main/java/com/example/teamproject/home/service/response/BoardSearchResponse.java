@@ -13,14 +13,14 @@ public class BoardSearchResponse {
 
     private long boardId;
     private String boardName;
-    private long userId;
+    private String nickname;
     private String contents;
 
     public static BoardSearchResponse from(Board board) {
         return new BoardSearchResponse(
                 board.getBoardId(),
                 board.getBoardName(),
-                board.getUserId().getUserId(),
+                board.getUserId().getNickname(),
                 board.getContent()
         );
     }
