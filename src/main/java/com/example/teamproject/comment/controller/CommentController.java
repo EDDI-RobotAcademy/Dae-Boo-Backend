@@ -22,5 +22,9 @@ public class CommentController {
     public List<Comment> getCommentsByBoardId(@PathVariable Long boardId) {
         return commentService.listCommentsByBoardId(boardId);
     }
-
+    @PostMapping("/register")
+    public Comment registerComment (@RequestBody CommentRegisterRequest request) {
+        log.info("registerComment()");
+        return commentService.register(request.toComment());
+    }
 }

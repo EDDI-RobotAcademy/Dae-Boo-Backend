@@ -26,5 +26,8 @@ public class CommentServiceImpl implements CommentService{
     public List<Comment> listCommentsByBoardId(Long boardId) {
         return commentRepository.findByBoard_BoardId(boardId);
     }
-
+    @Override
+    public Comment register(Comment comment) {
+        return commentRepository.save(comment);
+    }
 }
