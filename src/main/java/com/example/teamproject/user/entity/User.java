@@ -1,5 +1,7 @@
 package com.example.teamproject.user.entity;
 
+import com.example.teamproject.comment.entity.Comment;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,12 @@ public class User {
     private String email;
     private UserInterest interest1;
 //    private UserInterest interest2;
+
+    @Setter
+    @JsonBackReference
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
     private UserRole role = UserRole.NORMAL;
