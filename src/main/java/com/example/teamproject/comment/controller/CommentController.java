@@ -27,4 +27,13 @@ public class CommentController {
         log.info("registerComment()");
         return commentService.register(request.toComment());
     }
+//    @PutMapping("/{commentId}")
+//    public Comment modifyComment(@PathVariable("commentId")Long commentId, @RequestBody RequestCommentForm request) {
+//        return commentService.modify(commentId, request);
+//    }
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(@PathVariable("commentId") Long commentId) {
+        log.info("deleteComment()");
+        commentService.delete(commentId);
+    }
 }

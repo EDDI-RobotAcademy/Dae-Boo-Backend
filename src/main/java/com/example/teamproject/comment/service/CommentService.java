@@ -9,5 +9,7 @@ import java.util.List;
 public interface CommentService {
     List<Comment> listCommentsByBoardId(Long boardId);
     Comment register(Comment comment);
+    void delete(Long commentId);
+
 
 }
