@@ -64,7 +64,7 @@ public class BoardServiceImpl implements BoardService{
     //User로 게시물을 다 찾음
     @Override
     public List<Board> findBoardByLoginUser(User LoginUser) {
-        List<Board> maybeBoardList = boardRepository.findAllByUserId(LoginUser);
+        List<Board> maybeBoardList = boardRepository.findAllByUserIdAndActivateTrue(LoginUser);
         log.info("maybeBoardList : " + maybeBoardList.toString());
         return maybeBoardList;
     }
