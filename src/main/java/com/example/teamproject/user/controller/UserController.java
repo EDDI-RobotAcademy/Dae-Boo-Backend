@@ -25,15 +25,22 @@ public class UserController {
     final private UserService userService;
     final private RedisService redisService;
 
-    // redis token으로 사용자 정보 조회 테스트
+    // redis 에 저장된 userToken 으로 사용자 정보 조회하여 전달 (로그인 시 구동)
     @PostMapping("/testToken")
-    public AccountResponse afterLoginTest (@RequestBody AfterLoginRequest requestForm) {
-        log.info("afterLoginTest(): " + requestForm);
+    public AccountResponse afterLogin (@RequestBody AfterLoginRequest requestForm) {
+        log.info("afterLogin(): " + requestForm);
 
         Long accountId = redisService.getValueByKey(requestForm.getUserToken());
         log.info("accountId: " + accountId);
 
         return userService.findAccountInfoById(accountId);
+    }
+
+    // redis 에 저장된 userToken 삭제 (로그아웃)
+    @PostMapping("/logout/userToken")
+    public boolean redisLogout (@RequestBody AfterLoginRequest requestForm) {
+        log.info("redisLogout(): "+ requestForm);
+        return redisService.deleteByKey(requestForm.getUserToken());
     }
 
     // 내 정보 조회 API

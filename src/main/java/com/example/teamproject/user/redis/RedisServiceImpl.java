@@ -25,7 +25,7 @@ public class RedisServiceImpl implements RedisService{
             Duration.ofMinutes() 인 부분을 바꾸어주면 된다.
             -> 우리는 현재는 3분으로 되어있다.
         */
-        value.set(token, accountIdToString, Duration.ofMinutes(60));
+        value.set(token, accountIdToString, Duration.ofMinutes(120));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class RedisServiceImpl implements RedisService{
     }
 
     @Override
-    public void deleteByKey(String token) {
-        redisTemplate.delete(token);
+    public boolean deleteByKey(String token) {
+        return redisTemplate.delete(token);
     }
 
     public Boolean isRefreshTokenExists(String token) {
