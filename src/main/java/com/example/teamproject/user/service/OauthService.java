@@ -10,7 +10,7 @@ public interface OauthService {
 
     String getAuthorizeCode();
 
-    LoginUserEmailForm generateAccessToken(String code);
+    String generateAccessToken(String code);
 
     User getNaverUserInfo(String accessToken, HttpHeaders headers);
 

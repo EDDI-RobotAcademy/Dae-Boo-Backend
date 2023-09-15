@@ -35,7 +35,7 @@ public class OauthServiceImpl implements OauthService {
     final private RedisService redisService;
 
 
-    //-------------------------NAVER--------------------------
+    //---------------------------------------------------NAVER----------------------------------------------------
     @Override
     public String getAuthorizeCode() {
         final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
@@ -53,7 +53,7 @@ public class OauthServiceImpl implements OauthService {
     }
 
     @Override
-    public LoginUserEmailForm generateAccessToken(String code){
+    public String generateAccessToken(String code){
         final String CLIENT_ID = propertyUtil.getProperty("naver_client_id");
         final String CLIENT_SECRET = propertyUtil.getProperty("naver_client_secret");
 
@@ -84,7 +84,7 @@ public class OauthServiceImpl implements OauthService {
 
         // accessToken으로 가져온 user정보로 user 생성
         User user = getNaverUserInfo(accessToken, headers);
-        
+
         // email로 존재하는 user인지 확인
         Optional<User> maybeUser = userRepository.findByEmail(user.getEmail());
         if(maybeUser.isPresent()) {
@@ -100,16 +100,22 @@ public class OauthServiceImpl implements OauthService {
             }
         }
 
-        //할당된 userId찾아서 반환
+        //할당된 userId 찾아서 반환
         Optional<User> maybeUserAfterSave = userRepository.findByEmail(user.getEmail());
         if(maybeUserAfterSave.isPresent()) {
             User user1 = maybeUserAfterSave.get();
             Long userId = user1.getUserId();
             LoginUserEmailForm loginUserEmailForm = new LoginUserEmailForm(response.getBody(), userId);
-            return loginUserEmailForm;
+
+            // redis 에 사용자 임의 토큰 만들어서 저장해줌
+            // 지속적인 저장이 될 필요가 없음, 로그인 시에만 있으면 되니까 !
+            String userToken = UUID.randomUUID().toString();
+            log.info("accountId: " + userId + ", userToken: " + userToken);
+
+            redisService.setKeyAndValue(userToken, userId);
+            return userToken;
         }
-            return null;
-//        return response.getBody();
+        return null;
     }
 
     //사용자 정보가져오기
@@ -146,7 +152,7 @@ public class OauthServiceImpl implements OauthService {
         }
     }
 
-    //-------------------------KAKAO--------------------------
+    //---------------------------------------------------KAKAO----------------------------------------------------
     @Override
     public String getKakaoAuthorizeCode() {
         final String CLIENT_ID = propertyUtil.getProperty("client_id");

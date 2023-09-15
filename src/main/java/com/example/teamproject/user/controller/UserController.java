@@ -25,10 +25,10 @@ public class UserController {
     final private UserService userService;
     final private RedisService redisService;
 
-    // redis token으로 사용자 정보 조회 테스트
+    // redis 에 저장된 userToken 으로 사용자 정보 조회하여 전달 (로그인 시 구동)
     @PostMapping("/testToken")
-    public AccountResponse afterLoginTest (@RequestBody AfterLoginRequest requestForm) {
-        log.info("afterLoginTest(): " + requestForm);
+    public AccountResponse afterLogin (@RequestBody AfterLoginRequest requestForm) {
+        log.info("afterLogin(): " + requestForm);
 
         Long accountId = redisService.getValueByKey(requestForm.getUserToken());
         log.info("accountId: " + accountId);
@@ -36,18 +36,22 @@ public class UserController {
         return userService.findAccountInfoById(accountId);
     }
 
+    // redis 에 저장된 userToken 삭제 (로그아웃)
+    @PostMapping("/logout/userToken")
+    public boolean redisLogout (@RequestBody AfterLoginRequest requestForm) {
+        log.info("redisLogout(): "+ requestForm);
+        return redisService.deleteByKey(requestForm.getUserToken());
+    }
+
     // 내 정보 조회 API
     @GetMapping("/userInfo")
-//    public User requestUserInfo(@RequestParam Long userId) {
-//    public User requestUserInfo (Long userId) {
     public User requestUserInfo (@RequestParam("userId") Long userId) {
         log.info("requestUserInfo()");
         return userService.getUserInfo(userId);
     }
 
-    @PostMapping("manage/list")
+    @PostMapping("/manage/list")
     public List<User> userList() {
-
         List<User> userList = userService.userList();
         return userList;
     }
@@ -61,8 +65,7 @@ public class UserController {
     @PutMapping("/user-info/{userId}")
     public UserInfoResponse userInfoModify(
             @PathVariable("userId") long userId,
-            @RequestBody UserInfoModifyRequest request
-    ) {
+            @RequestBody UserInfoModifyRequest request){
         log.info("UserInfoResponse() // request : " + request);
         return userService.modify(userId, request);
     }
@@ -72,6 +75,7 @@ public class UserController {
     public void userInfoDelete (@RequestParam Long userId) {
         userService.delete(userId);
     }
+
     @GetMapping("/manage/userInfo")
     public User getAccountInfo (@RequestParam Long userId) {
         log.info("requestUserInfo()");

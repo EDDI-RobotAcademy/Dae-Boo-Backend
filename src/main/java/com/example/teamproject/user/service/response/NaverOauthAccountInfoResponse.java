@@ -12,7 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class NaverOauthAccountInfoResponse {
 
-
     @JsonProperty("name")
     private String name;
 
