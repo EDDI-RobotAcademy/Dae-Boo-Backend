@@ -27,12 +27,11 @@ public class OAuthController {
         return oauthService.getAuthorizeCode();
     }
     @GetMapping("/naver/oauth-code")
-    public LoginUserEmailForm getNaverUserInfo(@RequestParam String code) {
+    public String getNaverUserInfo(@RequestParam String code) {
         log.info("naverCallback()");
         log.info(code);
         return oauthService.generateAccessToken(code);
     }
-
 
     // KAKAO OAuth
     @GetMapping("/kakao/login")
