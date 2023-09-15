@@ -36,4 +36,9 @@ public class CommentController {
         log.info("deleteComment()");
         commentService.delete(commentId);
     }
+    @PostMapping("/new/register")
+    public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto) {
+        Comment createdComment = commentService.createComment(commentDto);
+        return ResponseEntity.ok(createdComment);
+    }
 }

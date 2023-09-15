@@ -34,5 +34,33 @@ public class CommentServiceImpl implements CommentService{
     public void delete(Long commentId) {
         commentRepository.deleteById(commentId);
     }
+    @Override
+    public Comment modify(Long commentId, RequestCommentForm request) {
+        Optional<Comment> maybeComment = commentRepository.findById(commentId);
 
+        if (maybeComment.isEmpty()) {
+            log.info("정보가 없습니다.");
+            return null;
+        }
+        Comment comment = maybeComment.get();
+        comment.setContent(request.getContent());
+        return commentRepository.save(comment);
+    }
+
+    @Override
+    public Comment createComment(CommentDto commentDto) {
+        String writer = commentDto.getWriter();
+        String content = commentDto.getContent();
+        Long boardId = commentDto.getBoardId();
+        Long userId = commentDto.getUserId();
+
+        Board board = boardRepository.findById(boardId).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+
+        Comment comment = new Comment(writer, content);
+        comment.setBoard(board);
+        comment.setUser(user);
+
+        return commentRepository.save(comment);
+    }
 }

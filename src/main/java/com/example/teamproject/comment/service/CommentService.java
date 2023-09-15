@@ -10,6 +10,7 @@ public interface CommentService {
     List<Comment> listCommentsByBoardId(Long boardId);
     Comment register(Comment comment);
     void delete(Long commentId);
-
+    Comment modify(Long commentId, RequestCommentForm request);
+    Comment createComment(CommentDto commentDto);
 
 }
