@@ -39,7 +39,6 @@ public class RedisServiceImpl implements RedisService{
         }else {
             accountId = Long.parseLong(tmpAccountId);
         }
-
         return accountId;
     }
 

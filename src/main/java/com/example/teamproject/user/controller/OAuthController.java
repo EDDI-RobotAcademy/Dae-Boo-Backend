@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/authentication")
 public class OAuthController {
-    final private UserService userService;
     final private OauthService oauthService;
 
     // NAVER OAuth
@@ -45,6 +44,4 @@ public class OAuthController {
         log.info("카카오 코드를 받았습니다. 토큰 요청을 하겠습니다 !");
         return oauthService.kakaoCallback(code);
     }
-
-
 }

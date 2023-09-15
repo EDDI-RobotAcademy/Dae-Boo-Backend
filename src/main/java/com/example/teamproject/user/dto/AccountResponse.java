@@ -24,5 +24,4 @@ public class AccountResponse {
         this.email = email;
         this.role = role;
     }
-
 }

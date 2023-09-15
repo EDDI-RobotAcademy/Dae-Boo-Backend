@@ -45,16 +45,13 @@ public class UserController {
 
     // 내 정보 조회 API
     @GetMapping("/userInfo")
-//    public User requestUserInfo(@RequestParam Long userId) {
-//    public User requestUserInfo (Long userId) {
     public User requestUserInfo (@RequestParam("userId") Long userId) {
         log.info("requestUserInfo()");
         return userService.getUserInfo(userId);
     }
 
-    @PostMapping("manage/list")
+    @PostMapping("/manage/list")
     public List<User> userList() {
-
         List<User> userList = userService.userList();
         return userList;
     }
@@ -68,8 +65,7 @@ public class UserController {
     @PutMapping("/user-info/{userId}")
     public UserInfoResponse userInfoModify(
             @PathVariable("userId") long userId,
-            @RequestBody UserInfoModifyRequest request
-    ) {
+            @RequestBody UserInfoModifyRequest request){
         log.info("UserInfoResponse() // request : " + request);
         return userService.modify(userId, request);
     }
@@ -79,6 +75,7 @@ public class UserController {
     public void userInfoDelete (@RequestParam Long userId) {
         userService.delete(userId);
     }
+
     @GetMapping("/manage/userInfo")
     public User getAccountInfo (@RequestParam Long userId) {
         log.info("requestUserInfo()");
