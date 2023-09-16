@@ -185,8 +185,8 @@ public class UserServiceImpl implements UserService {
     public UserInfoResponse modify(Long userId, UserInfoModifyRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자 정보를 찾을 수 없습니다."));
-//        user.modify(request.getNickname(), request.getMobile(), request.getEmail(), request.getInterest1(), request.getInterest2());
-        user.modify(request.getNickname(), request.getMobile(), request.getEmail(), request.getInterest1());
+        user.modify(request.getNickname(), request.getMobile(), request.getEmail(), request.getInterest1(), request.getInterest2());
+//        user.modify(request.getNickname(), request.getMobile(), request.getEmail(), request.getInterest1());
         return UserInfoResponse.from(user);
     }
 
@@ -214,7 +214,9 @@ public class UserServiceImpl implements UserService {
                 account.getGender(),
                 account.getMobile(),
                 account.getEmail(),
-                account.getRole()
+                account.getRole(),
+                account.getInterest1(),
+                account.getInterest2()
         );
 
         return responseForm;
