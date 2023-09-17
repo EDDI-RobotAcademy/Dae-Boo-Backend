@@ -7,4 +7,6 @@ public interface PaymentService {
 
     KakaoReadyResponse kakaoPayReady();
 
+    KakaoApproveResponse ApproveResponse(String pgToken);
+
 }
