@@ -7,6 +7,7 @@ import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +68,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> list() {
-        return questionRepository.findByIsDeletedFalse();
+        return questionRepository.findByIsDeletedFalse(Sort.by(Sort.Direction.DESC, "questionId"));
     }
 
     @Override

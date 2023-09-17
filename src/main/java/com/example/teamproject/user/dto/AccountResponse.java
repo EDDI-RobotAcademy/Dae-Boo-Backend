@@ -1,11 +1,14 @@
 package com.example.teamproject.user.dto;
 
+import com.example.teamproject.user.entity.UserInterest;
 import com.example.teamproject.user.entity.UserRole;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString
+@AllArgsConstructor
 public class AccountResponse {
     private Long userId;
     private String nickname;
@@ -14,14 +17,6 @@ public class AccountResponse {
     private String mobile;
     private String email;
     private UserRole role;
-
-    public AccountResponse(Long userId, String nickname, String age, String gender, String mobile, String email, UserRole role) {
-        this.userId = userId;
-        this.nickname = nickname;
-        this.age = age;
-        this.gender = gender;
-        this.mobile = mobile;
-        this.email = email;
-        this.role = role;
-    }
+    private UserInterest interest1;
+    private UserInterest interest2;
 }

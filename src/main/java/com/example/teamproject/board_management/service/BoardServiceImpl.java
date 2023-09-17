@@ -9,6 +9,7 @@ import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public List<Board> list() {
-        return boardRepository.findByActivateTrue();
+        return boardRepository.findByActivateTrue(Sort.by(Sort.Direction.DESC, "boardId"));
     }
 
     @Override
