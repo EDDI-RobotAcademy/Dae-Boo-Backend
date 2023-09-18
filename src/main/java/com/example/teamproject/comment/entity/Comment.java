@@ -49,7 +49,7 @@ public class Comment {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     public Comment(String writer, String content) {
         this.writer = writer;

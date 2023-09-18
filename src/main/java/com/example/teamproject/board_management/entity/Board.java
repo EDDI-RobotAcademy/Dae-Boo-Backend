@@ -26,9 +26,9 @@ public class Board {
 
     @Setter
     private String content;
-
-    @Setter
-    private String writer;
+//
+//    @Setter
+//    private String writer;
 
     @Setter
     @Column(name = "activate", columnDefinition = "boolean default true")
@@ -43,7 +43,7 @@ public class Board {
     private LocalDateTime boardModifyDate;
 
     @JoinColumn(name = "userId")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User userId;
 
     @Setter
@@ -51,14 +51,14 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
-//    public Board(BoardCategory category, String boardName, String content, User userId) {
+    public Board(BoardCategory category, String boardName, String content, User userId) {
 
-    public Board(BoardCategory category, String boardName, String content, String writer) {
+//    public Board(BoardCategory category, String boardName, String content, String writer) {
         this.category = category;
         this.boardName = boardName;
         this.content = content;
-//        this.userId = userId;
-        this.writer = writer;
+        this.userId = userId;
+//        this.writer = writer;
     }
 
 }

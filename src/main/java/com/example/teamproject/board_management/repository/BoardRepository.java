@@ -14,8 +14,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findAllByUserId(User userId);
 
+//    @Query("select b from Board b join fetch b.userId bu join fetch b.activate ba where bu.userId = :userId and ba.activate = true")
+//    List<Board> findAllByUserIdAndActivateTrue(@Param("userId")User userId);
     List<Board> findAllByUserIdAndActivateTrue(User userId);
-
     Optional<Board> findByBoardId(Long boardId);
 
     @Query("SELECT b FROM Board b WHERE b.boardName LIKE %:keyword% OR b.content LIKE %:keyword%")
