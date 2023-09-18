@@ -1,6 +1,8 @@
 package com.example.teamproject.kakaoPay.controller;
 
+import com.example.teamproject.kakaoPay.controller.form.OrderForm;
 import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
+import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
 import com.example.teamproject.kakaoPay.service.PaymentService;
 import lombok.Getter;
@@ -19,9 +21,9 @@ public class PaymentController {
      * 결제요청
      */
     @PostMapping("/ready")
-    public KakaoReadyResponse readyToKakaoPay() {
+    public KakaoReadyResponse readyToKakaoPay(@RequestBody OrderForm form) {
 
-        return paymentService.kakaoPayReady();
+        return paymentService.kakaoPayReady(form);
     }
     @GetMapping("/success")
     public ResponseEntity afterPayRequest(@RequestParam(name = "pg_token") String pgToken) {
@@ -31,6 +33,7 @@ public class PaymentController {
 
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
     }
+    
 
     /**
      * 결제 진행 중 취소
@@ -49,4 +52,6 @@ public class PaymentController {
 //
 //        throw new BusinessLogicException(ExceptionCode.PAY_FAILED);
 //    }
+
+
 }
