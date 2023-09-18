@@ -26,7 +26,6 @@ public class User {
     private String email;
     private UserInterest interest1;
     private UserInterest interest2;
-
     @Column(name = "activate", columnDefinition = "boolean default true")
     private Boolean activate = true;
     private UserRole role = UserRole.NORMAL;
