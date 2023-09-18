@@ -18,8 +18,6 @@ public class QuestionDetailResponse {
     private LocalDateTime createdAt;
     private String writerNickname;
     private boolean isAnswerComplete;
-    private String answerContents;
-    private LocalDateTime answerAt;
 
     public static QuestionDetailResponse from(Question question) {
         return new QuestionDetailResponse(
@@ -28,9 +26,7 @@ public class QuestionDetailResponse {
                 question.getContents(),
                 question.getCreatedAt(),
                 question.getUser().getNickname(),
-                question.isAnswerComplete(),
-                question.getAnswerContents(),
-                question.getAnswerAt()
+                question.isAnswerComplete()
         );
     }
 }
