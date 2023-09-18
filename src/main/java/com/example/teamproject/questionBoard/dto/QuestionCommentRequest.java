@@ -9,9 +9,11 @@ public class QuestionCommentRequest {
 
     private Long questionId;
     private String answer;
+    private Long userId;
 
-    public QuestionCommentRequest(Long questionId, String answer) {
+    public QuestionCommentRequest(Long questionId, String answer, Long userId) {
         this.questionId = questionId;
         this.answer = answer;
+        this.userId = userId;
     }
 }

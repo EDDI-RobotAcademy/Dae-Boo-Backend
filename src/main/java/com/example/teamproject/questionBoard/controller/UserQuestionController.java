@@ -70,7 +70,9 @@ public class UserQuestionController {
         log.info("managementDetailQuestionAnswer()");
 
         log.info("getQuestionId: "+ request.getQuestionId());
+        log.info("getUserId: "+ request.getUserId());
         log.info("getAnswer: "+ request.getAnswer());
-        return false;
+
+        return questionService.save(request);
     }
 }
