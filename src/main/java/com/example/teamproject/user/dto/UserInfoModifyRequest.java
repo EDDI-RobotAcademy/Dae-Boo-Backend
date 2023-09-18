@@ -16,15 +16,15 @@ public class UserInfoModifyRequest {
     private String mobile;
     private String email;
     private UserInterest interest1;
-//    private UserInterest interest2;
+    private UserInterest interest2;
 
     public static UserInfoModifyRequest from(User user) {
         return new UserInfoModifyRequest(
                 user.getNickname(),
                 user.getMobile(),
                 user.getEmail(),
-                user.getInterest1()
-//                user.getInterest2()
+                user.getInterest1(),
+                user.getInterest2()
         );
     }
 }
