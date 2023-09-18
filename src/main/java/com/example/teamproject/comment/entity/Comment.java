@@ -20,13 +20,21 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
+
     @Setter
     private String writer;
+
     @Setter
     private String content;
+
+    @Setter
+    @Column(name = "activate", columnDefinition = "boolean default true")
+    private Boolean activate = true;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @CreationTimestamp
     private LocalDateTime createDate;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @CreationTimestamp
     private LocalDateTime modifyDate;
@@ -41,7 +49,7 @@ public class Comment {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     public Comment(String writer, String content) {
         this.writer = writer;

@@ -28,7 +28,15 @@ public class Question {
     private Long questionId;
 
     private String title;
+
     private String contents;
+
+
+    private boolean isAnswerComplete = false; // 답변이 작성됐다면 true, 작성되지 않았다면 false
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private boolean isDeleted = false; // 삭제된 데이터라면 true, 삭제되지 않은 데이터라면 false
 
     // 객체의 연관관계
     // Question N : 1 User
@@ -37,13 +45,9 @@ public class Question {
     @ManyToOne
     private User user;
 
-    private String answerContents;
-    private boolean isAnswerComplete = false; // 답변이 작성됐다면 true, 작성되지 않았다면 false
-    private LocalDateTime answerAt;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private boolean isDeleted = false; // 삭제된 데이터라면 true, 삭제되지 않은 데이터라면 false
-
+    @JoinColumn(name = "answerId", referencedColumnName = "answerId")
+    @ManyToOne
+    private Answer answerId;
 
     public Question(User user, String title, String contents) {
         this.user = user;

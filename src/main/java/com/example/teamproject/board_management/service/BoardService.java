@@ -14,7 +14,7 @@ public interface BoardService {
     boolean delete(List<Long> boardId);
 
     //User로 게시물을 다 찾음
-    List<Board> findBoardByLoginUser(User LoginUser);
+    List<Board> findBoardByLoginUser(User user);
 
     void register(BoardRequestForm boardRequestForm);
     Board register(Board board);

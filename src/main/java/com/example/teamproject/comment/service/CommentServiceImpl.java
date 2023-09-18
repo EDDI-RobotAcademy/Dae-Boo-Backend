@@ -59,8 +59,16 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = new Comment(writer, content);
         comment.setBoard(board);
-        comment.setUser(user);
+//        comment.setUser(user);
+        comment.setWriter(writer);
 
         return commentRepository.save(comment);
+    }
+
+    //User로 댓글을 다 찾음
+    @Override
+    public List<Comment> findCommentByLoginUser(User loginUser) {
+        List<Comment> maybeCommentList = commentRepository.findAllByUserIdAndActivateTrue(loginUser);
+        return maybeCommentList;
     }
 }
