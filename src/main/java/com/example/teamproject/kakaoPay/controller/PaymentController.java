@@ -2,10 +2,8 @@ package com.example.teamproject.kakaoPay.controller;
 
 import com.example.teamproject.kakaoPay.controller.form.OrderForm;
 import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
-import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
 import com.example.teamproject.kakaoPay.service.PaymentService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,6 @@ public class PaymentController {
 
         return new ResponseEntity<>(kakaoApprove, HttpStatus.OK);
     }
-    
 
     /**
      * 결제 진행 중 취소
