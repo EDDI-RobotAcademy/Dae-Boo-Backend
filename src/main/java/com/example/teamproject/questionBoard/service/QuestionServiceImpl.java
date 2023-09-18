@@ -111,6 +111,8 @@ public class QuestionServiceImpl implements QuestionService {
         Answer answer = new Answer(request.getAnswer(), question, user);
         answerRepository.save(answer);
 
+        question.setAnswer(answer);
+
         // 답변 등록 되었음을 의미
         question.setAnswerComplete(true);
         questionRepository.save(question);

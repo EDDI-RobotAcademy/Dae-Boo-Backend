@@ -49,7 +49,7 @@ public class Question {
 
     @JoinColumn(name = "answerId", referencedColumnName = "answerId")
     @ManyToOne
-    private Answer answerId;
+    private Answer answer;
 
     public Question(User user, String title, String contents) {
         this.user = user;
@@ -65,6 +65,10 @@ public class Question {
     public void delete() {
         // Soft Delete (데이터는 살려두되, 사용자가 삭제됐다고 느끼게 하는것)
         this.isDeleted = true;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }
 
