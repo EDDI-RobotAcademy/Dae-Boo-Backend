@@ -138,12 +138,12 @@ public class OauthServiceImpl implements OauthService {
             JsonNode jsonNode = objectMapper.readTree(userInfoResponseBody);
             String nickname = jsonNode.get("response").get("nickname").asText();
 //            String email = jsonNode.get("response").get("email").asText();
-            String profile_image = jsonNode.get("response").get("profile_image").asText();
+//            String profile_image = jsonNode.get("response").get("profile_image").asText();
             String age = jsonNode.get("response").get("age").asText().substring(0,2);
             String gender = jsonNode.get("response").get("gender").asText();
             String id = jsonNode.get("response").get("id").asText();
 
-            User user = new User(nickname, id, profile_image, gender, age);
+            User user = new User(nickname, id, gender, age);
             return user;
         } catch (IOException e) {
             // 예외 처리
@@ -188,7 +188,7 @@ public class OauthServiceImpl implements OauthService {
         // "properties" 키 아래의 중첩된 JSON 객체 파싱
         Map<String, Object> propertiesMap = (Map<String, Object>) jsonMap.get("properties");
         String nickname = (String) propertiesMap.get("nickname");
-        String profile_image = (String) propertiesMap.get("profile_image");
+//        String profile_image = (String) propertiesMap.get("profile_image");
 
         // "kakao_account" 키 아래의 중첩된 JSON 객체 파싱
         Map<String, Object> kakaoAccountMap = (Map<String, Object>) jsonMap.get("kakao_account");
@@ -210,7 +210,7 @@ public class OauthServiceImpl implements OauthService {
 
         if(maybeUser.isEmpty()) {
             String name = nickname;
-            savedUser = userRepository.save(new User(nickname, email, profile_image, gender, age_range));
+            savedUser = userRepository.save(new User(nickname, email, gender, age_range));
         } else {
             savedUser = maybeUser.get();
         }

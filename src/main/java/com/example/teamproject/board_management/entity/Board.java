@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmRootEntityType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,20 +23,33 @@ public class Board {
     private BoardCategory category;
     @Setter
     private String boardName;
+
     @Setter
     private String content;
 
-    @JoinColumn(name = "userId")
-    @ManyToOne
-    private User userId;
+    @Setter
+    private String writer;
+
+    @Setter
+    @Column(name = "activate", columnDefinition = "boolean default true")
+    private Boolean activate = true;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     @CreationTimestamp
     private LocalDateTime boardRegisterDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+    @CreationTimestamp
+    private LocalDateTime boardModifyDate;
+
+    @JoinColumn(name = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User userId;
+
     @Setter
-    @Column(name = "activate", columnDefinition = "boolean default true")
-    private Boolean activate = true;
+    @OrderBy("commentId")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private List<Comment> comments;
 
 //    public Board(BoardCategory category, String boardName, String content, User userId) {
 
@@ -48,16 +60,5 @@ public class Board {
 //        this.userId = userId;
         this.writer = writer;
     }
-    @Setter
-    private String writer;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    private LocalDateTime modifyData;
-
-    @Setter
-    @OrderBy("commentId")
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<Comment> comments;
 
 }

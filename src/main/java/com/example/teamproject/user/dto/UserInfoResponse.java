@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class UserInfoResponse {
 
     private String nickname;
-    private String profileImage;
     private int age;
     private String gender;
     private String mobile;
@@ -23,7 +22,6 @@ public class UserInfoResponse {
     public static UserInfoResponse from(User user) {
         return new UserInfoResponse(
                 user.getNickname(),
-                user.getProfile_image(),
                 Integer.parseInt(user.getAge()),
                 user.getGender(),
                 user.getMobile(),

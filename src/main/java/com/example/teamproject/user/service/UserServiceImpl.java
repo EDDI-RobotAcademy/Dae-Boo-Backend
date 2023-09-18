@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         if(maybeUser.isEmpty()) {
             String name = nickname;
 //            savedMember = signUpRepository.save(new Member(name, nickname, email));
-            savedUser = userRepository.save(new User(nickname, email, profile_image, gender, age_range));
+            savedUser = userRepository.save(new User(nickname, email, gender, age_range));
         } else {
             savedUser = maybeUser.get();
         }
