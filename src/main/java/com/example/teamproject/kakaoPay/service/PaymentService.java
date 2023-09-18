@@ -11,5 +11,6 @@ public interface PaymentService {
 
     KakaoApproveResponse ApproveResponse(String pgToken);
 
+    KakaoCancelResponse kakaoCancel();
 
 }

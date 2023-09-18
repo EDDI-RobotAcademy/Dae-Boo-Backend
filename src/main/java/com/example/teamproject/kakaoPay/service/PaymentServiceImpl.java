@@ -96,6 +96,29 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
 
+    public KakaoCancelResponse kakaoCancel() {
+
+        // 카카오페이 요청
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", cid);
+        parameters.add("tid", "환불할 결제 고유 번호");
+        parameters.add("cancel_amount", "환불 금액");
+        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
+        parameters.add("cancel_vat_amount", "환불 부가세");
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        KakaoCancelResponse cancelResponse = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/cancel",
+                requestEntity,
+                KakaoCancelResponse.class);
+
+        return cancelResponse;
+    }
     public KakaoApproveResponse ApproveResponse(String pgToken) {
 
         // 카카오 요청
