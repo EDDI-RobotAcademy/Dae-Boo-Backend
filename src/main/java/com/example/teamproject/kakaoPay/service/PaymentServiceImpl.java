@@ -1,6 +1,7 @@
 package com.example.teamproject.kakaoPay.service;
 
 
+import com.example.teamproject.kakaoPay.controller.form.OrderForm;
 import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
@@ -42,8 +43,9 @@ public class PaymentServiceImpl implements PaymentService{
         return httpHeaders;
     }
 
-    public KakaoReadyResponse kakaoPayReady() {
-        Optional<Product> maybeProduct = productRepository.findById(1L);
+    public KakaoReadyResponse kakaoPayReady(OrderForm form) {
+
+        Optional<Product> maybeProduct = productRepository.findById(form.getId());
 
         if (maybeProduct.isPresent()) {
             Product prod = maybeProduct.get();
@@ -54,8 +56,8 @@ public class PaymentServiceImpl implements PaymentService{
             parameters.add("partner_order_id", "partner_order_id");
             parameters.add("partner_user_id", "partner_user_id");
             parameters.add("item_name", prod.getProductName());
-            parameters.add("quantity", "1");
-            parameters.add("total_amount", prod.getProductPrice());
+            parameters.add("quantity", String.valueOf(form.getAmount()));
+            parameters.add("total_amount", String.valueOf(prod.getProductPrice()*form.getAmount()));
             parameters.add("vat_amount", "35");
             parameters.add("tax_free_amount", "0");
             parameters.add("approval_url", getApprovalUrl());
@@ -82,15 +84,15 @@ public class PaymentServiceImpl implements PaymentService{
 
     // 리다이렉트 URL 값을 프로퍼티 파일에서 가져오는 메서드 예시
     private String getApprovalUrl() {
-        return propertyUtil.getProperty("spring.web.cors.allowed-origins") + "/payment/success";
+        return propertyUtil.getProperty("pay_url") + "/payment/success";
     }
 
     private String getCancelUrl() {
-        return propertyUtil.getProperty("spring.web.cors.allowed-origins") + "/payment/cancel";
+        return propertyUtil.getProperty("pay_url") + "/payment/cancel";
     }
 
     private String getFailUrl() {
-        return propertyUtil.getProperty("spring.web.cors.allowed-origins") + "/payment/fail";
+        return propertyUtil.getProperty("pay_url") + "/payment/fail";
     }
 
 
