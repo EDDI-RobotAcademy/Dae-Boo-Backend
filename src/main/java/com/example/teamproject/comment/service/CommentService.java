@@ -15,4 +15,6 @@ public interface CommentService {
     Comment createComment(CommentDto commentDto);
 
     List<Comment> findCommentByLoginUser(User loginUser);
+
+    void commnetListDelete(List<Long> commentIds);
 }
