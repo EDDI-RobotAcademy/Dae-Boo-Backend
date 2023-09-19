@@ -1,5 +1,6 @@
 package com.example.teamproject.questionBoard.entity;
 
+import com.example.teamproject.answer.entity.Answer;
 import com.example.teamproject.user.entity.User;
 
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Where;
 
@@ -31,7 +33,7 @@ public class Question {
 
     private String contents;
 
-
+    @Setter
     private boolean isAnswerComplete = false; // 답변이 작성됐다면 true, 작성되지 않았다면 false
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -47,7 +49,7 @@ public class Question {
 
     @JoinColumn(name = "answerId", referencedColumnName = "answerId")
     @ManyToOne
-    private Answer answerId;
+    private Answer answer;
 
     public Question(User user, String title, String contents) {
         this.user = user;
@@ -63,6 +65,10 @@ public class Question {
     public void delete() {
         // Soft Delete (데이터는 살려두되, 사용자가 삭제됐다고 느끼게 하는것)
         this.isDeleted = true;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }
 
