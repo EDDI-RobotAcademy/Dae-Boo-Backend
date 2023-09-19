@@ -46,4 +46,8 @@ public class Product {
             this.image = request.getImage();
         }
     }
+
+    public void softDelete() {
+        this.isDeleted = true;
+    }
 }

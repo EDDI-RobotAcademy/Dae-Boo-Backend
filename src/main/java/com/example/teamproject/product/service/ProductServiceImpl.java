@@ -44,4 +44,12 @@ public class ProductServiceImpl implements ProductService {
         product.modifyProductInfo(request);
         productRepository.save(product);
     }
+
+    @Override
+    public void delete(long productId) {
+        productRepository.findById(productId).ifPresent(product -> {
+            product.softDelete();
+            productRepository.save(product);
+        });
+    }
 }

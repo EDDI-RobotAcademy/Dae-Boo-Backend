@@ -40,4 +40,11 @@ public class ProductController {
     public void modifyProduct(@PathVariable(name = "id") long productId, @RequestBody ProductModifyRequest request) {
         productService.modify(productId, request);
     }
+
+    // 상품 삭제 API
+    @DeleteMapping("/product/{id}")
+    public void deleteProduct(@PathVariable(name = "id") long productId) {
+        productService.delete(productId);
+    }
+
 }
