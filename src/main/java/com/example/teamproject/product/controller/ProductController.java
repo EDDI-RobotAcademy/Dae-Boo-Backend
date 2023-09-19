@@ -1,6 +1,7 @@
 package com.example.teamproject.product.controller;
 
 import com.example.teamproject.product.dto.ProductDetailResponse;
+import com.example.teamproject.product.dto.ProductModifyRequest;
 import com.example.teamproject.product.dto.ProductRegisterRequest;
 import com.example.teamproject.product.dto.ProductResponse;
 import com.example.teamproject.product.service.ProductService;
@@ -32,5 +33,11 @@ public class ProductController {
     @PostMapping("/product")
     public void registerProduct(@RequestBody ProductRegisterRequest request) {
         productService.register(request);
+    }
+
+    // 상품 수정 API
+    @PutMapping("/product/{id}")
+    public void modifyProduct(@PathVariable(name = "id") long productId, @RequestBody ProductModifyRequest request) {
+        productService.modify(productId, request);
     }
 }

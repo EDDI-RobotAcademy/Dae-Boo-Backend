@@ -1,6 +1,7 @@
 package com.example.teamproject.product.service;
 
 import com.example.teamproject.product.dto.ProductDetailResponse;
+import com.example.teamproject.product.dto.ProductModifyRequest;
 import com.example.teamproject.product.dto.ProductRegisterRequest;
 import com.example.teamproject.product.dto.ProductResponse;
 import com.example.teamproject.product.entity.Product;
@@ -33,6 +34,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void register(ProductRegisterRequest request) {
         Product product = request.toEntity();
+        productRepository.save(product);
+    }
+
+    @Override
+    public void modify(long productId, ProductModifyRequest request) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("찾을 수 없는 상품입니다."));
+        product.modifyProductInfo(request);
         productRepository.save(product);
     }
 }

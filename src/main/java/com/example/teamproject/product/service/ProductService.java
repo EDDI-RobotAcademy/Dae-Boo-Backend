@@ -1,6 +1,7 @@
 package com.example.teamproject.product.service;
 
 import com.example.teamproject.product.dto.ProductDetailResponse;
+import com.example.teamproject.product.dto.ProductModifyRequest;
 import com.example.teamproject.product.dto.ProductRegisterRequest;
 import com.example.teamproject.product.dto.ProductResponse;
 
@@ -13,4 +14,6 @@ public interface ProductService {
     ProductDetailResponse retrieve(long productId);
 
     void register(ProductRegisterRequest request);
+
+    void modify(long productId, ProductModifyRequest request);
 }
