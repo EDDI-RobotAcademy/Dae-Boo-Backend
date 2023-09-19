@@ -32,12 +32,12 @@ public class CardController {
         return card;
     }
 
-//    @GetMapping("/age/list")
-//    public List<Card> cardAgeList() {
-//
-////        List<Card> ageCardList = cardService.getAgeCard();
-//        return null;
-//    }
+    @GetMapping("/age/list")
+    public List<Card> cardAgeList() {
+
+        List<Card> ageCardList = cardService.getAgeCard();
+        return null;
+    }
 
     @PostMapping("/manage/stopCard")
     public Boolean cardStop(@RequestBody Long cardId) {
