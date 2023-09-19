@@ -8,15 +8,15 @@ import com.example.teamproject.card.repository.CardRepository;
 import com.example.teamproject.card.repository.WishRepository;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.core.type.TypeReference;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
+//import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,10 +50,10 @@ public class CardServiceImpl implements CardService {
         return null;
     }
 
-//    @Override
-//    public List<Card> getAgeCard() {
+    @Override
+    public List<Card> getAgeCard() {
 //        RestTemplate restTemplate = new RestTemplate();
-//        String fastApiUrl = "";
+//        String fastApiUrl = "http://15.165.11.253:3002/age-recommend-card";
 //        String response = restTemplate.getForObject(fastApiUrl, String.class);
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        List<Card> ageCardList = new ArrayList<>();
@@ -74,8 +74,8 @@ public class CardServiceImpl implements CardService {
 //            e.printStackTrace();
 //            return null;
 //        }
-//        return ageCardList;
-//    }
+        return cardRepository.findAll();
+    }
 
     @Override
     public Boolean stopCard(Long id) {
