@@ -1,5 +1,6 @@
 package com.example.teamproject.comment.controller;
 
+import com.example.teamproject.comment.controller.form.ResponseCommentForm;
 import com.example.teamproject.comment.dto.CommentDto;
 import com.example.teamproject.comment.entity.Comment;
 import com.example.teamproject.comment.service.CommentService;
@@ -12,6 +13,7 @@ import org.hibernate.boot.jaxb.mapping.marshall.ConstraintModeMarshalling;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -46,12 +48,32 @@ public class CommentController {
         return ResponseEntity.ok(createdComment);
     }
 
+
     //---------------myPage---------------
+//    @GetMapping("/myComment")
+//    public List<Comment> myCommentList (@RequestParam("userId") Long userId) {
+//        //useid로 User를 찾음
+//        User LoginUser = userService.findUserByUserId(userId);
+//        List<Comment> userWrittenComments = commentService.findCommentByLoginUser(LoginUser);
+//        return userWrittenComments;
+//    }
+
     @GetMapping("/myComment")
-    public List<Comment> myCommentList (@RequestParam("userId") Long userId) {
+    public List<ResponseCommentForm> myCommentFormList (@RequestParam("userId") Long userId) {
         //useid로 User를 찾음
         User LoginUser = userService.findUserByUserId(userId);
-        List<Comment> userWrittenComments = commentService.findCommentByLoginUser(LoginUser);
-        return userWrittenComments;
+        List<Comment> comments = commentService.findCommentByLoginUser(LoginUser);
+        List<ResponseCommentForm> userWrittenCommentForms = new ArrayList<>();
+        for(Comment comment : comments){
+            userWrittenCommentForms.add(ResponseCommentForm.from(comment));
+        }
+        return userWrittenCommentForms;
     }
+
+    @DeleteMapping("/delete")
+    public void commentListDelete (@RequestParam("commentId") List<Long> commentIds) {
+        log.info("commentId: {}", commentIds);
+        commentService.commnetListDelete(commentIds);
+    }
+
 }

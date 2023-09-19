@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,7 +37,15 @@ public class CardController {
     public List<Card> cardAgeList() {
 
         List<Card> ageCardList = cardService.getAgeCard();
-        return ageCardList;
+        // 아래의 내용은 추후 삭제 예정
+        List<Card> cardList =new ArrayList<>();
+        cardList.add(ageCardList.get(0));
+        cardList.add(ageCardList.get(1));
+        cardList.add(ageCardList.get(2));
+        cardList.add(ageCardList.get(3));
+        cardList.add(ageCardList.get(4));
+
+        return cardList;
     }
 
     @PostMapping("/manage/stopCard")
