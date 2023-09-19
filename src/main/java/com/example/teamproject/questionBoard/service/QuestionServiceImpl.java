@@ -7,6 +7,7 @@ import com.example.teamproject.questionBoard.entity.Question;
 import com.example.teamproject.questionBoard.repository.QuestionRepository;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -91,8 +92,7 @@ public class QuestionServiceImpl implements QuestionService {
     public boolean save(QuestionCommentRequest request) {
         Optional<Question> maybeQuestion = questionRepository.findById(request.getQuestionId());
         if(maybeQuestion.isEmpty()){
-            log.info("존재하지 않는 문의입니다.");
-            return false;
+            throw new EntityNotFoundException("존재하지 않는 문의입니다."); // 예외 발생
         }
 
         // 질문
@@ -110,8 +110,6 @@ public class QuestionServiceImpl implements QuestionService {
         // 답변
         Answer answer = new Answer(request.getAnswer(), question, user);
         answerRepository.save(answer);
-
-        question.setAnswer(answer);
 
         // 답변 등록 되었음을 의미
         question.setAnswerComplete(true);

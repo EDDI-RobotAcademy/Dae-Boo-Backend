@@ -7,7 +7,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @RequiredArgsConstructor
-public class OrderForm {
-    private Long id;
-    private int amount;
+public class PurchaseRequest {
+    private final Long purchaseId;
 }

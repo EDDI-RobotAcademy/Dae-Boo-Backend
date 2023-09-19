@@ -3,6 +3,7 @@ package com.example.teamproject.comment.service;
 import com.example.teamproject.board_management.entity.Board;
 import com.example.teamproject.board_management.repository.BoardRepository;
 import com.example.teamproject.comment.controller.form.RequestCommentForm;
+import com.example.teamproject.comment.controller.form.ResponseCommentForm;
 import com.example.teamproject.comment.dto.CommentDto;
 import com.example.teamproject.comment.entity.Comment;
 import com.example.teamproject.comment.repository.CommentRepository;
@@ -66,9 +67,27 @@ public class CommentServiceImpl implements CommentService{
     }
 
     //User로 댓글을 다 찾음
+//    @Override
+//    public List<Comment> findCommentByLoginUser(User loginUser) {
+//        List<Comment> maybeCommentList = commentRepository.findAllByUserIdAndActivateTrue(loginUser);
+//        return maybeCommentList;
+//    }
     @Override
     public List<Comment> findCommentByLoginUser(User loginUser) {
         List<Comment> maybeCommentList = commentRepository.findAllByUserIdAndActivateTrue(loginUser);
+
         return maybeCommentList;
+    }
+
+    @Override
+    public void commnetListDelete(List<Long> commentIds) {
+        for(Long commentId : commentIds) {
+            Optional<Comment> maybeComment= commentRepository.findById(commentId);
+            if(maybeComment.isPresent()){
+                Comment comment = maybeComment.get();
+                comment.setActivate(false);
+                commentRepository.save(comment);
+            }
+        }
     }
 }
