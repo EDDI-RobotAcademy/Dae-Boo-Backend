@@ -1,12 +1,12 @@
 package com.example.teamproject.product.controller;
 
 import com.example.teamproject.product.dto.ProductDetailResponse;
+import com.example.teamproject.product.dto.ProductRegisterRequest;
 import com.example.teamproject.product.dto.ProductResponse;
 import com.example.teamproject.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -26,5 +26,11 @@ public class ProductController {
     @GetMapping("/product/{id}")
     public ProductDetailResponse retrieveProductDetail(@PathVariable(name = "id") long productId) {
         return productService.retrieve(productId);
+    }
+
+    // 상품 등록 API
+    @PostMapping("/product")
+    public void registerProduct(@RequestBody ProductRegisterRequest request) {
+        productService.register(request);
     }
 }
