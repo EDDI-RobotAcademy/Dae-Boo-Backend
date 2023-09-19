@@ -37,7 +37,7 @@ public class CardController {
     public List<Card> cardAgeList() {
 
         List<Card> ageCardList = cardService.getAgeCard();
-        // 아래의 내용은 추후 삭제 예정 
+        // 아래의 내용은 추후 삭제 예정
         List<Card> cardList =new ArrayList<>();
         cardList.add(ageCardList.get(0));
         cardList.add(ageCardList.get(1));
@@ -45,7 +45,7 @@ public class CardController {
         cardList.add(ageCardList.get(3));
         cardList.add(ageCardList.get(4));
 
-        return ageCardList;
+        return cardList;
     }
 
     @PostMapping("/manage/stopCard")
