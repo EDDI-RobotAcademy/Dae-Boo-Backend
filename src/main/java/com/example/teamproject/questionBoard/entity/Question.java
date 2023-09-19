@@ -1,14 +1,8 @@
 package com.example.teamproject.questionBoard.entity;
 
-import com.example.teamproject.answer.entity.Answer;
 import com.example.teamproject.user.entity.User;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -47,10 +41,6 @@ public class Question {
     @ManyToOne
     private User user;
 
-    @JoinColumn(name = "answerId", referencedColumnName = "answerId")
-    @ManyToOne
-    private Answer answer;
-
     public Question(User user, String title, String contents) {
         this.user = user;
         this.title = title;
@@ -67,9 +57,6 @@ public class Question {
         this.isDeleted = true;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-    }
 }
 
 
