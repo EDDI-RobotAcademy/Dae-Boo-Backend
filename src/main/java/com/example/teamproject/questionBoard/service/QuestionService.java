@@ -19,4 +19,6 @@ public interface QuestionService {
     List<Question> list();
 
     QuestionDetailBoardResponse read(Long questionId);
+
+    boolean save(QuestionCommentRequest request);
 }
