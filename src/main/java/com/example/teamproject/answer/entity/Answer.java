@@ -25,8 +25,8 @@ public class Answer {
 
     private LocalDateTime createdDate = LocalDateTime.now();
 
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "questionId")
-    @ManyToOne
     private Question questionId;
 
     @JoinColumn(name = "userId")
