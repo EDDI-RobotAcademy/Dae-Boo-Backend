@@ -13,15 +13,21 @@ import lombok.ToString;
 @Table(name = "Product")
 @NoArgsConstructor
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
 
-    private String  productName;
+    private String productName;
     private int productPrice;
+    private String description;
+    private String image;
+    private boolean isDeleted = false;
 
-    public Product(String productName, int productPrice) {
+    public Product(String productName, int productPrice, String description, String image) {
         this.productName = productName;
         this.productPrice = productPrice;
+        this.description = description;
+        this.image = image;
     }
 }
