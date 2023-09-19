@@ -1,5 +1,7 @@
 package com.example.teamproject.questionBoard.service;
 
+import com.example.teamproject.answer.entity.Answer;
+import com.example.teamproject.answer.repository.AnswerRepository;
 import com.example.teamproject.questionBoard.dto.*;
 import com.example.teamproject.questionBoard.entity.Question;
 import com.example.teamproject.questionBoard.repository.QuestionRepository;
@@ -21,6 +23,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final UserRepository userRepository;
+    private final AnswerRepository answerRepository;
 
     @Override
     public List<QuestionResponse> retrieveAllByWriter(long userId) {
@@ -82,5 +85,37 @@ public class QuestionServiceImpl implements QuestionService {
 
         Question question = maybeQuestion.get();
         return new QuestionDetailBoardResponse(question);
+    }
+
+    @Override
+    public boolean save(QuestionCommentRequest request) {
+        Optional<Question> maybeQuestion = questionRepository.findById(request.getQuestionId());
+        if(maybeQuestion.isEmpty()){
+            log.info("존재하지 않는 문의입니다.");
+            return false;
+        }
+
+        // 질문
+        Question question = maybeQuestion.get();
+
+        Optional<User> maybeUser = userRepository.findById(request.getUserId());
+        if(maybeUser.isEmpty()){
+            log.info("존재하지 않는 회원입니다.");
+            return false;
+        }
+
+        // 관리자
+        User user = maybeUser.get();
+
+        // 답변
+        Answer answer = new Answer(request.getAnswer(), question, user);
+        answerRepository.save(answer);
+
+        question.setAnswer(answer);
+
+        // 답변 등록 되었음을 의미
+        question.setAnswerComplete(true);
+        questionRepository.save(question);
+        return true;
     }
 }
