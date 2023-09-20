@@ -13,7 +13,7 @@ public interface ProductService {
 
     ProductDetailResponse retrieve(long productId);
 
-    void register(ProductRegisterRequest request);
+    ProductDetailResponse register(ProductRegisterRequest request);
 
     void modify(long productId, ProductModifyRequest request);
 

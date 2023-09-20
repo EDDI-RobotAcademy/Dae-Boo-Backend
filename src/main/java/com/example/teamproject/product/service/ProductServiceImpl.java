@@ -32,9 +32,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void register(ProductRegisterRequest request) {
+    public ProductDetailResponse register(ProductRegisterRequest request) {
         Product product = request.toEntity();
-        productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        return ProductDetailResponse.from(savedProduct);
     }
 
     @Override

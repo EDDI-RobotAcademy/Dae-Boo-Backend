@@ -31,8 +31,8 @@ public class ProductController {
 
     // 상품 등록 API
     @PostMapping("/product")
-    public void registerProduct(@RequestBody ProductRegisterRequest request) {
-        productService.register(request);
+    public ProductDetailResponse registerProduct (@RequestBody ProductRegisterRequest request) {
+        return productService.register(request);
     }
 
     // 상품 수정 API
