@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     // 상품 삭제 API
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/product/delete/{id}")
     public void deleteProduct(@PathVariable(name = "id") long productId) {
         productService.delete(productId);
     }
