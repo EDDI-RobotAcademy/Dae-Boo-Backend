@@ -8,7 +8,6 @@ import com.example.teamproject.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @RestController
@@ -31,14 +30,17 @@ public class ProductController {
 
     // 상품 등록 API
     @PostMapping("/product")
-    public void registerProduct(@RequestBody ProductRegisterRequest request) {
-        productService.register(request);
+    public ProductDetailResponse registerProduct (@RequestBody ProductRegisterRequest request) {
+        return productService.register(request);
     }
 
     // 상품 수정 API
     @PutMapping("/product/{id}")
-    public void modifyProduct(@PathVariable(name = "id") long productId, @RequestBody ProductModifyRequest request) {
-        productService.modify(productId, request);
+    public ProductDetailResponse modifyProduct(
+            @PathVariable(name = "id") long productId,
+            @RequestBody ProductModifyRequest request
+    ) {
+        return productService.modify(productId, request);
     }
 
     // 상품 삭제 API
