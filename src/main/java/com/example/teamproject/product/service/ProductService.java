@@ -16,4 +16,6 @@ public interface ProductService {
     void register(ProductRegisterRequest request);
 
     void modify(long productId, ProductModifyRequest request);
+
+    void delete(long productId);
 }
