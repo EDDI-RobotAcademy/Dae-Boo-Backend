@@ -42,6 +42,7 @@ public class Board {
     @CreationTimestamp
     private LocalDateTime boardModifyDate;
 
+    @Setter
     @JoinColumn(name = "userId")
     @ManyToOne
     private User userId;
@@ -61,4 +62,9 @@ public class Board {
 //        this.writer = writer;
     }
 
+    public Board(BoardCategory category, String boardName, String content) {
+        this.category = category;
+        this.boardName = boardName;
+        this.content = content;
+    }
 }

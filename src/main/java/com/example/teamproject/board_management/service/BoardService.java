@@ -16,7 +16,7 @@ public interface BoardService {
     //User로 게시물을 다 찾음
     List<Board> findBoardByLoginUser(User user);
 
-    void register(BoardRequestForm boardRequestForm);
+    Board registerBoard(BoardRequestForm boardRequestForm);
     Board register(Board board);
 
     Board read(Long boardId);
