@@ -1,9 +1,13 @@
 package com.example.teamproject.kakaoPay.service;
 
+import com.example.teamproject.kakaoPay.Repository.PaymentInfoRepository;
+import com.example.teamproject.kakaoPay.Repository.PaymentRepository;
 import com.example.teamproject.kakaoPay.controller.form.RefundRequestForm;
 import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
+import com.example.teamproject.kakaoPay.entity.Payment;
+import com.example.teamproject.kakaoPay.entity.PaymentInfo;
 import com.example.teamproject.kakaoPay.exception.ProductNotFoundException;
 import com.example.teamproject.product.entity.Product;
 import com.example.teamproject.product.repository.ProductRepository;
@@ -30,7 +34,8 @@ public class PaymentServiceImpl implements PaymentService{
     private final ProductRepository productRepository;
     private final PropertyUtil propertyUtil;
     private final PurchaseRepository purchaseRepository;
-//    private final PaymentDataRepository paymentDataRepository;
+    private final PaymentRepository paymentRepository;
+    private final PaymentInfoRepository paymentInfoRepository;
     private final String cid = "TC0ONETIME";
 
     public KakaoReadyResponse kakaoReady;
@@ -66,6 +71,9 @@ public class PaymentServiceImpl implements PaymentService{
                     requestEntity,
                     KakaoReadyResponse.class);
             log.info(kakaoReady.toString());
+            PaymentInfo paymentInfo = new PaymentInfo(maybePurchase.get().getPurchaseId(),kakaoReady.getTid());
+            paymentInfoRepository.save(paymentInfo);
+
             return kakaoReady;
         } else {
             // Product가 없는 경우 예외 처리 또는 다른 방식으로 처리
@@ -106,29 +114,6 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
 
-//    public KakaoCancelResponse kakaoCancel(RefundRequestForm form) {
-//
-//        // 카카오페이 요청
-//        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-//        parameters.add("cid", cid);
-//        parameters.add("tid", "환불할 결제 고유 번호");
-//        parameters.add("cancel_amount", "환불 금액");
-//        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
-//        parameters.add("cancel_vat_amount", "환불 부가세");
-//
-//        // 파라미터, 헤더
-//        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
-//
-//        // 외부에 보낼 url
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        KakaoCancelResponse cancelResponse = restTemplate.postForObject(
-//                "https://kapi.kakao.com/v1/payment/cancel",
-//                requestEntity,
-//                KakaoCancelResponse.class);
-//
-//        return cancelResponse;
-//    }
     public Boolean ApproveResponse(String pgToken) {
 
         String originalString = pgToken;
@@ -149,7 +134,7 @@ public class PaymentServiceImpl implements PaymentService{
 
         // 외부에 보낼 url
         RestTemplate restTemplate = new RestTemplate();
-
+        log.info("1번 입니다");
         KakaoApproveResponse approveResponse = restTemplate.postForObject(
                 "https://kapi.kakao.com/v1/payment/approve",
                 requestEntity,
@@ -157,9 +142,48 @@ public class PaymentServiceImpl implements PaymentService{
         if (approveResponse.getAid().isEmpty()){
             return false;
         }
-//        PaymentData paymentData = new PaymentData(approveResponse.getAid(),approveResponse.getTid(),approveResponse.getPayment_method_type(), approveResponse.getAmount());
-//        paymentDataRepository.save(paymentData);
-//        log.info(paymentData.toString());
+        Payment paymentData = new Payment(approveResponse.getAid(),approveResponse.getTid(),approveResponse.getPayment_method_type(), approveResponse.getAmount().getTotal());
+        paymentRepository.save(paymentData);
+
+        log.info(paymentData.toString());
+
+
+        return true;
+    }
+
+
+    public Boolean kakaoCancel(Long PurchaseId) {
+
+        Optional<PaymentInfo> maybePaymentInfo = paymentInfoRepository.findByPurchaseId(PurchaseId);
+
+        if (maybePaymentInfo.isEmpty()){
+            return false;
+        }
+        Optional<Payment> maybePayment = paymentRepository.findByTid(maybePaymentInfo.get().getTid());
+        if (maybePayment.isEmpty()){
+            return false;
+        }
+
+
+        // 카카오페이 요청
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("cid", maybePayment.get().getCid());
+        parameters.add("tid", maybePayment.get().getTid());
+        parameters.add("cancel_amount", String.valueOf(maybePayment.get().getTotalAmount()));
+        parameters.add("cancel_tax_free_amount", "0");
+        parameters.add("cancel_vat_amount","0");
+
+        // 파라미터, 헤더
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+
+        // 외부에 보낼 url
+        RestTemplate restTemplate = new RestTemplate();
+
+        KakaoCancelResponse cancelResponse = restTemplate.postForObject(
+                "https://kapi.kakao.com/v1/payment/cancel",
+                requestEntity,
+                KakaoCancelResponse.class);
+        log.info("2번 입니다");
 
 
         return true;

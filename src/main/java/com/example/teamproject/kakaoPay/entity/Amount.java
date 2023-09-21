@@ -8,6 +8,22 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Amount {
+    public Amount(int total, int tax_free, int tax, int point, int discount, int green_deposit) {
+        this.total = total;
+        this.tax_free = tax_free;
+        this.tax = tax;
+        this.point = point;
+        this.discount = discount;
+        this.green_deposit = green_deposit;
+    }
+    public Amount() {
+        this.total = total;
+        this.tax_free = tax_free;
+        this.tax = tax;
+        this.point = point;
+        this.discount = discount;
+        this.green_deposit = green_deposit;
+    }
 
     private int total; // 총 결제 금액
     private int tax_free; // 비과세 금액
