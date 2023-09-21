@@ -1,13 +1,16 @@
 package com.example.teamproject.kakaoPay.controller.form;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class RefundRequestForm {
-    private final Long userId;
-    private final Long purchaseId;
+    private Long purchaseId;
+
+    public RefundRequestForm(Long purchaseId) {
+        this.purchaseId = purchaseId;
+    }
 }

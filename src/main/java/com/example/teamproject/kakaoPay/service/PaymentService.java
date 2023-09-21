@@ -11,6 +11,6 @@ public interface PaymentService {
 
     Boolean ApproveResponse(String pgToken);
 
-//    KakaoCancelResponse kakaoCancel(RefundRequestForm form);
+    Boolean kakaoCancel(Long PurchaseId);
 
 }
