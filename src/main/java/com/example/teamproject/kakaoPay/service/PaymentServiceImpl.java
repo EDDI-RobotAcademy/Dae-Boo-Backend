@@ -1,5 +1,6 @@
 package com.example.teamproject.kakaoPay.service;
 
+import com.example.teamproject.kakaoPay.controller.form.RefundRequestForm;
 import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
@@ -9,6 +10,7 @@ import com.example.teamproject.product.repository.ProductRepository;
 import com.example.teamproject.purchase.entity.Purchase;
 import com.example.teamproject.purchase.repository.PurchaseRepository;
 import com.example.teamproject.utility.PropertyUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -23,13 +25,15 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class PaymentServiceImpl implements PaymentService{
     private final ProductRepository productRepository;
     private final PropertyUtil propertyUtil;
     private final PurchaseRepository purchaseRepository;
+//    private final PaymentDataRepository paymentDataRepository;
     private final String cid = "TC0ONETIME";
 
-    private KakaoReadyResponse kakaoReady;
+    public KakaoReadyResponse kakaoReady;
 
     private HttpHeaders getHeaders() {
         final String ADMIN_KEY = propertyUtil.getProperty("admin_key") ;
@@ -102,30 +106,34 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
 
-    public KakaoCancelResponse kakaoCancel() {
+//    public KakaoCancelResponse kakaoCancel(RefundRequestForm form) {
+//
+//        // 카카오페이 요청
+//        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+//        parameters.add("cid", cid);
+//        parameters.add("tid", "환불할 결제 고유 번호");
+//        parameters.add("cancel_amount", "환불 금액");
+//        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
+//        parameters.add("cancel_vat_amount", "환불 부가세");
+//
+//        // 파라미터, 헤더
+//        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+//
+//        // 외부에 보낼 url
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        KakaoCancelResponse cancelResponse = restTemplate.postForObject(
+//                "https://kapi.kakao.com/v1/payment/cancel",
+//                requestEntity,
+//                KakaoCancelResponse.class);
+//
+//        return cancelResponse;
+//    }
+    public Boolean ApproveResponse(String pgToken) {
 
-        // 카카오페이 요청
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("cid", cid);
-        parameters.add("tid", "환불할 결제 고유 번호");
-        parameters.add("cancel_amount", "환불 금액");
-        parameters.add("cancel_tax_free_amount", "환불 비과세 금액");
-        parameters.add("cancel_vat_amount", "환불 부가세");
+        String originalString = pgToken;
+        String stringWithoutLastCharacter = originalString.substring(0, originalString.length() - 1);
 
-        // 파라미터, 헤더
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
-
-        // 외부에 보낼 url
-        RestTemplate restTemplate = new RestTemplate();
-
-        KakaoCancelResponse cancelResponse = restTemplate.postForObject(
-                "https://kapi.kakao.com/v1/payment/cancel",
-                requestEntity,
-                KakaoCancelResponse.class);
-
-        return cancelResponse;
-    }
-    public KakaoApproveResponse ApproveResponse(String pgToken) {
 
         // 카카오 요청
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
@@ -133,7 +141,8 @@ public class PaymentServiceImpl implements PaymentService{
         parameters.add("tid", kakaoReady.getTid());
         parameters.add("partner_order_id", "test");
         parameters.add("partner_user_id", "test");
-        parameters.add("pg_token", pgToken);
+        parameters.add("pg_token", stringWithoutLastCharacter);
+        log.info(parameters.toString());
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -145,8 +154,15 @@ public class PaymentServiceImpl implements PaymentService{
                 "https://kapi.kakao.com/v1/payment/approve",
                 requestEntity,
                 KakaoApproveResponse.class);
-        log.info(approveResponse.toString());
+        if (approveResponse.getAid().isEmpty()){
+            return false;
+        }
+//        PaymentData paymentData = new PaymentData(approveResponse.getAid(),approveResponse.getTid(),approveResponse.getPayment_method_type(), approveResponse.getAmount());
+//        paymentDataRepository.save(paymentData);
+//        log.info(paymentData.toString());
 
-        return approveResponse;
+
+        return true;
     }
+
 }
