@@ -9,6 +9,7 @@ import com.example.teamproject.comment.entity.Comment;
 import com.example.teamproject.comment.repository.CommentRepository;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,18 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.findByBoard_BoardId(boardId);
     }
     @Override
-    public Comment register(Comment comment) {
-        return commentRepository.save(comment);
+    public Comment register( RequestCommentForm requestCommentForm) {
+        Comment comment = requestCommentForm.toComment();
+        Optional<User> maybeUser = userRepository.findByUserId(requestCommentForm.getUserId());
+        Optional<Board> maybeBoard = boardRepository.findByBoardId(requestCommentForm.getBoardId());
+
+        if (maybeUser.isPresent()) {
+            comment.setUserId(maybeUser.get());
+        }
+        if (maybeBoard.isPresent()) {
+            comment.setBoard(maybeBoard.get());
+        }
+        return commentRepository.save(comment); 
     }
     @Override
     public void delete(Long commentId) {
@@ -48,30 +59,30 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.save(comment);
     }
 
-    @Override
-    public Comment createComment(CommentDto commentDto) {
-        String writer = commentDto.getWriter();
-        String content = commentDto.getContent();
-        Long boardId = commentDto.getBoardId();
-        Long userId = commentDto.getUserId();
-
-        Board board = boardRepository.findById(boardId).orElse(null);
-        User user = userRepository.findById(userId).orElse(null);
-
-        Comment comment = new Comment(writer, content);
-        comment.setBoard(board);
-//        comment.setUser(user);
-        comment.setWriter(writer);
-
-        return commentRepository.save(comment);
-    }
-
-    //User로 댓글을 다 찾음
 //    @Override
-//    public List<Comment> findCommentByLoginUser(User loginUser) {
-//        List<Comment> maybeCommentList = commentRepository.findAllByUserIdAndActivateTrue(loginUser);
-//        return maybeCommentList;
+//    public Comment createComment(CommentDto commentDto) {
+//        String writer = commentDto.getWriter();
+//        String content = commentDto.getContent();
+//        Long boardId = commentDto.getBoardId();
+//        Long userId = commentDto.getUserId();
+//
+//        // 게시글과 사용자를 검색
+//        Board board = boardRepository.findById(boardId).orElse(null);
+//        User user = userRepository.findById(userId).orElse(null);
+//
+//        // 게시글 또는 사용자가 없을 경우 예외 처리
+//        if (board == null || user == null) {
+//            throw new EntityNotFoundException("게시글 또는 사용자를 찾을 수 없습니다.");
+//        }
+//
+//        Comment comment = new Comment(writer, content, user, board);
+//        comment.setBoard(board);
+//        comment.setUserId(user); // setUserId 대신 setUser 사용
+//
+//        return commentRepository.save(comment);
 //    }
+
+
     @Override
     public List<Comment> findCommentByLoginUser(User loginUser) {
         List<Comment> maybeCommentList = commentRepository.findAllByUserIdAndActivateTrue(loginUser);

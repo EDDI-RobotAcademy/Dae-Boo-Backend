@@ -1,19 +1,19 @@
 package com.example.teamproject.comment.controller.form;
 
 
-import com.example.teamproject.comment.service.Request.CommentRegisterRequest;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import com.example.teamproject.comment.entity.Comment;
+import lombok.*;
 
 @Getter
-@ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class RequestCommentForm {
-    final private String writer;
-    final private String content;
+     private String writer;
+     private String content;
+     private long userId;
+     private long boardId;
 
-    public CommentRegisterRequest toComment() {
-        return new CommentRegisterRequest(writer,content);
+    public Comment toComment() {
+        return new Comment(writer, content);
     }
 }
