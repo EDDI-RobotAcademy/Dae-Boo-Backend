@@ -1,13 +1,10 @@
 package com.example.teamproject.user.service;
 
-import com.example.teamproject.user.dto.AccountResponse;
+import com.example.teamproject.user.dto.*;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.entity.Wish;
 import com.example.teamproject.card.repository.CardRepository;
 import com.example.teamproject.card.controller.form.WishResponse;
-import com.example.teamproject.user.dto.KakaoOAuthToken;
-import com.example.teamproject.user.dto.UserInfoModifyRequest;
-import com.example.teamproject.user.dto.UserInfoResponse;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import com.example.teamproject.card.repository.WishRepository;
@@ -220,5 +217,18 @@ public class UserServiceImpl implements UserService {
         );
 
         return responseForm;
+    }
+
+    @Override
+    public boolean nicknameDuplication(NicknameDuplicationRequest request){
+        Optional<User> maybeUser = userRepository.findByNickname(request.getNickname());
+
+        if(maybeUser.isPresent()){
+            log.info("존재하는 닉네임 입니다.");
+            return false;
+        }
+
+        log.info("사용 가능한 닉네임 입니다!");
+        return true;
     }
 }
