@@ -1,10 +1,6 @@
 package com.example.teamproject.user.controller;
 
-import com.example.teamproject.user.dto.AccountResponse;
-import com.example.teamproject.user.dto.AfterLoginRequest;
-import com.example.teamproject.card.entity.Card;
-import com.example.teamproject.user.dto.UserInfoModifyRequest;
-import com.example.teamproject.user.dto.UserInfoResponse;
+import com.example.teamproject.user.dto.*;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.redis.RedisService;
 import com.example.teamproject.user.service.UserService;
@@ -80,5 +76,12 @@ public class UserController {
     public User getAccountInfo (@RequestParam Long userId) {
         log.info("requestUserInfo()");
         return userService.getUserInfo(userId);
+    }
+
+    // 사용자 닉네임 중복확인
+    @PostMapping("/duplication-nickname")
+    public boolean nicknameDuplicationCheck (@RequestBody NicknameDuplicationRequest request) {
+        log.info("nicknameDuplicationCheck()");
+        return userService.nicknameDuplication(request);
     }
 }
