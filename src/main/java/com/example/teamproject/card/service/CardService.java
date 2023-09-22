@@ -31,4 +31,6 @@ public interface CardService {
     WishResponse wishCard(Long userId, Long cardId);
 
     List<Card> myWishCardList(Long userId);
+
+    List<String> asdasdasd(long cardId);
 }
