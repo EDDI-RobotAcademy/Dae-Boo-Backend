@@ -33,4 +33,6 @@ public interface CardService {
     List<Card> myWishCardList(Long userId);
 
     Card getUserInfo(Long cardId);
+    
+    List<String> asdasdasd(long cardId);
 }

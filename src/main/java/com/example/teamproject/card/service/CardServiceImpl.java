@@ -164,5 +164,39 @@ public class CardServiceImpl implements CardService {
         }
         return maybeCard.get();
     }
+    @Override
+    public List<String> asdasdasd(long cardId){
+        log.info("asdasdasd()=>" + cardId);
+        Optional<Card> maybeCard = cardRepository.findByCardId(cardId);
+        String cardBenefit = "";
+        List<String> categoryCode = new ArrayList<>();
+        if(maybeCard.isPresent()){
+            cardBenefit =  maybeCard.get().getBenefit();
+            log.info("cardBenefit : " + cardBenefit);
+        }
+        if(cardBenefit.contains("교육")){
+            categoryCode.add("AC5");
+        };
+        if(cardBenefit.contains("대형마트")){
+            categoryCode.add("MT1");
+        };
+        if(cardBenefit.contains("문화")){
+            categoryCode.add("CT1");
+        };
+        if(cardBenefit.contains("외식")){
+            categoryCode.add("FD6");
+        };
+        if(cardBenefit.contains("주유")){
+            categoryCode.add("OL7");
+        };
+        if(cardBenefit.contains("카페")){
+            categoryCode.add("CE7");
+        };
+        if(cardBenefit.contains("편의점")){
+            categoryCode.add("CS2");
+        };
+        log.info("categoryCode : " + categoryCode);
+        return categoryCode;
+    }
 }
 
