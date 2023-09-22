@@ -4,6 +4,7 @@ import com.example.teamproject.card.controller.form.CardRequestForm;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.service.CardService;
 
+import com.example.teamproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -81,6 +82,11 @@ public class CardController {
     public List<Card> myWishCardList(@RequestParam Long userId) {
         log.info("myWishCardList()");
         return cardService.myWishCardList(userId);
+    }
+    @GetMapping("/manage/CardInfo")
+    public Card getAccountInfo (@RequestParam Long cardId) {
+        log.info("requestUserInfo()");
+        return cardService.getUserInfo(cardId);
     }
 }
 

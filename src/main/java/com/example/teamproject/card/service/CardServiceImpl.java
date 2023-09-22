@@ -155,5 +155,14 @@ public class CardServiceImpl implements CardService {
         }
         return wishCardList;
     }
+
+    @Override
+    public Card getUserInfo(Long cardId) {
+        Optional<Card> maybeCard = cardRepository.findById(cardId);
+        if (maybeCard.isEmpty()){
+            return null;
+        }
+        return maybeCard.get();
+    }
 }
 
