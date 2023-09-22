@@ -1,10 +1,11 @@
 package com.example.teamproject.comment.controller;
 
+import com.example.teamproject.comment.controller.form.RequestCommentForm;
 import com.example.teamproject.comment.controller.form.ResponseCommentForm;
 import com.example.teamproject.comment.dto.CommentDto;
 import com.example.teamproject.comment.entity.Comment;
 import com.example.teamproject.comment.service.CommentService;
-import com.example.teamproject.comment.service.Request.CommentRegisterRequest;
+import com.example.teamproject.questionBoard.dto.QuestionCommentRequest;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +30,9 @@ public class CommentController {
         return commentService.listCommentsByBoardId(boardId);
     }
     @PostMapping("/register")
-    public Comment registerComment (@RequestBody CommentRegisterRequest request) {
+    public Comment registerComment (@RequestBody RequestCommentForm requestCommentForm) {
         log.info("registerComment()");
-        return commentService.register(request.toComment());
+        return commentService.register(requestCommentForm);
     }
 //    @PutMapping("/{commentId}")
 //    public Comment modifyComment(@PathVariable("commentId")Long commentId, @RequestBody RequestCommentForm request) {
@@ -42,11 +43,11 @@ public class CommentController {
         log.info("deleteComment()");
         commentService.delete(commentId);
     }
-    @PostMapping("/new/register")
-    public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto) {
-        Comment createdComment = commentService.createComment(commentDto);
-        return ResponseEntity.ok(createdComment);
-    }
+//    @PostMapping("/new/register")
+//    public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto) {
+//        Comment createdComment = commentService.createComment(commentDto);
+//        return ResponseEntity.ok(createdComment);
+//    }
 
 
     //---------------myPage---------------
