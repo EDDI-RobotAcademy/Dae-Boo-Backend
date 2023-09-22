@@ -87,6 +87,7 @@ public class CardController {
     public Card getAccountInfo (@RequestParam Long cardId) {
         log.info("requestUserInfo()");
         return cardService.getUserInfo(cardId);
+    }
 
     @GetMapping("/cardBenefit")
     public List<String> cardBenefit(@RequestParam long cardId) {
