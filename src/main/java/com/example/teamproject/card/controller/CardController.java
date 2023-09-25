@@ -83,6 +83,13 @@ public class CardController {
         log.info("myWishCardList()");
         return cardService.myWishCardList(userId);
     }
+
+    // 카드 정보
+    @GetMapping("/{cardId}")
+    public Card cardInfo(@PathVariable("cardId") Long cardId){
+        log.info("CardInformation()");
+        return cardService.getCardInfo(cardId);
+      
     @GetMapping("/manage/CardInfo")
     public Card getAccountInfo (@RequestParam Long cardId) {
         log.info("requestUserInfo()");
@@ -94,6 +101,7 @@ public class CardController {
         log.info("cardBenefit()");
         List<String> aaa = cardService.asdasdasd(cardId);
         return aaa;
+
     }
 }
 

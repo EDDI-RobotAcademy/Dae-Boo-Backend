@@ -156,6 +156,13 @@ public class CardServiceImpl implements CardService {
         return wishCardList;
     }
 
+
+    @Override
+    public Card getCardInfo(Long cardId) {
+        Optional<Card> maybeCard = cardRepository.findByCardId(cardId);
+        if(maybeCard.isEmpty()){
+            log.info("정보가 없습니다!");
+          
     @Override
     public Card getUserInfo(Long cardId) {
         Optional<Card> maybeCard = cardRepository.findById(cardId);
@@ -164,6 +171,7 @@ public class CardServiceImpl implements CardService {
         }
         return maybeCard.get();
     }
+
     @Override
     public List<String> asdasdasd(long cardId){
         log.info("asdasdasd()=>" + cardId);
@@ -198,5 +206,6 @@ public class CardServiceImpl implements CardService {
         log.info("categoryCode : " + categoryCode);
         return categoryCode;
     }
+
 }
 
