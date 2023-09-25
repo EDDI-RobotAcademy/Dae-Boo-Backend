@@ -1,5 +1,6 @@
 package com.example.teamproject.user.repository;
 
+import com.example.teamproject.user.dto.NicknameDuplicationRequest;
 import com.example.teamproject.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByActivateTrue();
 
     boolean existsByEmail(String email);
+
+    Optional<User> findByNickname(String request);
 }
 

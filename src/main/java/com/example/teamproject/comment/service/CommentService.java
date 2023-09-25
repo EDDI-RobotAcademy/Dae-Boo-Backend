@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface CommentService {
     List<Comment> listCommentsByBoardId(Long boardId);
-    Comment register(Comment comment);
+    Comment register( RequestCommentForm requestCommentForm);
     void delete(Long commentId);
     Comment modify(Long commentId, RequestCommentForm request);
-    Comment createComment(CommentDto commentDto);
+//    Comment createComment(CommentDto commentDto);
 
     List<Comment> findCommentByLoginUser(User loginUser);
 

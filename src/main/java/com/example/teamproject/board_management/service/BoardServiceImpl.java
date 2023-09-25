@@ -71,8 +71,13 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void register(BoardRequestForm boardRequestForm) {
-        boardRepository.save(boardRequestForm.toBoard());
+    public Board registerBoard(BoardRequestForm boardRequestForm) {
+        Board board = boardRequestForm.toBoard();
+        Optional<User> maybeUser = userRepository.findByUserId(boardRequestForm.getUserId());
+        if(maybeUser.isPresent()){
+            board.setUserId(maybeUser.get());
+        }
+        return boardRepository.save(board);
     }
 
     @Override
