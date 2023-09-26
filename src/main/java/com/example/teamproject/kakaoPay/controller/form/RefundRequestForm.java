@@ -15,7 +15,9 @@ public class RefundRequestForm {
         this.purchaseId = purchaseId;
     }
     public RefundPurchase toPurchase(RefundRequestForm form){
-        return new RefundPurchase(form.purchaseId);
+
+
+        return new RefundPurchase(form.getPurchaseId());
     }
 
 }
