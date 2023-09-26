@@ -1,9 +1,7 @@
 package com.example.teamproject.kakaoPay.service;
 
-import com.example.teamproject.kakaoPay.controller.form.RefundRequestForm;
-import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
-import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
+import com.example.teamproject.purchase.entity.RefundPurchase;
 
 public interface PaymentService {
 
@@ -11,6 +9,6 @@ public interface PaymentService {
 
     Boolean ApproveResponse(String pgToken);
 
-    Boolean kakaoCancel(Long PurchaseId);
+    Boolean kakaoCancel(Long purchaseId);
 
 }
