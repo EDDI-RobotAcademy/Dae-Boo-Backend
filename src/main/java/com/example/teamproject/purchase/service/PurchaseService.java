@@ -10,7 +10,7 @@ public interface PurchaseService {
 
     Purchase newPurchase(PurchaseForm form);
 
-
+    List<Purchase> refundList();
 
     Boolean requestRefund(RefundPurchase refundPurchase);
 

@@ -39,7 +39,19 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     }
 
+    @Override
+    public List<Purchase> refundList() {
+        List<RefundPurchase> refundPurchaseList = refundPurchaseRepository.findAll();
 
+        List<Purchase> purchaseList= new ArrayList<>();
+        for (RefundPurchase refundPurchase: refundPurchaseList){
+            Optional<Purchase> maybePurchase = purchaseRepository.findById(refundPurchase.getPurchaseId());
+            if (maybePurchase.isPresent()){
+                purchaseList.add(maybePurchase.get());
+            }
+        }
+        return purchaseList;
+    }
     @Override
     public Boolean requestRefund(RefundPurchase refundPurchase) {
         Optional<RefundPurchase> maybeRefundPurchase = refundPurchaseRepository.findByPurchaseId(refundPurchase.getPurchaseId());
