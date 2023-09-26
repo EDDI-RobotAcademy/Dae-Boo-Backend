@@ -210,4 +210,8 @@ public class CardServiceImpl implements CardService {
         return categoryCode;
     }
 
+    @Override
+    public List<Card> getAllCard() {
+        return cardRepository.findAll();
+    }
 }

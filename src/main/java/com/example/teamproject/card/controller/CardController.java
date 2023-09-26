@@ -22,7 +22,7 @@ public class CardController {
     @PostMapping("/manage/list")
     public List<Card> cardDetailList() {
 
-        List<Card> cardList = cardService.getActivateCard();
+        List<Card> cardList = cardService.getAllCard();
         return cardList;
     }
 
