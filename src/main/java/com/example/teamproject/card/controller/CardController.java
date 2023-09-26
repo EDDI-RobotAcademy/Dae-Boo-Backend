@@ -3,8 +3,6 @@ package com.example.teamproject.card.controller;
 import com.example.teamproject.card.controller.form.CardRequestForm;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.service.CardService;
-
-import com.example.teamproject.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -86,18 +84,18 @@ public class CardController {
 
     // 카드 정보
     @GetMapping("/{cardId}")
-    public Card cardInfo(@PathVariable("cardId") Long cardId){
+    public Card cardInfo(@PathVariable("cardId") Long cardId) {
         log.info("CardInformation()");
         return cardService.getCardInfo(cardId);
-      
+    }
     @GetMapping("/manage/CardInfo")
-    public Card getAccountInfo (@RequestParam Long cardId) {
+    public Card getAccountInfo(@RequestParam Long cardId) {
         log.info("requestUserInfo()");
         return cardService.getUserInfo(cardId);
     }
 
     @GetMapping("/cardBenefit")
-    public List<String> cardBenefit(@RequestParam long cardId) {
+    public List<String> cardBenefit(@RequestParam Long cardId) {
         log.info("cardBenefit()");
         List<String> aaa = cardService.asdasdasd(cardId);
         return aaa;
