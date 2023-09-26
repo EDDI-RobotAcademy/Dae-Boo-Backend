@@ -75,4 +75,11 @@ public class UserQuestionController {
 
         return questionService.save(request);
     }
+
+    // 관리자 메인 페이지 - 미 응답 답변 개수 가져오기
+    @GetMapping("/manager/main-page/no-response")
+    public Integer noResponseTotalNumber() {
+        log.info("noResponseTotalNumber()");
+        return questionService.noResponseTotalNumber();
+    }
 }

@@ -116,4 +116,10 @@ public class QuestionServiceImpl implements QuestionService {
         questionRepository.save(question);
         return true;
     }
+
+    @Override
+    public Integer noResponseTotalNumber() {
+        List<Question> questionList = questionRepository.findByIsAnswerCompleteFalse();
+        return questionList.size();
+    }
 }
