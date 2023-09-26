@@ -160,9 +160,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public Card getCardInfo(Long cardId) {
         Optional<Card> maybeCard = cardRepository.findByCardId(cardId);
-        if(maybeCard.isEmpty()){
+        if(maybeCard.isEmpty()) {
             log.info("정보가 없습니다!");
-          
+        }
+        return maybeCard.get();
+    }
     @Override
     public Card getUserInfo(Long cardId) {
         Optional<Card> maybeCard = cardRepository.findById(cardId);
@@ -184,28 +186,32 @@ public class CardServiceImpl implements CardService {
         }
         if(cardBenefit.contains("교육")){
             categoryCode.add("AC5");
-        };
+        }
         if(cardBenefit.contains("대형마트")){
             categoryCode.add("MT1");
-        };
+        }
         if(cardBenefit.contains("문화")){
             categoryCode.add("CT1");
-        };
+        }
         if(cardBenefit.contains("외식")){
             categoryCode.add("FD6");
-        };
+        }
         if(cardBenefit.contains("주유")){
             categoryCode.add("OL7");
-        };
+        }
         if(cardBenefit.contains("카페")){
             categoryCode.add("CE7");
-        };
+        }
         if(cardBenefit.contains("편의점")){
             categoryCode.add("CS2");
-        };
+        }
         log.info("categoryCode : " + categoryCode);
+
         return categoryCode;
     }
 
+    @Override
+    public List<Card> getAllCard() {
+        return cardRepository.findAll();
+    }
 }
-
