@@ -24,6 +24,11 @@ public class PurchaseController {
     public Boolean requestCancel(@RequestBody RefundRequestForm form){
         return purchaseService.requestRefund(form.toPurchase(form));
     }
+    //관리자에게 환불 요청 리스트를 반환합니다.
+    @PostMapping("/refundList")
+    public List<Purchase> refundList(){
+        return purchaseService.refundList();
+    }
     // 모든 주문 리스트 리턴
     @PostMapping("/list")
     public List<Purchase> list(){
