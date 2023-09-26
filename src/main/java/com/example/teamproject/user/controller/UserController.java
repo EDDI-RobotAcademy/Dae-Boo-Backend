@@ -84,4 +84,11 @@ public class UserController {
         log.info("nicknameDuplicationCheck()");
         return userService.nicknameDuplication(request);
     }
+
+    // 관리자 메인 페이지 - 회원 수 가져오기
+    @GetMapping("/manager/main-page/memberNum")
+    public Integer mamberTotalNumber() {
+        log.info("mamberTotalNumber()");
+        return userService.userTotalNumber();
+    }
 }

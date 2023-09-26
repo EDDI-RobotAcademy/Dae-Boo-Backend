@@ -21,4 +21,6 @@ public interface QuestionService {
     QuestionDetailBoardResponse read(Long questionId);
 
     boolean save(QuestionCommentRequest request);
+
+    Integer noResponseTotalNumber();
 }

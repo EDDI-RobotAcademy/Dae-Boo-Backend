@@ -19,4 +19,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Optional<Question> findByQuestionId(Long questionId);
 
     List<Question> findByIsDeletedFalse(Sort questionId);
+
+    List<Question> findByIsAnswerCompleteFalse();
 }

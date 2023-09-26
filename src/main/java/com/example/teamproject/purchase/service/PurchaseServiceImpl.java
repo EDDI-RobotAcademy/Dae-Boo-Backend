@@ -70,4 +70,23 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Purchase> list() {
         return purchaseRepository.findAll();
     }
+
+    @Override
+    public Integer totalSalesNumber() {
+        List<Purchase> purchaseList = purchaseRepository.findAll();
+        return purchaseList.size();
+    }
+
+    @Override
+    public Integer totalRefundNumber() {
+        List<Purchase> purchaseList = purchaseRepository.findAll();
+        Integer refundCount = 0; // 환불 수를 저장할 변수
+
+        for (Purchase purchase : purchaseList) {
+            if (purchase.getStatus().equals("환불 신청")) {
+                refundCount++;
+            }
+        }
+        return refundCount;
+    }
 }

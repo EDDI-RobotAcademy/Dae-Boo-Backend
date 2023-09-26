@@ -30,6 +30,8 @@ public interface UserService {
 
     boolean nicknameDuplication(NicknameDuplicationRequest request);
 
+    Integer userTotalNumber();
+
     // -------------------Wish Card-----------------------
 //    void wishCard(Long userId, Long cardId);
 //
