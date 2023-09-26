@@ -56,11 +56,13 @@ public class PaymentController {
         // 결제가 실패했을 때 true 반환
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
+    //관리자의 환불 요청
     @PostMapping("/refund")
     public Boolean refund(@RequestBody RefundRequestForm form) {
         Boolean kakaoCancelResponse = paymentService.kakaoCancel(form.getPurchaseId());
         log.info(kakaoCancelResponse.toString());
         return kakaoCancelResponse;
     }
+
 
 }

@@ -1,18 +1,20 @@
 package com.example.teamproject.kakaoPay.service;
 
-import com.example.teamproject.kakaoPay.Repository.PaymentInfoRepository;
-import com.example.teamproject.kakaoPay.Repository.PaymentRepository;
-import com.example.teamproject.kakaoPay.controller.form.RefundRequestForm;
+import com.example.teamproject.kakaoPay.repository.PaymentInfoRepository;
+import com.example.teamproject.kakaoPay.repository.PaymentRepository;
+import com.example.teamproject.purchase.repository.RefundPurchaseRepository;
 import com.example.teamproject.kakaoPay.dto.KakaoApproveResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoCancelResponse;
 import com.example.teamproject.kakaoPay.dto.KakaoReadyResponse;
 import com.example.teamproject.kakaoPay.entity.Payment;
 import com.example.teamproject.kakaoPay.entity.PaymentInfo;
+import com.example.teamproject.purchase.entity.RefundPurchase;
 import com.example.teamproject.kakaoPay.exception.ProductNotFoundException;
 import com.example.teamproject.product.entity.Product;
 import com.example.teamproject.product.repository.ProductRepository;
 import com.example.teamproject.purchase.entity.Purchase;
 import com.example.teamproject.purchase.repository.PurchaseRepository;
+import com.example.teamproject.purchase.service.PurchaseService;
 import com.example.teamproject.utility.PropertyUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,7 @@ public class PaymentServiceImpl implements PaymentService{
     private final PurchaseRepository purchaseRepository;
     private final PaymentRepository paymentRepository;
     private final PaymentInfoRepository paymentInfoRepository;
+    private final RefundPurchaseRepository refundPurchaseRepository;
     private final String cid = "TC0ONETIME";
 
     public KakaoReadyResponse kakaoReady;
@@ -152,9 +155,10 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
 
-    public Boolean kakaoCancel(Long PurchaseId) {
-
-        Optional<PaymentInfo> maybePaymentInfo = paymentInfoRepository.findByPurchaseId(PurchaseId);
+    public Boolean kakaoCancel(Long purchaseId) {
+        Optional<PaymentInfo> maybePaymentInfo = paymentInfoRepository.findByPurchaseId(purchaseId);
+        Optional<Purchase> maybePurchase = purchaseRepository.findById(purchaseId);
+        Purchase purchase = maybePurchase.get();
 
         if (maybePaymentInfo.isEmpty()){
             return false;
@@ -183,8 +187,10 @@ public class PaymentServiceImpl implements PaymentService{
                 "https://kapi.kakao.com/v1/payment/cancel",
                 requestEntity,
                 KakaoCancelResponse.class);
-        log.info("2번 입니다");
 
+        // 상태를 환불 완료로 변경
+        purchase.setStatus("환불 완료");
+        purchaseRepository.save(purchase);
 
         return true;
     }

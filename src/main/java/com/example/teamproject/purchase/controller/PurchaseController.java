@@ -25,7 +25,7 @@ public class PurchaseController {
         return purchaseService.requestRefund(form.toPurchase(form));
     }
     //관리자에게 환불 요청 리스트를 반환합니다.
-    @PostMapping("/refundList")
+    @PostMapping("/manage/refundList")
     public List<Purchase> refundList(){
         return purchaseService.refundList();
     }

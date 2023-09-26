@@ -1,4 +1,4 @@
-package com.example.teamproject.kakaoPay.Repository;
+package com.example.teamproject.kakaoPay.repository;
 
 import com.example.teamproject.kakaoPay.entity.PaymentInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
