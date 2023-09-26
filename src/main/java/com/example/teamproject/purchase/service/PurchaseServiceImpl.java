@@ -54,5 +54,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         return false;
     }
 
- 
+    @Override
+    public List<Purchase> list() {
+        return purchaseRepository.findAll();
+    }
 }

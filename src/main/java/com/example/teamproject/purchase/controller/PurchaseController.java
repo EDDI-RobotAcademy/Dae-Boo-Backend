@@ -24,5 +24,9 @@ public class PurchaseController {
     public Boolean requestCancel(@RequestBody RefundRequestForm form){
         return purchaseService.requestRefund(form.toPurchase(form));
     }
-
+    // 모든 주문 리스트 리턴
+    @PostMapping("/list")
+    public List<Purchase> list(){
+        return purchaseService.list();
+    }
 }

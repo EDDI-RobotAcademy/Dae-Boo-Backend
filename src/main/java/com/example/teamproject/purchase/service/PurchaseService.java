@@ -14,5 +14,5 @@ public interface PurchaseService {
 
     Boolean requestRefund(RefundPurchase refundPurchase);
 
-
+    List<Purchase> list();
 }
