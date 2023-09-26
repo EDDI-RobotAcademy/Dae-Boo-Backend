@@ -5,6 +5,7 @@ import com.example.teamproject.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @NoArgsConstructor
+@Setter
 public class Purchase {
 
     @Id
@@ -35,10 +37,13 @@ public class Purchase {
 
     private Boolean paymentCheck = false;
 
+    private String status = "구매 완료";
+
     public Purchase(Integer purchaseAmount, String userAccount, Product productId, User userId) {
         this.purchaseAmount = purchaseAmount;
         this.userAccount = userAccount;
         this.productId = productId;
         this.userId = userId;
+        this.status = status;
     }
 }
