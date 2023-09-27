@@ -3,6 +3,7 @@ package com.example.teamproject.card.controller;
 import com.example.teamproject.card.controller.form.CardRequestForm;
 import com.example.teamproject.card.entity.Card;
 import com.example.teamproject.card.service.CardService;
+import com.example.teamproject.card.controller.form.WishResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -70,9 +71,10 @@ public class CardController {
 
     // 카드 찜하기 or 찜삭제하기
     @PostMapping("/wishCard")
-    public void clickWishCard(@RequestParam Long userId,
-                              @RequestParam Long cardId) {
-        cardService.wishCard(userId, cardId);
+    public WishResponse clickWishCard(@RequestParam Long userId,
+                                      @RequestParam Long cardId) {
+        WishResponse wishresponse = cardService.wishCard(userId, cardId);
+        return wishresponse;
     }
 
     // 내가 찜한카드 불러오기
