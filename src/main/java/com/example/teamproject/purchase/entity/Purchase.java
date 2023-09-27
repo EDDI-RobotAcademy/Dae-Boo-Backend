@@ -44,6 +44,6 @@ public class Purchase {
         this.userAccount = userAccount;
         this.productId = productId;
         this.userId = userId;
-        this.status = status;
+        this.status = "구매 완료";
     }
 }

@@ -3,5 +3,9 @@ package com.example.teamproject.purchase.repository;
 import com.example.teamproject.purchase.entity.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
+    List<Purchase> findByUserIdUserId(long userId);
+
 }

@@ -19,4 +19,6 @@ public interface PurchaseService {
     Integer totalSalesNumber();
 
     Integer totalRefundNumber();
+
+    List<Purchase> myPurchaseList(long userId);
 }
