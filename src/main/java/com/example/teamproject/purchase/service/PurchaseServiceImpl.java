@@ -10,6 +10,8 @@ import com.example.teamproject.purchase.repository.RefundPurchaseRepository;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -92,6 +94,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public List<Purchase> myPurchaseList(long userId) {
-        return purchaseRepository.findByUserIdUserId(userId);
+        Sort sortByPurchaseIdDesc = Sort.by(Direction.DESC, "purchaseId");
+
+        // 정렬 옵션을 사용하여 데이터를 조회합니다.
+        return purchaseRepository.findByUserIdUserId(userId, sortByPurchaseIdDesc);
     }
 }
