@@ -89,4 +89,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
         return refundCount;
     }
+
+    @Override
+    public List<Purchase> myPurchaseList(long userId) {
+        return purchaseRepository.findByUserIdUserId(userId);
+    }
 }

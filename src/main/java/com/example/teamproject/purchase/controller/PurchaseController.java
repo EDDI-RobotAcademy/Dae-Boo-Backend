@@ -49,4 +49,9 @@ public class PurchaseController {
         log.info("requestTotalApplyRefundNumber()");
         return purchaseService.totalRefundNumber();
     }
+    @GetMapping("{userId}")
+    public List<Purchase> myList (@PathVariable(name = "userId") long userId){
+        return purchaseService.myPurchaseList(userId);
+
+    }
 }
