@@ -40,4 +40,6 @@ public interface CardService {
     List<String> asdasdasd(long cardId);
 
     List<Card> getAllCard();
+
+    List<Card> getResultCardList(List<String> cardList);
 }

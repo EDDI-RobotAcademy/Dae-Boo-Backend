@@ -103,5 +103,13 @@ public class CardController {
         return aaa;
 
     }
+
+    @PostMapping("/age/result")
+    public List<Card> AgeCardListResult(@RequestBody List<String> cardList){
+
+        List<Card> resultCardList = cardService.getResultCardList(cardList);
+
+        return resultCardList;
+    }
 }
 
