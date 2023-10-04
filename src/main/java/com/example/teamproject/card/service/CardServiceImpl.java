@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 //import org.springframework.web.client.RestTemplate;
 
 //import java.io.IOException;
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -213,5 +214,17 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> getAllCard() {
         return cardRepository.findAll();
+    }
+
+    @Override
+    public List<Card> getResultCardList(List<String> cardList) {
+        List<Card> resultCardList = new ArrayList<>();
+        for (String cardId : cardList) {
+            Optional<Card> maybeCard = cardRepository.findByCardId(Long.valueOf(cardId));
+            if (maybeCard != null) {
+                resultCardList.add(maybeCard.get());
+            }
+        }
+        return resultCardList;
     }
 }
