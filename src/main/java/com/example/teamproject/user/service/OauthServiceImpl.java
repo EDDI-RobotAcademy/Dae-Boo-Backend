@@ -168,7 +168,7 @@ public class OauthServiceImpl implements OauthService {
         User user = saveUserInfo(response);
 
         // redis 에 사용자 임의 토큰 만들어서 저장해줌
-        // 지속적인 저장이 될 필요가 없음, 로그인 시에만 있으면 되니까 !
+        // 지속적인 저장이 될 필요가 없음
         String userToken = UUID.randomUUID().toString();
         log.info("accountId: " + user.getUserId() + ", userToken: " + userToken);
 
@@ -194,7 +194,6 @@ public class OauthServiceImpl implements OauthService {
         Map<String, Object> kakaoAccountMap = (Map<String, Object>) jsonMap.get("kakao_account");
         String email = (String) kakaoAccountMap.get("email");
         String gender = (String) kakaoAccountMap.get("gender");
-//        String age_range = (String) kakaoAccountMap.get("age_range");
 
         // age_range 값을 가져오고 "~" 이전의 부분을 추출
         String age_range = (String) kakaoAccountMap.get("age_range");
