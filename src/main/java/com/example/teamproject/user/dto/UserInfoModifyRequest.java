@@ -1,5 +1,6 @@
 package com.example.teamproject.user.dto;
 
+import com.example.teamproject.user.entity.Interest;
 import com.example.teamproject.user.entity.User;
 import com.example.teamproject.user.entity.UserInterest;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,8 @@ public class UserInfoModifyRequest {
     private String nickname;
     private String mobile;
     private String email;
-    private UserInterest interest1;
-    private UserInterest interest2;
+    private Interest interest1;
+    private Interest interest2;
 
     public static UserInfoModifyRequest from(User user) {
         return new UserInfoModifyRequest(

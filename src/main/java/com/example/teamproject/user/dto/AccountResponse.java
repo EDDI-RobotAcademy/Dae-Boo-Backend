@@ -1,6 +1,7 @@
 package com.example.teamproject.user.dto;
 
-import com.example.teamproject.user.entity.UserInterest;
+import com.example.teamproject.user.entity.Interest;
+//import com.example.teamproject.user.entity.UserInterest;
 import com.example.teamproject.user.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,6 @@ public class AccountResponse {
     private String mobile;
     private String email;
     private UserRole role;
-    private UserInterest interest1;
-    private UserInterest interest2;
+    private Interest interest1;
+    private Interest interest2;
 }
