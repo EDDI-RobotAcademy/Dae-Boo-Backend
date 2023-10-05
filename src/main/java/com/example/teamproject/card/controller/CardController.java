@@ -104,9 +104,9 @@ public class CardController {
 
     }
 
-    @PostMapping("/age/result")
-    public List<Card> AgeCardListResult(@RequestBody List<String> cardList){
-
+    @PostMapping("/recommend/result")
+    public List<Card> CardListResult(@RequestBody List<String> cardList){
+        log.info("CardListResult()");
         List<Card> resultCardList = cardService.getResultCardList(cardList);
 
         return resultCardList;
